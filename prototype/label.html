@@ -11,13 +11,13 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 </head>
 <body>
-    <header class="container-fluid">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="index.html"><img src="logo/logo-sm.png" alt=""></a>
+    <header>
+        <nav class="navbar justify-content-center navbar-expand-lg navbar-dark bg-dark">
               
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <a class="navbar-brand justify-content-start" href="index.html"><img src="logo/logo-sm.png" alt=""></a>
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item-active px-5">
+                    <li class="nav-item-active">
                         <form class="form-inline my-2 my-md-0">
                             <div class="input-group">
                                 <input class="form-control" type="search" placeholder="Pesquisar" aria-label="Search" aria-describedby="basic-addon1">
@@ -45,10 +45,61 @@
                 </ul>
             </div>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler justify-content-end" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
         </nav>
     </header>
+
+    <main class="container py-3">
+        <h2>Som Livre</h2>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <h5>Fundação</h5>
+                <p class="mb-1">1969</p>
+            </li>
+            <li class="list-group-item">
+                <h5>Descrição</h5>
+                <p class="mb-1">A Som Livre é uma gravadora musical brasileira. Foi fundada em 1969 com a finalidade de desenvolver e comercializar trilhas sonoras de novelas produzidas pela Rede Globo, e pertenceu a SIGLA (Sistema Globo de Gravações Audiovisuais Ltda) e atualmente pertence a Globo Comunicação e Participações S.A. Seu fundador é o produtor musical João Araújo.</p>
+            </li>
+            <li class="list-group-item">
+                <h5>Gêneros</h5>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <p class="mb-1">Trilhas Sonoras</p>
+                    </li>
+                    <li class="list-group-item">
+                        <p class="mb-1">Vários</p>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </main>
+
+    <section class="container-fluid">
+        <h5>Álbuns</h5>
+        <ul class="list-group">
+            <li class="list-group-item text-center align-middle">
+                <a href="album.html">
+                    <div class="row">
+                        <div class="col">
+                            <h4>Wesley Safadão</h4>
+                        </div>
+                        <div class="col">
+                            <h5>Duetos</h5>
+                        </div>
+                        <div class="col">Brasil</div>
+                        <div class="col">2016</div>
+                        <div class="col">5,0/5,0</div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </section>
+
+
+    <footer>
+        <div>Sahudyscos © (2017-2018)</div>
+    </footer>
 </body>
 </html>
