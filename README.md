@@ -1,2 +1,2 @@
 # Sahudyscos
-Project aiming to develop a music store called Sahudyscos
+Project aiming to develop a site to a music store called Sahudyscos
