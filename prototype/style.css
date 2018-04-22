@@ -2,6 +2,14 @@
     width: 12rem;
 }
 
+.link-boxes {
+	text-decoration: none;
+}
+
+.link-boxes a:link {
+	background-color: #400191;
+}
+
 footer {
     color: #f5f5f5;
     padding: 20px;
