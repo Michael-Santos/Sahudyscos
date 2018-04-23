@@ -24,3 +24,28 @@ h5.card-text{
 div.card-header{
     background-color: darkslateblue;
 }
+
+.btn-success{
+    background-image: url(icones/eye.svg);
+    width: 40px;
+    background-size: cover;
+    height: 40px;    
+}
+.btn-warning{
+    background-image: url(icones/update.svg);
+    width: 40px;
+    background-size: cover;
+    height: 40px;
+}
+.btn-danger{
+    background-image: url(icones/remove.svg);
+    width: 40px;
+    background-size: cover;
+    height: 40px;
+}
+.btn-primary{
+    background-image: url(icones/add.svg);
+    width: 40px;
+    background-size: cover;
+    height: 40px;
+}
