@@ -39,92 +39,93 @@
     <!-- Menu de opções -->
     <main class=" container pt-3 row mx-auto">        
         
-        <div class="container-fluid">
-            <a class="btn btn-primary btn-xs p-auto py-2" href="view.html"></a> Adicionar Usuário
+        <div class="row container-fluid my-2">
+            <div class="col">
+                <form class="form-inline my-2 my-md-0">
+                    <div class="input-group">
+                        <input class="form-control" type="search" placeholder="Pesquisar" aria-label="Search" aria-describedby="basic-addon1">
+                            <div class="input-group-append">
+                                <select class="custom-select" id="sel1"> <!-- Podemos tirar isso mas vai ficar difícil pra caramba de fazer consulta (FTS)-->
+                                    <option>Login</option>
+                                    <option>Nome</option>
+                                </select>
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+                        </div>   
+                    </div>
+                </form>
+            </div>
+            <div class="col">
+                <a class="btn btn-primary btn-xs p-auto py-2" href="add-user.html"></a> Adicionar Usuário
+            </div>
         </div>
 
         <div class="table-responsive col-md-12">
             <table class="table table-striped" cellspacing="0" cellpadding="0">
                 <thead>
                     <tr>
-                        <th class="col-md-3">Login</th>
-                        <th class="col-md-5">Nome</th>
-                        <th>Opções</th>
+                        <th scope="col">Login</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col" class="options">Opções</th>
                      </tr>
                 </thead>
                 <tbody>
      
                     <tr>
-                        <td>JoseRdrgs</td>
+                        <th scope="row">JoseRdrgs</th>
                         <td>Jose Rodrigues</td>
-                        <td>
-                            <a class="btn btn-success btn-xs" href="view.html"></a>
-                            <a class="btn btn-warning btn-xs" href="edit.html"></a>
+                        <td class="options">
+                            <a class="btn btn-success btn-xs row-sm-4" href="view-user.html"></a>
+                            <a class="btn btn-warning btn-xs row-sm-4" href="edit-user.html"></a>
+                            <a class="btn btn-danger btn-xs row-sm-4"  href="#" data-toggle="modal" data-target="#delete-modal"></a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">JoseRdrgs</th>
+                        <td>Jose Rodrigues</td>
+                        <td class="options">
+                            <a class="btn btn-success btn-xs" href="view-user.html"></a>
+                            <a class="btn btn-warning btn-xs" href="edit-user.html"></a>
                             <a class="btn btn-danger btn-xs"  href="#" data-toggle="modal" data-target="#delete-modal"></a>
                         </td>
                     </tr>
-                </tbody>
 
-                 <tbody>
-     
                     <tr>
-                        <td>JoseRdrgs</td>
-                        <td>Jose Rodrigues</td>
-                        <td>
-                            <a class="btn btn-success btn-xs" href="view.html"></a>
-                            <a class="btn btn-warning btn-xs" href="edit.html"></a>
-                            <a class="btn btn-danger btn-xs"  href="#" data-toggle="modal" data-target="#delete-modal"></a>
-                        </td>
-                    </tr>
-                </tbody>
-
-                 <tbody>
-     
-                    <tr>
-                        <td>BrnAlbukrkr</td>
+                        <th scope="row">BrnAlbukrkr</th>
                         <td>Breno Albuquerque</td>
-                        <td>
-                            <a class="btn btn-success btn-xs" href="view.html"></a>
-                            <a class="btn btn-warning btn-xs" href="edit.html"></a>
+                        <td class="options">
+                            <a class="btn btn-success btn-xs" href="view-user.html"></a>
+                            <a class="btn btn-warning btn-xs" href="edit-user.html"></a>
                             <a class="btn btn-danger btn-xs"  href="#" data-toggle="modal" data-target="#delete-modal"></a>
                         </td>
                     </tr>
-                </tbody>
 
-                 <tbody>
-     
                     <tr>
-                        <td>Maria da Silva</td>
+                        <th scope="row">Maria da Silva</th>
                         <td>MSilva</td>
-                        <td>
-                            <a class="btn btn-success btn-xs" href="view.html"></a>
-                            <a class="btn btn-warning btn-xs" href="edit.html"></a>
+                        <td class="options">
+                            <a class="btn btn-success btn-xs" href="view-user.html"></a>
+                            <a class="btn btn-warning btn-xs" href="edit-user.html"></a>
                             <a class="btn btn-danger btn-xs"  href="#" data-toggle="modal" data-target="#delete-modal"></a>
                         </td>
                     </tr>
-                </tbody>
 
-                 <tbody>
-     
                     <tr>
-                        <td>JuliaCamargo</td>
+                        <th scope="row">JuliaCamargo</th>
                         <td>JuCamargo</td>
-                        <td>
-                            <a class="btn btn-success btn-xs" href="view.html"></a>
-                            <a class="btn btn-warning btn-xs" href="edit.html"></a>
+                        <td class="options">
+                            <a class="btn btn-success btn-xs" href="view-user.html"></a>
+                            <a class="btn btn-warning btn-xs" href="edit-user.html"></a>
                             <a class="btn btn-danger btn-xs"  href="#" data-toggle="modal" data-target="#delete-modal"></a>
                         </td>
                     </tr>
-                </tbody>
-
-                 <tbody>
-     
+ 
                     <tr>
-                        <td>Joao</td>
+                        <th scope="row">Joao</th>
                         <td>JoaoPdr</td>
-                        <td>
-                            <a class="btn btn-success btn-xs" href="view.html"></a>
-                            <a class="btn btn-warning btn-xs" href="edit.html"></a>
+                        <td class="options">
+                            <a class="btn btn-success btn-xs" href="view-user.html"></a>
+                            <a class="btn btn-warning btn-xs" href="edit-user.html"></a>
                             <a class="btn btn-danger btn-xs"  href="#" data-toggle="modal" data-target="#delete-modal"></a>
                         </td>
                     </tr>
@@ -132,6 +133,26 @@
             </table>
  
         </div>
+
+        <nav aria-label="Navegação">
+            <ul class="pagination">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     
     </main>
    
