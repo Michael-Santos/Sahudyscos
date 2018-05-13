@@ -31,21 +31,75 @@ div.card-header{
     background-size: cover;
     height: 40px;    
 }
+
 .btn-warning{
     background-image: url(icones/update.svg);
     width: 40px;
     background-size: cover;
     height: 40px;
 }
+
 .btn-danger{
     background-image: url(icones/remove.svg);
     width: 40px;
     background-size: cover;
     height: 40px;
 }
+
 .btn-primary{
     background-image: url(icones/add.svg);
-    width: 40px;
+    width: 37px;
     background-size: cover;
-    height: 40px;
+    height: 37px;
+}
+
+.search {
+    background-image: url(icones/search.svg);
+    width: 37px;
+    background-size: cover;
+    height: 37px;
+}
+
+.options {
+    text-align: center;
+}
+
+.box-green{
+    width:20px;
+    height:20px;
+    background-color:#66CC99;
+    border-radius: 4px;
+    border-color: #D3D3D3;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.box-red{
+    width:20px;
+    height:20px;
+    background-color:#FFB6C1;
+    border-radius: 4px;
+    border-color: #D3D3D3;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.box-gray{
+    width:20px;
+    height:20px;
+    background-color:#D3D3D3;
+    border-radius: 4px;
+    border-color: #D3D3D3;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.box-white{
+    width:20px;
+    height:20px;
+    background-color:#FFFFFF;
+    border-radius: 4px;
+    border-color: #D3D3D3;
+    border-style: solid;
+    border-width: 1px;
 }
