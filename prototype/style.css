@@ -52,3 +52,17 @@ div.card-header{
 	background-color:#666;
 	border-radius: 10px;
 }
+label.alinhar{
+    display: inline-block;
+    width: 120px;
+}
+
+form input{
+    width: 335px;
+}
+
+obrigatorio{
+    color: red;
+    font-size: small;
+    font-style: italic;
+}

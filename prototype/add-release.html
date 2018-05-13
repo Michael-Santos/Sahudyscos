@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Adicionar Versão</title>
+     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    
+    
+    <script>
+        $(document).ready(function() {
+            
+                $('form').submit(function(){
+                    cod_barras = document.getElementById('cod_barras').value;
+                    cod_gravadora = document.getElementById('cod_gravadora').value;
+                    cod_album = document.getElementById('cod_album').value;
+                    formato = document.getElementById('dropDownFormato').value;
+                    tipo_versao = document.getElementById('tipo_versao').value;
+                    preco = document.getElementById('preco').value;
+                    quantidade_vendida = document.getElementById('quantidade_vendida').value;
+                    quantidade_disponivel = document.getElementById('quantidade_disponivel').value;
+                    data = document.getElementById('data').value;
+                if(cod_barras == "" || cod_album == "" || cod_gravadora == "" || formato == "None" || tipo_versao == "" || preco == "" || quantidade_disponivel == "" || quantidade_vendida == "" || data == ""){
+                    alert('Preencha todos os campos obrigatórios');
+                    if(cod_barras == ""){
+                        document.getElementById('cod_barras').style.backgroundColor = "yellow";
+                    }
+                    if(cod_gravadora == ""){
+                        document.getElementById('cod_gravadora').style.backgroundColor = "yellow";
+                    }
+                    if(data == ""){
+                        document.getElementById('data').style.backgroundColor = "yellow";
+                    }
+                    if(cod_album == ""){
+                        document.getElementById('cod_album').style.backgroundColor = "yellow";
+                    }
+                    if(formato == "None"){
+                        document.getElementById('dropDownFormato').style.backgroundColor = "yellow";
+                    }
+                    if(tipo_versao == ""){
+                        document.getElementById('tipo_versao').style.backgroundColor = "yellow";
+                    }
+                    if(quantidade_vendida == ""){
+                        document.getElementById('quantidade_vendida').style.backgroundColor = "yellow";
+                    }
+                    if(quantidade_disponivel == ""){
+                        document.getElementById('quantidade_disponivel').style.backgroundColor = "yellow";
+                    }
+                    if(preco == ""){
+                        document.getElementById('preco').style.backgroundColor = "yellow";
+                    }
+                    return false;
+                }else{
+                    alert('Adição feita com sucesso!');
+                }
+            });
+        });
+</script>
+
+<script>
+    function limparTudo(){
+        document.getElementById('cod_barras').style.backgroundColor = "white";
+        document.getElementById('cod_barras').value = "";
+        document.getElementById('cod_album').style.backgroundColor = "white";
+        document.getElementById('cod_album').value = "";
+        document.getElementById('data').style.backgroundColor = "white";
+        document.getElementById('data').value = "";
+        document.getElementById('cod_gravadora').style.backgroundColor = "white";
+        document.getElementById('cod_gravadora').value = "";
+        document.getElementById('dropDownFormato').style.backgroundColor = "white";
+        document.getElementById('dropDownFormato').value = "None";
+        document.getElementById('tipo_versao').style.backgroundColor = "white";
+        document.getElementById('tipo_versao').value = "";
+        document.getElementById('quantidade_vendida').style.backgroundColor = "white";
+        document.getElementById('quantidade_vendida').value = "";
+        document.getElementById('quantidade_disponivel').style.backgroundColor = "white";
+        document.getElementById('quantidade_disponivel').value = "";
+        document.getElementById('preco').style.backgroundColor = "white";
+        document.getElementById('preco').value = "";
+    }
+</script>
+        
+    
+</head>
+<body>
+    <header>
+        <nav class="navbar justify-content-center navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="index.html"><img src="logo/logo.png" alt=""></a>
+              
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item-active px-5">
+                        <form class="form-inline my-2 my-md-0">
+                            <div class="input-group">
+                                <input class="form-control" type="search" placeholder="Pesquisar" aria-label="Search" aria-describedby="basic-addon1">
+                                <div class="input-group-append">
+                                    <select class="custom-select" id="sel1"> <!-- Podemos tirar isso mas vai ficar difícil pra caramba de fazer consulta -->
+                                        <option>Banda</option>
+                                        <option>Álbum</option>
+                                        <option>Versão</option>
+                                        <option>Gravadora</option>
+                                    </select>
+                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+                                </div>
+                                
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item my-2">
+                        <a class="nav-link" href="signup.html">Registrar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html"><button class="btn btn-success">Login</button></a>
+                    </li>
+                </ul>
+            </div>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+    </header>
+
+    <main class="py-3">
+    </main>
+        <h1>Inserir Versão</h1>
+        <obrigatorio>campos marcados com "*" são obrigatórios</obrigatorio>
+        <form>
+            <br>
+            <label class="alinhar">Código de Barras:<obrigatorio>*</obrigatorio></label>
+            <input name="cod_barras" type="number" id="cod_barras">
+            <br><br>
+            <label class="alinhar">Código de Álbum:<obrigatorio>*</obrigatorio></label>
+            <input name="cod_album" type="number" id="cod_album">
+            <br><br>
+            <label class="alinhar">Código de Gravadora:<obrigatorio>*</obrigatorio></label>
+            <input name="cod_gravadora" type="number" id="cod_gravadora">
+            <br><br>
+            <label class="alinhar">Formato:<obrigatorio>*</obrigatorio></label>
+            <select name="formato" id="dropDownFormato" >
+                <option value="None" selected="cd">Selecione o formato</option>
+                <option>VHS</option>
+                <option>Vinil</option>
+                <option>CD</option>
+            </select>
+            <br><br>
+            <label class="alinhar">Tipo da versão:<obrigatorio>*</obrigatorio></label>
+            <input name="tipo_versao" type="text" id="tipo_versao">
+            <br><br>
+            <label class="alinhar">Preço(R$):<obrigatorio>*</obrigatorio></label>
+            <input name="preco" type="number" id="preco">
+            <br><br>
+            <label class="alinhar">Quantidade Vendida:<obrigatorio>*</obrigatorio></label>
+            <input name="quantidade_vendida" type="number" id="quantidade_vendida">
+            <br><br>
+            <label class="alinhar">Quantidade Disponível:<obrigatorio>*</obrigatorio></label>
+            <input name="quantidade_disponivel" type="number" id="quantidade_disponivel">
+            <br><br>
+            <label class="alinhar">Promoção:<obrigatorio>*</obrigatorio></label>
+            <span>
+                <input type="radio" name="promocao" id="sim" style= "width:auto"  checked>
+                <label>Sim</label>
+                <input type="radio" name="promocao" id="nao" style= "width:auto">
+                <label>Não</label>
+            </span>
+            <br><br>
+            <label class="alinhar"> Data de Lançamento:<obrigatorio>*</obrigatorio></label>
+            <input name="data" type="date" min="1889-01-01" id="data">
+            <br><br>  
+            <input name="enviar" type="submit" style="width: auto" id= "enviar">
+            <button type="button" onclick="limparTudo()" id = "limpar">Limpar</button>
+            <button type="button" onclick="" id = "voltar">Voltar</button>
+            
+        </form>
+    <!--Footer-->
+    <footer class="page-footer font-small blue pt-4 mt-4 bg-dark">
+
+        <!--Copyright-->
+        <div class="footer-copyright text-center">
+            © 2018 Copyright: Sahudyscos
+        </div>
+        <!--/.Copyright-->
+
+    </footer>
+    <!--/.Footer-->
+</body>
+</html>
