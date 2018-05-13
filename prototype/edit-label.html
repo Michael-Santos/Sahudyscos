@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Adicionar Gravadora</title>
+    <title>Editar Gravadora</title>
      <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -75,7 +75,7 @@
                     }
                     return false;
                 }else{
-                    alert('Adição feita com sucesso!');
+                    alert('Edição feita com sucesso!');
                 }
             });
         });
@@ -145,7 +145,7 @@
 
     <main class="container pt-3 row mx-auto"> 
         <div class="row container">
-            <h1>Inserir Gravadora</h1>
+            <h1>Editar Gravadora</h1>
         </div>
         <div class="row container">
             <obrigatorio>campos marcados com "*" são obrigatórios</obrigatorio>
@@ -153,26 +153,26 @@
         <form>
             <br>
             <label class="alinhar">Nome:<obrigatorio>*</obrigatorio></label>
-            <input name="nome" type="text" id="name">
+            <input name="nome" type="text" id="name" value="Som Livre">
             <br><br>
                 
                 <label class="alinhar">E-mail:<obrigatorio>*</obrigatorio></label>
-            <input name="email" type="email" id="email">
+            <input name="email" type="email" id="email" value="contact@tuffgong.com">
             <br><br>
                 <label class="alinhar"> Data de Fundação:<obrigatorio>*</obrigatorio></label>
-            <input name="data" type="date" min="1889-01-01" id="data">
+            <input name="data" type="date" min="1889-01-01" id="data" value="1969-01-01">
             <br><br>
                <label class="alinhar">Bandas:<obrigatorio>*</obrigatorio></label>
-            <input name="bandas" type="text" id="bandas">
+            <input name="bandas" type="text" id="bandas" value="Wesley Safadão">
             <br><br>    
                 <label class="alinhar">Gênero 1:<obrigatorio>*</obrigatorio></label>
-            <input name="genero1" type="text" id="genero1">
+            <input name="genero1" type="text" id="genero1" value="Forró">
             <br><br>
                 <label class="alinhar">Gênero 2:</label>
             <input name="genero2" type="text" id="genero2">
             <br><br>
                <label class="alinhar">Telefone 1:<obrigatorio>*</obrigatorio></label>
-                <input name="telefone1" type="tel" id="telefone1">
+                <input name="telefone1" type="tel" id="telefone1" value="+551123888243">
             <br><br>
                 <label class="alinhar">Telefone 2:</label>
             <input name="telefone2" type="tel" id="telefone2">

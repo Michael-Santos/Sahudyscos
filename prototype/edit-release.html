@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Adicionar Versão</title>
+    <title>Editar Versão</title>
      <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -57,7 +57,7 @@
                     }
                     return false;
                 }else{
-                    alert('Adição feita com sucesso!');
+                    alert('Edição feita com sucesso!');
                 }
             });
         });
@@ -131,7 +131,7 @@
 
     <main class="container pt-3 row mx-auto"> 
         <div class="row container">
-            <h1>Inserir Versão</h1>
+            <h1>Editar Versão</h1>
         </div>
         <div class="row container">
             <obrigatorio>campos marcados com "*" são obrigatórios</obrigatorio>
@@ -139,33 +139,33 @@
         <form>
             <br>
             <label class="alinhar">Código de Barras:<obrigatorio>*</obrigatorio></label>
-            <input name="cod_barras" type="number" id="cod_barras">
+            <input name="cod_barras" type="number" id="cod_barras" value ="1001001">
             <br><br>
             <label class="alinhar">Código de Álbum:<obrigatorio>*</obrigatorio></label>
-            <input name="cod_album" type="number" id="cod_album">
+            <input name="cod_album" type="number" id="cod_album" value="1">
             <br><br>
             <label class="alinhar">Código de Gravadora:<obrigatorio>*</obrigatorio></label>
-            <input name="cod_gravadora" type="number" id="cod_gravadora">
+            <input name="cod_gravadora" type="number" id="cod_gravadora" value=01>
             <br><br>
             <label class="alinhar">Formato:<obrigatorio>*</obrigatorio></label>
             <select name="formato" id="dropDownFormato" >
-                <option value="None" selected="cd">Selecione o formato</option>
+                <option value="CD" selected="cd">Selecione o formato</option>
                 <option>VHS</option>
                 <option>Vinil</option>
-                <option>CD</option>
+                <option for="CD">CD</option>
             </select>
             <br><br>
             <label class="alinhar">Tipo da versão:<obrigatorio>*</obrigatorio></label>
-            <input name="tipo_versao" type="text" id="tipo_versao">
+            <input name="tipo_versao" type="text" id="tipo_versao" value="Original">
             <br><br>
             <label class="alinhar">Preço(R$):<obrigatorio>*</obrigatorio></label>
-            <input name="preco" type="number" id="preco">
+            <input name="preco" type="number" id="preco" value="39.99">
             <br><br>
             <label class="alinhar">Quantidade Vendida:<obrigatorio>*</obrigatorio></label>
-            <input name="quantidade_vendida" type="number" id="quantidade_vendida">
+            <input name="quantidade_vendida" type="number" id="quantidade_vendida" value="200">
             <br><br>
             <label class="alinhar">Quantidade Disponível:<obrigatorio>*</obrigatorio></label>
-            <input name="quantidade_disponivel" type="number" id="quantidade_disponivel">
+            <input name="quantidade_disponivel" type="number" id="quantidade_disponivel" value="06">
             <br><br>
             <label class="alinhar">Promoção:<obrigatorio>*</obrigatorio></label>
             <span>
@@ -176,7 +176,7 @@
             </span>
             <br><br>
             <label class="alinhar"> Data de Lançamento:<obrigatorio>*</obrigatorio></label>
-            <input name="data" type="date" min="1889-01-01" id="data">
+            <input name="data" type="date" min="1889-01-01" id="data" value="2010-01-01">
             <br><br>  
             <input name="enviar" type="submit" style="width: auto" id= "enviar">
             <button type="button" onclick="limparTudo()" id = "limpar">Limpar</button>
