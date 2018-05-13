@@ -122,43 +122,50 @@
         </nav>
     </header>
 
-    <main class="py-3">
+    <main class="container pt-3 row mx-auto">  
+        <div class="row container">
+            <h1>Inserir Álbum</h1>
+        </div>
+        <div class="row container">
+            <obrigatorio>campos marcados com "*" são obrigatórios</obrigatorio>
+        </div>
+
+        <div class="row container">
+            <form>
+                <br>
+                <label class="alinhar">Nome:<obrigatorio>*</obrigatorio></label>
+                <input name="nome" type="text" id="name">
+                <br><br>
+                    <label class="alinhar">País:</label>
+                <select name="pais" id="dropDownPaises" >
+                    <option value="None" selected="Brasil">Selecione o país</option>
+                </select>
+                <br><br>
+                    <label class="alinhar">Avaliação:<obrigatorio>*</obrigatorio></label>
+                <input name="avaliacao" type="number" id="avaliacao">
+                <br><br>
+                    <label class="alinhar"> Data de Publicação:<obrigatorio>*</obrigatorio></label>
+                <input name="data" type="date" min="1889-01-01" id="data">
+                <br><br>
+                   <label class="alinhar">Bandas:<obrigatorio>*</obrigatorio></label>
+                <input name="bandas" type="text" id="bandas">
+                <br><br>    
+                    <label class="alinhar">Gênero 1:<obrigatorio>*</obrigatorio></label>
+                <input name="genero1" type="text" id="genero1">
+                <br><br>
+                    <label class="alinhar">Gênero 2:</label>
+                <input name="genero2" type="text" id="genero2">
+                <br><br>
+                    <label class="alinhar">Descrição:</label>
+                <input name="descricao" type="text" style="height: 100px" id="descricao">
+                <br><br>
+                <input name="enviar" type="submit" style="width: auto" id= "enviar">
+                <button type="button" onclick="limparTudo()" id = "limpar">Limpar</button>
+                <button type="button" onclick="" id = "voltar">Voltar</button>
+                
+            </form>
+        </div>
     </main>
-        <h1>Inserir Álbum</h1>
-        <obrigatorio>campos marcados com "*" são obrigatórios</obrigatorio>
-        <form>
-            <br>
-            <label class="alinhar">Nome:<obrigatorio>*</obrigatorio></label>
-            <input name="nome" type="text" id="name">
-            <br><br>
-                <label class="alinhar">País:</label>
-            <select name="pais" id="dropDownPaises" >
-                <option value="None" selected="Brasil">Selecione o país</option>
-            </select>
-            <br><br>
-                <label class="alinhar">Avaliação:<obrigatorio>*</obrigatorio></label>
-            <input name="avaliacao" type="number" id="avaliacao">
-            <br><br>
-                <label class="alinhar"> Data de Publicação:<obrigatorio>*</obrigatorio></label>
-            <input name="data" type="date" min="1889-01-01" id="data">
-            <br><br>
-               <label class="alinhar">Bandas:<obrigatorio>*</obrigatorio></label>
-            <input name="bandas" type="text" id="bandas">
-            <br><br>    
-                <label class="alinhar">Gênero 1:<obrigatorio>*</obrigatorio></label>
-            <input name="genero1" type="text" id="genero1">
-            <br><br>
-                <label class="alinhar">Gênero 2:</label>
-            <input name="genero2" type="text" id="genero2">
-            <br><br>
-                <label class="alinhar">Descrição:</label>
-            <input name="descricao" type="text" style="height: 100px" id="descricao">
-            <br><br>
-            <input name="enviar" type="submit" style="width: auto" id= "enviar">
-            <button type="button" onclick="limparTudo()" id = "limpar">Limpar</button>
-            <button type="button" onclick="" id = "voltar">Voltar</button>
-            
-        </form>
     <!--Footer-->
     <footer class="page-footer font-small blue pt-4 mt-4 bg-dark">
 
