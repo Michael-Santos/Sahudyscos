@@ -24,3 +24,31 @@ h5.card-text{
 div.card-header{
     background-color: darkslateblue;
 }
+
+.box-green{
+	width:300px;
+	height:100px;
+	background-color:#666;
+	border-radius: 10px;
+}
+
+.box-red{
+	width:300px;
+	height:100px;
+	background-color:#666;
+	border-radius: 10px;
+}
+
+.box-gray{
+	width:300px;
+	height:100px;
+	background-color:#666;
+	border-radius: 10px;
+}
+
+.box-white{
+	width:300px;
+	height:100px;
+	background-color:#666;
+	border-radius: 10px;
+}

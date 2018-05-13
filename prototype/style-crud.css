@@ -63,3 +63,43 @@ div.card-header{
 .options {
     text-align: center;
 }
+
+.box-green{
+    width:20px;
+    height:20px;
+    background-color:#66CC99;
+    border-radius: 4px;
+    border-color: #D3D3D3;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.box-red{
+    width:20px;
+    height:20px;
+    background-color:#FFB6C1;
+    border-radius: 4px;
+    border-color: #D3D3D3;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.box-gray{
+    width:20px;
+    height:20px;
+    background-color:#D3D3D3;
+    border-radius: 4px;
+    border-color: #D3D3D3;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.box-white{
+    width:20px;
+    height:20px;
+    background-color:#FFFFFF;
+    border-radius: 4px;
+    border-color: #D3D3D3;
+    border-style: solid;
+    border-width: 1px;
+}
