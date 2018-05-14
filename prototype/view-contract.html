@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Adicionar Banda</title>
+    <title>Visualizar Contrato</title>
      <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -14,45 +14,8 @@
     
     
     
-    <script>
-        $(document).ready(function() {
-            
-                $('form').submit(function(){
-                    name = document.getElementById('name').value;
-                    data = document.getElementById('data').value;
-                    genero1 = document.getElementById('genero1').value;
-                if(name == "" || data == "" || genero1 == ""){
-                    alert('Preencha todos os campos obrigatórios');
-                    if(name == ""){
-                        document.getElementById('name').style.backgroundColor = "yellow";
-                    }
-                    if(data == ""){
-                        document.getElementById('data').style.backgroundColor = "yellow";
-                    }
-                    if(genero1 == ""){
-                        document.getElementById('genero1').style.backgroundColor = "yellow";
-                    }
-                    return false;
-                }else{
-                    alert('Adição feita com sucesso!');
-                }
-            });
-        });
-</script>
-
-<script>
-    function limparTudo(){
-        document.getElementById('name').style.backgroundColor = "white";
-        document.getElementById('name').value = "";
-        document.getElementById('data').style.backgroundColor = "white";
-        document.getElementById('data').value = "";
-        document.getElementById('genero1').style.backgroundColor = "white";
-        document.getElementById('genero1').value = "";
-        document.getElementById('genero2').value = "";
-        document.getElementById('descricao').value = "";
-    }
-</script>
-        
+    
+   
     
 </head>
 <body>
@@ -98,39 +61,20 @@
 
     <main class="container pt-3 row mx-auto"> 
         <div class="row container">
-            <h1>Inserir Banda</h1>
+            <h1>Visualizar Contrato</h1>
         </div>
-        <div class="row container">
-            <obrigatorio>campos marcados com "*" são obrigatórios</obrigatorio>
-        </div>
-    
         <form>
             <br>
-            <label class="alinhar">Nome:<obrigatorio>*</obrigatorio></label>
-            <input name="nome" type="text" id="name">
+            <label class="alinhar">Banda:</label>
+            <input name="banda" type="text" id="banda" value="Wesley Safadão" readonly="true">
             <br><br>
-            <label class="alinhar"> Data de Fundação:<obrigatorio>*</obrigatorio></label>
-            <input name="data" type="date" min="1889-01-01" id="data">
-            <br><br>  
-                <label class="alinhar">Gênero 1:<obrigatorio>*</obrigatorio></label>
-            <input name="genero1" type="text" id="genero1">
+            <label class="alinhar">Gravadora:</label>
+            <input name="gravadora" type="text" id="gravadora" value="Som Livre" readonly = "true">
             <br><br>
-                <label class="alinhar">Gênero 2:</label>
-            <input name="genero2" type="text" id="genero2">
-            <br><br>
-                <label class="alinhar">Descrição:</label>
-            <input name="descricao" type="text" style="height: 100px" id="descricao">
-            <br><br>
-             <button type="submit" class="btn btn-success">Inserir</button>
-            <button type="button" class="btn btn btn-warning" onclick="limparTudo()" id="limpar">Limpar</button>
-            <button type="button" onclick="location.href='admin-artist.html'" class="btn btn-default">Voltar</button>
-            <!--<input name="enviar" type="submit" value="Enviar" style="width: auto" id= "enviar">-->
-            <!--<button type="button btn btn-warning" onclick="limparTudo()" id = "limpar">Limpar</button>-->
-            <!--<button type="button" onclick="location.href='admin-release.html'" id = "voltar">Voltar</button>-->
+            <button type="button" onclick="location.href='admin-contract.html'" class="btn btn-default">Voltar</button>
             
         </form>
     </main>
-
     <!--Footer-->
     <footer class="page-footer font-small blue pt-4 mt-4 bg-dark">
 

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Adicionar Versão</title>
+    <title>Visualizar Versão</title>
      <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -57,7 +57,7 @@
                     }
                     return false;
                 }else{
-                    alert('Adição feita com sucesso!');
+                    alert('Edição feita com sucesso!');
                 }
             });
         });
@@ -131,59 +131,42 @@
 
     <main class="container pt-3 row mx-auto"> 
         <div class="row container">
-            <h1>Inserir Versão</h1>
-        </div>
-        <div class="row container">
-            <obrigatorio>campos marcados com "*" são obrigatórios</obrigatorio>
+            <h1>Visualizar Versão</h1>
         </div>
         <form>
             <br>
-            <label class="alinhar">Código de Barras:<obrigatorio>*</obrigatorio></label>
-            <input name="cod_barras" type="number" id="cod_barras">
+            <label class="alinhar">Código de Barras:</label>
+            <input name="cod_barras" type="number" id="cod_barras" value ="1001001" readonly="true">
             <br><br>
-            <label class="alinhar">Código de Álbum:<obrigatorio>*</obrigatorio></label>
-            <input name="cod_album" type="number" id="cod_album">
+            <label class="alinhar">Código de Álbum:</label>
+            <input name="cod_album" type="number" id="cod_album" value="1" readonly="true">
             <br><br>
-            <label class="alinhar">Código de Gravadora:<obrigatorio>*</obrigatorio></label>
-            <input name="cod_gravadora" type="number" id="cod_gravadora">
+            <label class="alinhar">Código de Gravadora:</label>
+            <input name="cod_gravadora" type="number" id="cod_gravadora" value=01 readonly="true">
             <br><br>
-            <label class="alinhar">Formato:<obrigatorio>*</obrigatorio></label>
-            <select name="formato" id="dropDownFormato" >
-                <option value="None" selected="cd">Selecione o formato</option>
-                <option>VHS</option>
-                <option>Vinil</option>
-                <option>CD</option>
-            </select>
+            <label class="alinhar">Formato:</label>
+            <input name="formato" type="text" id="formato" value="CD" readonly="true">
             <br><br>
-            <label class="alinhar">Tipo da versão:<obrigatorio>*</obrigatorio></label>
-            <input name="tipo_versao" type="text" id="tipo_versao">
+            <label class="alinhar">Tipo da versão:</label>
+            <input name="tipo_versao" type="text" id="tipo_versao" value="Original" readonly="true">
             <br><br>
-            <label class="alinhar">Preço(R$):<obrigatorio>*</obrigatorio></label>
-            <input name="preco" type="number" id="preco">
+            <label class="alinhar">Preço(R$):</label>
+            <input name="preco" type="number" id="preco" value="39.99" readonly="true">
             <br><br>
-            <label class="alinhar">Quantidade Vendida:<obrigatorio>*</obrigatorio></label>
-            <input name="quantidade_vendida" type="number" id="quantidade_vendida">
+            <label class="alinhar">Quantidade Vendida:</label>
+            <input name="quantidade_vendida" type="number" id="quantidade_vendida" value="200" readonly="true">
             <br><br>
-            <label class="alinhar">Quantidade Disponível:<obrigatorio>*</obrigatorio></label>
-            <input name="quantidade_disponivel" type="number" id="quantidade_disponivel">
+            <label class="alinhar">Quantidade Disponível:</label>
+            <input name="quantidade_disponivel" type="number" id="quantidade_disponivel" value="06" readonly="true">
             <br><br>
-            <label class="alinhar">Promoção:<obrigatorio>*</obrigatorio></label>
-            <span>
-                <input type="radio" name="promocao" id="sim" style= "width:auto"  checked>
-                <label>Sim</label>
-                <input type="radio" name="promocao" id="nao" style= "width:auto">
-                <label>Não</label>
-            </span>
+            <label class="alinhar">Promoção:</label>
+            <input name="promocao" type="text" id="promocao" value="Sim" readonly="true">
             <br><br>
-            <label class="alinhar"> Data de Lançamento:<obrigatorio>*</obrigatorio></label>
-            <input name="data" type="date" min="1889-01-01" id="data">
+            <label class="alinhar"> Data de Lançamento:</label>
+            <input name="data" type="date" min="1889-01-01" id="data" value="2010-01-01" readonly="true">
             <br><br>  
-            <button type="submit" class="btn btn-success">Inserir</button>
-                <button type="button" class="btn btn btn-warning" onclick="limparTudo()" id="limpar">Limpar</button>
-                <button type="button" onclick="location.href='admin-release.html'" class="btn btn-default">Voltar</button>
-            <!--<input name="enviar" type="submit" value="Enviar" style="width: auto" id= "enviar">-->
-            <!--<button type="button btn btn-warning" onclick="limparTudo()" id = "limpar">Limpar</button>-->
-            <!--<button type="button" onclick="location.href='admin-release.html'" id = "voltar">Voltar</button>-->
+            <button type="button" class="btn btn btn-warning" onclick="location.href='edit-release.html'" id = "editar">Editar</button>
+            <button type="button" onclick="location.href='admin-release.html'" class="btn btn-default">Voltar</button>
             
         </form>
     </main>

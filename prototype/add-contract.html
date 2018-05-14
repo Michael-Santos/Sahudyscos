@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Editar Álbum</title>
+    <title>Adicionar Contrato</title>
      <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -13,44 +13,21 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     
     
-    <script>
-        $(document).ready(function() {
-            $.getJSON('paises.json', function (data) {
-                var items = [];
-                var options = '<option value="">Por favor, selecione um país</option>';
-                $.each(data, function (key, val) {
-                    options += '<option value="' + val.name + '">' + val.name + '</option>';
-                });
-                $("#dropDownPaises").html(options);
-            });
-        });
-    </script>
+    
     
     <script>
         $(document).ready(function() {
             
                 $('form').submit(function(){
-                    name = document.getElementById('name').value;
-                    avaliacao = document.getElementById('avaliacao').value;
-                    data = document.getElementById('data').value;
-                    bandas = document.getElementById('bandas').value;
-                    genero1 = document.getElementById('genero1').value;
-                if(name == "" || avaliacao == "" || data == "" || bandas == "" || genero1 == ""){
+                    banda = document.getElementById('banda').value;
+                    gravadora = document.getElementById('gravadora').value;
+                if(banda == "" || gravadora == ""){
                     alert('Preencha todos os campos obrigatórios');
-                    if(name == ""){
-                        document.getElementById('name').style.backgroundColor = "yellow";
+                    if(gravadora == ""){
+                        document.getElementById('gravadora').style.backgroundColor = "yellow";
                     }
-                    if(avaliacao == ""){
-                        document.getElementById('avaliacao').style.backgroundColor = "yellow";
-                    }
-                    if(data == ""){
-                        document.getElementById('data').style.backgroundColor = "yellow";
-                    }
-                    if(bandas == ""){
-                        document.getElementById('bandas').style.backgroundColor = "yellow";
-                    }
-                    if(genero1 == ""){
-                        document.getElementById('genero1').style.backgroundColor = "yellow";
+                    if(banda == ""){
+                        document.getElementById('banda').style.backgroundColor = "yellow";
                     }
                     return false;
                 }else{
@@ -62,20 +39,11 @@
 
 <script>
     function limparTudo(){
-        document.getElementById('name').style.backgroundColor = "white";
-        document.getElementById('name').value = "";
-        document.getElementById('avaliacao').style.backgroundColor = "white";
-        document.getElementById('avaliacao').value = "";
-        document.getElementById('name').style.backgroundColor = "white";
-        document.getElementById('name').value = "";
-        document.getElementById('data').style.backgroundColor = "white";
-        document.getElementById('data').value = "";
-        document.getElementById('bandas').style.backgroundColor = "white";
-        document.getElementById('bandas').value = "";
-        document.getElementById('genero1').style.backgroundColor = "white";
-        document.getElementById('genero1').value = "";
-        document.getElementById('genero2').value = "";
-        document.getElementById('descricao').value = "";
+        document.getElementById('banda').style.backgroundColor = "white";
+        document.getElementById('banda').value = "";
+        document.getElementById('gravadora').style.backgroundColor = "white";
+        document.getElementById('gravadora').value = "";
+        
     }
 </script>
         
@@ -122,44 +90,24 @@
         </nav>
     </header>
 
-    <main class="container pt-3 row mx-auto">  
+    <main class="container pt-3 row mx-auto"> 
         <div class="row container">
-            <h1>Editar Álbum</h1>
+            <h1>Inserir Contrato</h1>
         </div>
         <div class="row container">
             <obrigatorio>campos marcados com "*" são obrigatórios</obrigatorio>
         </div>
         <form>
             <br>
-            <label class="alinhar">Nome:<obrigatorio>*</obrigatorio></label>
-            <input name="nome" type="text" id="name" value="Odessa">
+            <label class="alinhar">Banda:<obrigatorio>*</obrigatorio></label>
+            <input name="banda" type="text" id="banda">
             <br><br>
-                <label class="alinhar">País:</label>
-            <select name="pais" id="dropDownPaises" >
-                <option value="None" selected="Brasil">Selecione o país</option>
-            </select>
-            <br><br>
-                <label class="alinhar">Avaliação:<obrigatorio>*</obrigatorio></label>
-            <input name="avaliacao" type="number" id="avaliacao" value="5.0">
-            <br><br>
-                <label class="alinhar"> Data de Publicação:<obrigatorio>*</obrigatorio></label>
-            <input name="data" type="date" min="1889-01-01" id="data" value ="1969-01-01">
-            <br><br>
-               <label class="alinhar">Bandas:<obrigatorio>*</obrigatorio></label>
-            <input name="bandas" type="text" id="bandas" value="Bee Gees">
-            <br><br>    
-                <label class="alinhar">Gênero 1:<obrigatorio>*</obrigatorio></label>
-            <input name="genero1" type="text" id="genero1" value="Rock Progressivo">
-            <br><br>
-                <label class="alinhar">Gênero 2:</label>
-            <input name="genero2" type="text" id="genero2" value ="Rock Psicodélico">
-            <br><br>
-                <label class="alinhar">Descrição:</label>
-            <input name="descricao" type="text" style="height: 100px" id="descricao">
+            <label class="alinhar">Gravadora:<obrigatorio>*</obrigatorio></label>
+            <input name="gravadora" type="text" id="gravadora">
             <br><br>
             <button type="submit" class="btn btn-success">Inserir</button>
             <button type="button" class="btn btn btn-warning" onclick="limparTudo()" id="limpar">Limpar</button>
-            <button type="button" onclick="location.href='admin-album.html'" class="btn btn-default">Voltar</button>
+            <button type="button" onclick="location.href='admin-contract.html'" class="btn btn-default">Voltar</button>
             
         </form>
     </main>

@@ -19,17 +19,13 @@
             
                 $('form').submit(function(){
                     name = document.getElementById('name').value;
-                    avaliacao = document.getElementById('avaliacao').value;
                     data = document.getElementById('data').value;
                     genero1 = document.getElementById('genero1').value;
-                if(name == "" || avaliacao == "" || data == "" || genero1 == ""){
+                if(name == "" ||data == "" || genero1 == ""){
                     alert('Preencha todos os campos obrigatórios');
                     alert(name);
                     if(name == ""){
                         document.getElementById('name').style.backgroundColor = "yellow";
-                    }
-                    if(avaliacao == ""){
-                        document.getElementById('avaliacao').style.backgroundColor = "yellow";
                     }
                     if(data == ""){
                         document.getElementById('data').style.backgroundColor = "yellow";
@@ -49,8 +45,6 @@
     function limparTudo(){
         document.getElementById('name').style.backgroundColor = "white";
         document.getElementById('name').value = "";
-        document.getElementById('avaliacao').style.backgroundColor = "white";
-        document.getElementById('avaliacao').value = "";
         document.getElementById('data').style.backgroundColor = "white";
         document.getElementById('data').value = "";
         document.getElementById('genero1').style.backgroundColor = "white";
@@ -111,9 +105,6 @@
         <div class="row container">
             <obrigatorio>campos marcados com "*" são obrigatórios</obrigatorio>
         </div>
-
-        <h1>Editar Banda</h1>
-        <obrigatorio>campos marcados com "*" são obrigatórios</obrigatorio>
         <form>
             <br>
             <label class="alinhar">Nome:<obrigatorio>*</obrigatorio></label>
@@ -131,9 +122,9 @@
                 <label class="alinhar">Descrição:</label>
             <input name="descricao" type="text" style="height: 100px" id="descricao">
             <br><br>
-            <input name="enviar" type="submit" style="width: auto" id= "enviar">
-            <button type="button" onclick="limparTudo()" id = "limpar">Limpar</button>
-            <button type="button" onclick="location.href='admin-artist.html'" id = "voltar">Voltar</button>
+            <button type="submit" class="btn btn-success">Inserir</button>
+            <button type="button" class="btn btn btn-warning" onclick="limparTudo()" id="limpar">Limpar</button>
+            <button type="button" onclick="location.href='admin-artist.html'" class="btn btn-default">Voltar</button>
             
         </form>
     </main>
