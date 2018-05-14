@@ -7,6 +7,7 @@
     <title>Versões de Álbum</title>
     <link rel="stylesheet" href="style-crud.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
@@ -36,15 +37,8 @@
         </nav>
     </header>
 
-    <!-- Menu de opções -->
     <main class="container pt-3 row mx-auto">        
-        <p class="ml-3">Legenda:</p></br> 
-        <div class="row container-fluid my-2 ml-1">    
-            <div class="box-green"></div><p class="pr-2">Promoção</p>
-            <div class="box-red"></div><p class="pr-2">Estoque baixo</p>
-            <div class="box-gray"></div>
-            <div class="box-white"></div><p class="pr-2">Preço e estoque normais</p>
-        </div>
+        <!-- Menu de opções -->
         <div class="row container-fluid my-2">
             <div class="col">
                 <form class="form-inline my-2 my-md-0">
@@ -63,7 +57,7 @@
                 </form>
             </div>
             <div class="col">
-                <a class="btn btn-primary btn-xs p-auto py-2" href="add-release.html"></a> Adicionar Versão
+                <a class="btn btn-primary btn-sm" href="add-release.html"><i class="fas fa-plus"></i></a> Adicionar Versão
             </div>
         </div>
 
@@ -90,9 +84,9 @@
                         <td>6</td>
                         <td>Original</td>
                         <td class="options">
-                            <a class="btn btn-success btn-xs" href="view-release.html"></a>
-                            <a class="btn btn-warning btn-xs" href="edit-release.html"></a>
-                            <a class="btn btn-danger btn-xs"  href="#" data-toggle="modal" data-target="#delete-modal"></a>
+                            <a class="btn btn-success btn-sm" href="view-release.html"><i class="fas fa-search"></i></a>
+                            <a class="btn btn-warning btn-sm" href="edit-release.html"><i class="fas fa-wrench"></i></a>
+                            <a class="btn btn-danger btn-sm"  href="#" data-toggle="modal" data-target="#delete-modal"><i class="fas fa-times"></i></a>
                         </td>
                     </tr>
 
@@ -104,9 +98,9 @@
                         <td>1</td>
                         <td>Aniversário</td>
                         <td class="options">
-                            <a class="btn btn-success btn-xs" href="view-release.html"></a>
-                            <a class="btn btn-warning btn-xs" href="edit-release.html"></a>
-                            <a class="btn btn-danger btn-xs"  href="#" data-toggle="modal" data-target="#delete-modal"></a>
+                            <a class="btn btn-success btn-sm" href="view-release.html"><i class="fas fa-search"></i></a>
+                            <a class="btn btn-warning btn-sm" href="edit-release.html"><i class="fas fa-wrench"></i></a>
+                            <a class="btn btn-danger btn-sm"  href="#" data-toggle="modal" data-target="#delete-modal"><i class="fas fa-times"></i></a>
                         </td>
                     </tr>
      
@@ -118,9 +112,9 @@
                         <td>6</td>
                         <td>Original</td>
                         <td class="options">
-                            <a class="btn btn-success btn-xs" href="view-release.html"></a>
-                            <a class="btn btn-warning btn-xs" href="edit-release.html"></a>
-                            <a class="btn btn-danger btn-xs"  href="#" data-toggle="modal" data-target="#delete-modal"></a>
+                            <a class="btn btn-success btn-sm" href="view-release.html"><i class="fas fa-search"></i></a>
+                            <a class="btn btn-warning btn-sm" href="edit-release.html"><i class="fas fa-wrench"></i></a>
+                            <a class="btn btn-danger btn-sm"  href="#" data-toggle="modal" data-target="#delete-modal"><i class="fas fa-times"></i></a>
                         </td>
                     </tr>
      
@@ -132,9 +126,9 @@
                         <td>6</td>
                         <td>Remasterização</td>
                         <td class="options">
-                            <a class="btn btn-success btn-xs" href="view-release.html"></a>
-                            <a class="btn btn-warning btn-xs" href="edit-release.html"></a>
-                            <a class="btn btn-danger btn-xs"  href="#" data-toggle="modal" data-target="#delete-modal"></a>
+                            <a class="btn btn-success btn-sm" href="view-release.html"><i class="fas fa-search"></i></a>
+                            <a class="btn btn-warning btn-sm" href="edit-release.html"><i class="fas fa-wrench"></i></a>
+                            <a class="btn btn-danger btn-sm"  href="#" data-toggle="modal" data-target="#delete-modal"><i class="fas fa-times"></i></a>
                         </td>
                     </tr>
      
@@ -146,9 +140,9 @@
                         <td>2</td>
                         <td>Original</td>
                         <td class="options">
-                            <a class="btn btn-success btn-xs" href="view-release.html"></a>
-                            <a class="btn btn-warning btn-xs" href="edit-release.html"></a>
-                            <a class="btn btn-danger btn-xs"  href="#" data-toggle="modal" data-target="#delete-modal"></a>
+                            <a class="btn btn-success btn-sm" href="view-release.html"><i class="fas fa-search"></i></a>
+                            <a class="btn btn-warning btn-sm" href="edit-release.html"><i class="fas fa-wrench"></i></a>
+                            <a class="btn btn-danger btn-sm"  href="#" data-toggle="modal" data-target="#delete-modal"><i class="fas fa-times"></i></a>
                         </td>
                     </tr>
      
@@ -160,14 +154,21 @@
                         <td>0</td>
                         <td>Original</td>
                         <td class="options">
-                            <a class="btn btn-success btn-xs" href="view-release.html"></a>
-                            <a class="btn btn-warning btn-xs" href="edit-release.html"></a>
-                            <a class="btn btn-danger btn-xs"  href="#" data-toggle="modal" data-target="#delete-modal"></a>
+                            <a class="btn btn-success btn-sm" href="view-release.html"><i class="fas fa-search"></i></a>
+                            <a class="btn btn-warning btn-sm" href="edit-release.html"><i class="fas fa-wrench"></i></a>
+                            <a class="btn btn-danger btn-sm"  href="#" data-toggle="modal" data-target="#delete-modal"><i class="fas fa-times"></i></a>
                         </td>
                     </tr>
                 </tbody>
             </table>
  
+        </div>
+
+        <div class="row container-fluid my-2 ml-1">  
+            <div class="box-green mx-2"></div><small>Promoção</small>
+            <div class="box-red mx-2"></div><small>Estoque Baixo</small>
+            <div class="box-gray mx-1"></div>
+            <div class="box-white mr-2"></div><small>Preço e Estoque Normais</small>
         </div>
 
         <nav aria-label="Navegação">
