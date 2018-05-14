@@ -143,7 +143,7 @@
         </nav>
     </header>
 
-    <main class="container pt-3 row mx-auto"> 
+    <main class="container pt-3 mx-auto"> 
         <div class="row container">
             <h1>Inserir Gravadora</h1>
         </div>
@@ -151,39 +151,46 @@
             <obrigatorio>campos marcados com "*" são obrigatórios</obrigatorio>
         </div>
         <form>
-            <br>
-            <label class="alinhar">Nome:<obrigatorio>*</obrigatorio></label>
-            <input name="nome" type="text" id="name">
-            <br><br>
-                
+            <div class="form-group">
+                <label class="alinhar">Nome:<obrigatorio>*</obrigatorio></label>
+                <input name="nome" type="text" id="name" class="form-control">
+            </div>
+            <div class="form-group">
                 <label class="alinhar">E-mail:<obrigatorio>*</obrigatorio></label>
-            <input name="email" type="email" id="email">
-            <br><br>
+                <input name="email" type="email" id="email" class="form-control" placeholder="exemplo@exemplo.com">
+            </div>
+            <div class="form-group">
                 <label class="alinhar"> Data de Fundação:<obrigatorio>*</obrigatorio></label>
-            <input name="data" type="date" min="1889-01-01" id="data">
-            <br><br>
-               <label class="alinhar">Bandas:<obrigatorio>*</obrigatorio></label>
-            <input name="bandas" type="text" id="bandas">
-            <br><br>    
+                <input name="data" type="date" min="1889-01-01" id="data" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="alinhar">Bandas:<obrigatorio>*</obrigatorio></label>
+                <input name="bandas" type="text" id="bandas" class="form-control">
+            </div>
+            <div class="form-group">    
                 <label class="alinhar">Gênero 1:<obrigatorio>*</obrigatorio></label>
-            <input name="genero1" type="text" id="genero1">
-            <br><br>
+                <input name="genero1" type="text" id="genero1" class="form-control">
+            </div>
+            <div class="form-group">
                 <label class="alinhar">Gênero 2:</label>
-            <input name="genero2" type="text" id="genero2">
-            <br><br>
-               <label class="alinhar">Telefone 1:<obrigatorio>*</obrigatorio></label>
-                <input name="telefone1" type="tel" id="telefone1">
-            <br><br>
+                <input name="genero2" type="text" id="genero2" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="alinhar">Telefone 1:<obrigatorio>*</obrigatorio></label>
+                <input name="telefone1" type="tel" id="telefone1" class="form-control">
+            </div>
+            <div class="form-group">
                 <label class="alinhar">Telefone 2:</label>
-            <input name="telefone2" type="tel" id="telefone2">
-            <br><br>
-             <button type="submit" class="btn btn-success">Inserir</button>
+                <input name="telefone2" type="tel" id="telefone2" class="form-control">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">Inserir</button>
                 <button type="button" class="btn btn btn-warning" onclick="limparTudo()" id="limpar">Limpar</button>
                 <button type="button" onclick="location.href='admin-label.html'" class="btn btn-default">Voltar</button>
             <!--<input name="enviar" type="submit" value="Enviar" style="width: auto" id= "enviar">-->
             <!--<button type="button btn btn-warning" onclick="limparTudo()" id = "limpar">Limpar</button>-->
             <!--<button type="button" onclick="location.href='admin-release.html'" id = "voltar">Voltar</button>-->
-            
+            </div>
         </form>
     </main>
     <!--Footer-->

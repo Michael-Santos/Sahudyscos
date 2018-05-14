@@ -60,32 +60,40 @@
     </header>
 
     
-    <main class="container pt-3 row mx-auto"> 
+    
+    <main class="container pt-3 mx-auto"> 
         <div class="row container">
             <h1>Visualizar Banda</h1>
         </div>
+    
         <form>
-            <br>
-            <label class="alinhar">Nome:</label>
-            <input name="nome" type="text" id="name" value ="Metallica" readonly="true">
-            <br><br>
-            <label class="alinhar"> Data de Fundação:</label>
-            <input name="data" type="date" min="1889-01-01" id="data" value ="1981-01-01" readonly="true">
-            <br><br>  
+            <div class="form-group">
+                <label class="alinhar">Nome:</label>
+                <input name="nome" type="text" id="name" class="form-control-plaintext" readonly="true" value="Metallica" style="font-weight:bold">
+            </div>
+            <div class="form-group">
+                <label class="alinhar"> Data de Fundação:</label>
+                <input name="data" type="date" min="1889-01-01" id="data" class="form-control-plaintext" readonly="true" value="1981-01-01" style="font-weight:bold">
+            </div>  
+               <div class="form-group">
                 <label class="alinhar">Gênero 1:</label>
-            <input name="genero1" type="text" id="genero1" value="Trash Metal" readonly="true">
-            <br><br>
+            <input name="genero1" type="text" id="genero1" class="form-control-plaintext" readonly="true" value="Trash Metal" style="font-weight:bold">
+            </div>
+            <div class="form-group">
                 <label class="alinhar">Gênero 2:</label>
-            <input name="genero2" type="text" id="genero2" readonly="true">
-            <br><br>
+                <input name="genero2" type="text" id="genero2" class="form-control-plaintext" readonly="true" style="font-weight:bold">
+            </div>
+            <div class="form-group">
                 <label class="alinhar">Descrição:</label>
-            <input name="descricao" type="text" style="height: 100px" id="descricao" readonly="true">
-            <br><br>
-            <button type="button" class="btn btn btn-warning" onclick="location.href='edit-artist.html'" id = "editar">Editar</button>
-            <button type="button" onclick="location.href='admin-artist.html'" class="btn btn-default">Voltar</button>
-            
+                <textarea name="descricao" rows="4" id="descricao" class="form-control-plaintext" readonly="true" style="font-weight:bold"></textarea>   
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn btn-warning" onclick="location.href='edit-artist.html'" id = "editar">Editar</button>
+                <button type="button" onclick="location.href='admin-artist.html'" class="btn btn-default">Voltar</button>
+            </div>
         </form>
     </main>
+    
     <!--Footer-->
     <footer class="page-footer font-small blue pt-4 mt-4 bg-dark">
 

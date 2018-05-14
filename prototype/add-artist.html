@@ -96,7 +96,7 @@
         </nav>
     </header>
 
-    <main class="container pt-3 row mx-auto"> 
+    <main class="container pt-3 mx-auto"> 
         <div class="row container">
             <h1>Inserir Banda</h1>
         </div>
@@ -105,29 +105,34 @@
         </div>
     
         <form>
-            <br>
-            <label class="alinhar">Nome:<obrigatorio>*</obrigatorio></label>
-            <input name="nome" type="text" id="name">
-            <br><br>
-            <label class="alinhar"> Data de Fundação:<obrigatorio>*</obrigatorio></label>
-            <input name="data" type="date" min="1889-01-01" id="data">
-            <br><br>  
+            <div class="form-group">
+                <label class="alinhar">Nome:<obrigatorio>*</obrigatorio></label>
+                <input name="nome" type="text" id="name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="alinhar"> Data de Fundação:<obrigatorio>*</obrigatorio></label>
+                <input name="data" type="date" min="1889-01-01" id="data" class="form-control">
+            </div>  
+               <div class="form-group">
                 <label class="alinhar">Gênero 1:<obrigatorio>*</obrigatorio></label>
-            <input name="genero1" type="text" id="genero1">
-            <br><br>
+            <input name="genero1" type="text" id="genero1" class="form-control">
+            </div>
+            <div class="form-group">
                 <label class="alinhar">Gênero 2:</label>
-            <input name="genero2" type="text" id="genero2">
-            <br><br>
+                <input name="genero2" type="text" id="genero2" class="form-control">
+            </div>
+            <div class="form-group">
                 <label class="alinhar">Descrição:</label>
-            <input name="descricao" type="text" style="height: 100px" id="descricao">
-            <br><br>
-             <button type="submit" class="btn btn-success">Inserir</button>
-            <button type="button" class="btn btn btn-warning" onclick="limparTudo()" id="limpar">Limpar</button>
-            <button type="button" onclick="location.href='admin-artist.html'" class="btn btn-default">Voltar</button>
+                <textarea name="descricao" rows="4" id="descricao" class="form-control"></textarea>   
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">Inserir</button>
+                <button type="button" class="btn btn btn-warning" onclick="limparTudo()" id="limpar">Limpar</button>
+                <button type="button" onclick="location.href='admin-artist.html'" class="btn btn-default">Voltar</button>
             <!--<input name="enviar" type="submit" value="Enviar" style="width: auto" id= "enviar">-->
             <!--<button type="button btn btn-warning" onclick="limparTudo()" id = "limpar">Limpar</button>-->
             <!--<button type="button" onclick="location.href='admin-release.html'" id = "voltar">Voltar</button>-->
-            
+            </div>
         </form>
     </main>
 

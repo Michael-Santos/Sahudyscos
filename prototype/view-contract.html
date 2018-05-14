@@ -59,20 +59,22 @@
         </nav>
     </header>
 
-    <main class="container pt-3 row mx-auto"> 
+    <main class="container pt-3 mx-auto"> 
         <div class="row container">
             <h1>Visualizar Contrato</h1>
         </div>
         <form>
-            <br>
+            <div class="form-group">
             <label class="alinhar">Banda:</label>
-            <input name="banda" type="text" id="banda" value="Wesley Safadão" readonly="true">
-            <br><br>
+                <input name="banda" type="text" id="banda" value="Wesley Safadão" class="form-control-plaintext" readonly="true" style="font-weight:bold">
+            </div>
+            <div class="form-group">
             <label class="alinhar">Gravadora:</label>
-            <input name="gravadora" type="text" id="gravadora" value="Som Livre" readonly = "true">
-            <br><br>
-            <button type="button" onclick="location.href='admin-contract.html'" class="btn btn-default">Voltar</button>
-            
+                <input name="gravadora" type="text" id="gravadora" value="Som Livre" class="form-control-plaintext" readonly="true" style="font-weight:bold">
+            </div>
+            <div class="form-group">
+                <button type="button" onclick="location.href='admin-contract.html'" class="btn btn-default">Voltar</button>
+            </div>
         </form>
     </main>
     <!--Footer-->

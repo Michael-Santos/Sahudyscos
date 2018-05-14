@@ -53,44 +53,52 @@
             </button>
         </nav>
     </header>
-
-    <main class="container pt-3 row mx-auto"> 
+    
+    <main class="container pt-3 mx-auto"> 
         <div class="row container">
             <h1>Visualizar Gravadora</h1>
         </div>
         <form>
-            <br>
-            <label class="alinhar">Nome:</label>
-            <input name="nome" type="text" id="name" value="Som Livre" readonly="true">
-            <br><br>
-                
+            <div class="form-group">
+                <label class="alinhar">Nome:</label>
+                <input name="nome" type="text" id="name" class="form-control-plaintext" readonly="true" style="font-weight:bold" value="Som Livre">
+            </div>
+            <div class="form-group">
                 <label class="alinhar">E-mail:</label>
-            <input name="email" type="email" id="email" value="contact@tuffgong.com" readonly="true">
-            <br><br>
+                <input name="email" type="email" id="email" class="form-control-plaintext" readonly="true" style="font-weight:bold" placeholder="exemplo@exemplo.com" value="contact@tuffgong.com">
+            </div>
+            <div class="form-group">
                 <label class="alinhar"> Data de Fundação:</label>
-            <input name="data" type="date" min="1889-01-01" id="data" value="1969-01-01" readonly="true">
-            <br><br>
-               <label class="alinhar">Bandas:</label>
-            <input name="bandas" type="text" id="bandas" value="Wesley Safadão" readonly="true">
-            <br><br>    
+                <input name="data" type="date" min="1889-01-01" id="data" class="form-control-plaintext" readonly="true" style="font-weight:bold" value="1969-01-01">
+            </div>
+            <div class="form-group">
+                <label class="alinhar">Bandas:</label>
+                <input name="bandas" type="text" id="bandas" class="form-control-plaintext" readonly="true" style="font-weight:bold" value="Wesley Safadão">
+            </div>
+            <div class="form-group">    
                 <label class="alinhar">Gênero 1:</label>
-            <input name="genero1" type="text" id="genero1" value="Forró" readonly="true">
-            <br><br>
+                <input name="genero1" type="text" id="genero1" class="form-control-plaintext" readonly="true" style="font-weight:bold" value="Forró">
+            </div>
+            <div class="form-group">
                 <label class="alinhar">Gênero 2:</label>
-            <input name="genero2" type="text" id="genero2" readonly="true">
-            <br><br>
-               <label class="alinhar">Telefone 1:</label>
-                <input name="telefone1" type="tel" id="telefone1" value="+551123888243" readonly="true">
-            <br><br>
+                <input name="genero2" type="text" id="genero2" class="form-control-plaintext" readonly="true" style="font-weight:bold">
+            </div>
+            <div class="form-group">
+                <label class="alinhar">Telefone 1:</label>
+                <input name="telefone1" type="tel" id="telefone1" class="form-control-plaintext" readonly="true" style="font-weight:bold" value="+551123888243">
+            </div>
+            <div class="form-group">
                 <label class="alinhar">Telefone 2:</label>
-            <input name="telefone2" type="tel" id="telefone2" readonly="true">
-            <br><br>
-            <button type="button" class="btn btn btn-warning" onclick="location.href='edit-label.html'" id = "editar">Editar</button>
-            <button type="button" onclick="location.href='admin-label.html'" class="btn btn-default">Voltar</button>
-            
+                <input name="telefone2" type="tel" id="telefone2" class="form-control-plaintext" readonly="true" style="font-weight:bold">
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn btn-warning" onclick="location.href='edit-label.html'" id = "editar">Editar</button>
+                <button type="button" onclick="location.href='admin-label.html'" class="btn btn-default">Voltar</button>
+            </div> 
         </form>
-    </main>
-    <!--Footer-->
+    </main>    
+    
+        <!--Footer-->
     <footer class="page-footer font-small blue pt-4 mt-4 bg-dark">
 
         <!--Copyright-->

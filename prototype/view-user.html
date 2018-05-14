@@ -62,19 +62,22 @@
             <h1>Visualizar Usuário</h1>
         </div>
         <form>
-            <br>
-            <label class="alinhar">Nome Completo:</label>
-            <input name="nomePessoal" type="text" id="namePerson" value="Jose Rodrigues" readonly="true">
-            <br><br>
-            <label class="alinhar">Nome de Usuário:</label>
-            <input name="nome" type="text" id="name" value="JoseRdrgs" readonly="true">
-            <br><br>
+            <div class="form-group">
+                <label class="alinhar">Nome Completo:</label>
+                <input name="nomePessoal" type="text" id="namePerson" value="Jose Rodrigues" class="form-control-plaintext" readonly="true" style="font-weight:bold">
+            </div>
+            <div class="form-group">
+                <label class="alinhar">Nome de Usuário:</label>
+                <input name="nome" type="text" id="name" value="JoseRdrgs" class="form-control-plaintext" readonly="true" style="font-weight:bold">
+            </div>
+            <div class="form-group">
                 <label class="alinhar">E-mail:</label>
-            <input name="email" type="email" id="email" value="jose.rodrigues@gmail.com" readonly="true">
-            <br><br>
-          <button type="button" class="btn btn btn-warning" onclick="location.href='edit-user.html'" id = "editar">Editar</button>
-            <button type="button" onclick="location.href='admin-user.html'" class="btn btn-default">Voltar</button>
-            
+                <input name="email" type="email" id="email" value="jose.rodrigues@gmail.com" class="form-control-plaintext" readonly="true" style="font-weight:bold">
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn btn-warning" onclick="location.href='edit-user.html'" id = "editar">Editar</button>
+                <button type="button" onclick="location.href='admin-user.html'" class="btn btn-default">Voltar</button>
+            </div>
         </form>
     </main>
     <!--Footer-->

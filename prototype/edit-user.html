@@ -148,40 +148,46 @@
         </nav>
     </header>
 
-    <main class="container pt-3 row mx-auto"> 
+     <main class="container pt-3 mx-auto"> 
         <div class="row container">
-            <h1>Editar Usuário</h1>
+            <h1>Inserir Usuário</h1>
         </div>
         <div class="row container">
             <obrigatorio>campos marcados com "*" são obrigatórios</obrigatorio>
         </div>
         <form>
-            <br>
-            <label class="alinhar">Nome Completo:<obrigatorio>*</obrigatorio></label>
-            <input name="nomePessoal" type="text" id="namePerson" value="Jose Rodrigues">
-            <br><br>
-            <label class="alinhar">Nome de Usuário:<obrigatorio>*</obrigatorio></label>
-            <input name="nome" type="text" id="name" value="JoseRdrgs" readonly="true">
-            <br><br>
-                
+            <div class="form-group">
+                <label for="realName">Nome Completo:<obrigatorio>*</obrigatorio></label>
+                <input type="text" id="realName" class="form-control" value="Jose Rodrigues">
+            </div>
+            <div class="form-group">
+                <label for="username">Nome de Usuário:<obrigatorio>*</obrigatorio></label>
+                <input type="text" id="name" class="form-control-plaintext" value="JoseRdrgs" readonly="true">
+            </div>
+            <div class="form-group">
                 <label class="alinhar">E-mail:<obrigatorio>*</obrigatorio></label>
-            <input name="email" type="email" id="email" value="jose.rodrigues@gmail.com">
-            <br><br>
-            <label class="alinhar">Repita o E-mail:<obrigatorio>*</obrigatorio></label>
-            <input name="email2" type="email" id="email2" value="jose.rodrigues@gmail.com">
-            <br><br>
+                <input type="email" id="email" class="form-control" value="jose.rodrigues@gmail.com">
+            </div>
+            <div class="form-group">
+                <label class="alinhar">Repita o E-mail:<obrigatorio>*</obrigatorio></label>
+                <input type="email" id="emailConfirmation" class="form-control" value="jose.rodrigues@gmail.com">
+            </div>
+            <div class="form-group">
                 <label class="alinhar">Senha:<obrigatorio>*</obrigatorio></label>
-            <input name="senha" type="password" id="senha">
-            <br><br>
-            <label class="alinhar">Repita a Senha:<obrigatorio>*</obrigatorio></label>
-            <input name="senha2" type="password" id="senha2">
-            <br><br>
-            <button type="submit" class="btn btn-success">Inserir</button>
-            <button type="button" class="btn btn btn-warning" onclick="limparTudo()" id="limpar">Limpar</button>
-            <button type="button" onclick="location.href='admin-user.html'" class="btn btn-default">Voltar</button>    
-            
+                <input type="password" id="password" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="alinhar">Repita a Senha:<obrigatorio>*</obrigatorio></label>
+                <input type="password" id="passwordConfirmation" class="form-control">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">Inserir</button>
+                <button type="button" class="btn btn btn-warning" onclick="limparTudo()" id="limpar">Limpar</button>
+                <button type="button" onclick="location.href='admin-user.html'" class="btn btn-default">Voltar</button>
+            </div>
         </form>
     </main>
+    
     <!--Footer-->
     <footer class="page-footer font-small blue pt-4 mt-4 bg-dark">
 

@@ -90,7 +90,7 @@
         </nav>
     </header>
 
-    <main class="container pt-3 row mx-auto"> 
+    <main class="container pt-3 mx-auto"> 
         <div class="row container">
             <h1>Inserir Contrato</h1>
         </div>
@@ -98,17 +98,19 @@
             <obrigatorio>campos marcados com "*" são obrigatórios</obrigatorio>
         </div>
         <form>
-            <br>
-            <label class="alinhar">Banda:<obrigatorio>*</obrigatorio></label>
-            <input name="banda" type="text" id="banda">
-            <br><br>
-            <label class="alinhar">Gravadora:<obrigatorio>*</obrigatorio></label>
-            <input name="gravadora" type="text" id="gravadora">
-            <br><br>
-            <button type="submit" class="btn btn-success">Inserir</button>
-            <button type="button" class="btn btn btn-warning" onclick="limparTudo()" id="limpar">Limpar</button>
-            <button type="button" onclick="location.href='admin-contract.html'" class="btn btn-default">Voltar</button>
-            
+            <div class="form-group">
+                <label class="alinhar">Banda:<obrigatorio>*</obrigatorio></label>
+                <input name="banda" type="text" id="banda" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="alinhar">Gravadora:<obrigatorio>*</obrigatorio></label>
+                <input name="gravadora" type="text" id="gravadora" class="form-control">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">Inserir</button>
+                <button type="button" class="btn btn btn-warning" onclick="limparTudo()" id="limpar">Limpar</button>
+                <button type="button" onclick="location.href='admin-contract.html'" class="btn btn-default">Voltar</button>
+            </div>
         </form>
     </main>
     <!--Footer-->
