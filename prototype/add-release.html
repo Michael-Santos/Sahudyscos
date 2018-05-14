@@ -129,7 +129,7 @@
         </nav>
     </header>
 
-    <main class="container pt-3 row mx-auto"> 
+    <main class="container pt-3 mx-auto"> 
         <div class="row container">
             <h1>Inserir Versão</h1>
         </div>
@@ -137,54 +137,64 @@
             <obrigatorio>campos marcados com "*" são obrigatórios</obrigatorio>
         </div>
         <form>
-            <br>
-            <label class="alinhar">Código de Barras:<obrigatorio>*</obrigatorio></label>
-            <input name="cod_barras" type="number" id="cod_barras">
-            <br><br>
-            <label class="alinhar">Código de Álbum:<obrigatorio>*</obrigatorio></label>
-            <input name="cod_album" type="number" id="cod_album">
-            <br><br>
-            <label class="alinhar">Código de Gravadora:<obrigatorio>*</obrigatorio></label>
-            <input name="cod_gravadora" type="number" id="cod_gravadora">
-            <br><br>
-            <label class="alinhar">Formato:<obrigatorio>*</obrigatorio></label>
-            <select name="formato" id="dropDownFormato" >
-                <option value="None" selected="cd">Selecione o formato</option>
-                <option>VHS</option>
-                <option>Vinil</option>
-                <option>CD</option>
-            </select>
-            <br><br>
-            <label class="alinhar">Tipo da versão:<obrigatorio>*</obrigatorio></label>
-            <input name="tipo_versao" type="text" id="tipo_versao">
-            <br><br>
-            <label class="alinhar">Preço(R$):<obrigatorio>*</obrigatorio></label>
-            <input name="preco" type="number" id="preco">
-            <br><br>
-            <label class="alinhar">Quantidade Vendida:<obrigatorio>*</obrigatorio></label>
-            <input name="quantidade_vendida" type="number" id="quantidade_vendida">
-            <br><br>
-            <label class="alinhar">Quantidade Disponível:<obrigatorio>*</obrigatorio></label>
-            <input name="quantidade_disponivel" type="number" id="quantidade_disponivel">
-            <br><br>
-            <label class="alinhar">Promoção:<obrigatorio>*</obrigatorio></label>
-            <span>
-                <input type="radio" name="promocao" id="sim" style= "width:auto"  checked>
-                <label>Sim</label>
-                <input type="radio" name="promocao" id="nao" style= "width:auto">
-                <label>Não</label>
-            </span>
-            <br><br>
-            <label class="alinhar"> Data de Lançamento:<obrigatorio>*</obrigatorio></label>
-            <input name="data" type="date" min="1889-01-01" id="data">
-            <br><br>  
-            <button type="submit" class="btn btn-success">Inserir</button>
+            <div class="form-group">
+                <label class="alinhar">Código de Barras:<obrigatorio>*</obrigatorio></label>
+                <input type="number" id="cod_barras" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="alinhar">Código de Álbum:<obrigatorio>*</obrigatorio></label>
+                <input type="number" id="cod_album" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="alinhar">Código de Gravadora:<obrigatorio>*</obrigatorio></label>
+                <input type="number" id="cod_gravadora" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="alinhar">Formato:<obrigatorio>*</obrigatorio></label>
+                <select id="dropDownFormato" class="form-control">
+                    <option value="None" selected="cd">Selecione o formato</option>
+                    <option>VHS</option>
+                    <option>Vinil</option>
+                    <option>CD</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="alinhar">Tipo da versão:<obrigatorio>*</obrigatorio></label>
+                <input type="text" id="tipo_versao" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="alinhar">Preço(R$):<obrigatorio>*</obrigatorio></label>
+                <input type="number" id="preco" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="alinhar">Quantidade Vendida:<obrigatorio>*</obrigatorio></label>
+                <input type="number" id="quantidade_vendida" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="alinhar">Quantidade Disponível:<obrigatorio>*</obrigatorio></label>
+                <input type="number" id="quantidade_disponivel" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="alinhar">Promoção:<obrigatorio>*</obrigatorio></label>
+                <span>
+                    <input type="radio" id="sim" style= "width:auto"  checked>
+                    <label>Sim</label>
+                    <input type="radio" id="nao" style= "width:auto">
+                    <label>Não</label>
+                </span>
+            </div>
+            <div class="form-group">
+                <label class="alinhar"> Data de Lançamento:<obrigatorio>*</obrigatorio></label>
+                <input type="date" min="1889-01-01" id="data" class="form-control">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">Inserir</button>
                 <button type="button" class="btn btn btn-warning" onclick="limparTudo()" id="limpar">Limpar</button>
                 <button type="button" onclick="location.href='admin-release.html'" class="btn btn-default">Voltar</button>
             <!--<input name="enviar" type="submit" value="Enviar" style="width: auto" id= "enviar">-->
             <!--<button type="button btn btn-warning" onclick="limparTudo()" id = "limpar">Limpar</button>-->
             <!--<button type="button" onclick="location.href='admin-release.html'" id = "voltar">Voltar</button>-->
-            
+            </div>
         </form>
     </main>
     <!--Footer-->
