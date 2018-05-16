@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Álbum</title>
+    <div th:replace="fragments/layout :: common-head">
+    </div>
+</head>
+<body>
+    <header th:replace="fragments/layout :: header-result">
+    </header>
+
+    <main class="py-3">
+        <div class="container-fluid">
+        <div class="row">
+            <section class="col">
+                <div class="row">
+                    <div class="col">
+                        <img class="card-img-top img-thumbnail" src="cover/R-9674533-1484572870-4744.jpeg" alt="Card image cap">
+                    </div>
+                    <div class="col">
+                        <h2><a href="artist.html">Wesley Safadão</a> - Duetos </h2>
+                                <li class="list-group-item">
+                                    <h5>País</h5> 
+                                    <p class="mb-1">Brasil</p>
+                                </li>
+                                <li class="list-group-item">
+                                    <h5>Lançamento</h5> 
+                                    <p class="mb-1">2016</p>
+                                </li>
+                                <li class="list-group-item">
+                                    <h5>Gênero</h5> 
+                                    <p class="mb-1">Axé</p>
+                                </li>
+                        </ul>
+                        <h4>Descrição:</h4>
+                        <p class="mb-1">Duetos é uma coletânea do cantor brasileiro Wesley Safadão. Foi lançada em 22 de julho de 2016 pela Som Livre nos formatos CD e download digital. O álbum reúne parcerias que o cantor fez, tanto da época Garota Safada, quanto na sua carreira solo.</p>
+                    </div>
+                </div>
+
+            </section>
+            <aside class="col-4">
+                <div class="container">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <h2>Avaliação Média</h2>
+                        <h4 class="mb-1 alert">5,0/5,0</h4>
+                    </li>
+                </ul>
+            </div>
+            </aside>
+        </div>
+    </div>
+    </main>
+
+    <section>
+        <div class="container-fluid">
+            <h1>Versões</h1>
+            <table class="table table-striped" cellspacing="0" cellpadding="0">
+                <thead>
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Versão</th>
+                        <th scope="col">Formato</th>
+                        <th scope="col">Ano de Lançamento</th>
+                        <th scope="col">Preço</th>
+                     </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row"><a href="release.html">Duetos</a></th>
+                        <td>Original</td>
+                        <td>CD</td>
+                        <td>2016</td>
+                        <td><a href="release.html"><button type="button" class="btn btn-success">R$90,00</button></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <footer th:replace="fragments/layout :: footer">
+    </footer>
+</body>
+</html>

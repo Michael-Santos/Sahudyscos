@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Gravadora</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar justify-content-center navbar-expand-lg navbar-dark bg-dark">
+              
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <a class="navbar-brand justify-content-start" href="index.html"><img src="logo/logo.png" alt=""></a>
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item-active">
+                        <form class="form-inline my-2 my-md-0">
+                            <div class="input-group">
+                                <input class="form-control" type="search" placeholder="Pesquisar" aria-label="Search" aria-describedby="basic-addon1">
+                                <div class="input-group-append">
+                                    <select class="custom-select" id="sel1"> <!-- Podemos tirar isso mas vai ficar difícil pra caramba de fazer consulta -->
+                                        <option>Banda</option>
+                                        <option>Álbum</option>
+                                        <option>Versão</option>
+                                        <option>Gravadora</option>
+                                    </select>
+                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+                                </div>
+                                
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item my-2">
+                        <a class="nav-link" href="signup.html">Registrar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html"><button class="btn btn-success">Login</button></a>
+                    </li>
+                </ul>
+            </div>
+
+            <button class="navbar-toggler justify-content-end" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+    </header>
+
+    <main class="container py-3">
+        <h2>Som Livre</h2>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <h5>Fundação</h5>
+                <p class="mb-1">1969</p>
+            </li>
+            <li class="list-group-item">
+                <h5>Descrição</h5>
+                <p class="mb-1">A Som Livre é uma gravadora musical brasileira. Foi fundada em 1969 com a finalidade de desenvolver e comercializar trilhas sonoras de novelas produzidas pela Rede Globo, e pertenceu a SIGLA (Sistema Globo de Gravações Audiovisuais Ltda) e atualmente pertence a Globo Comunicação e Participações S.A. Seu fundador é o produtor musical João Araújo.</p>
+            </li>
+            <li class="list-group-item">
+                <h5>Gêneros</h5>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <p class="mb-1">Trilhas Sonoras</p>
+                    </li>
+                    <li class="list-group-item">
+                        <p class="mb-1">Vários</p>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </main>
+
+    <section class="container-fluid">
+        <h5>Álbuns</h5>
+        <table class="table table-striped" cellspacing="0" cellpadding="0">
+                <thead>
+                    <tr>
+                        <th scope="col">Banda</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">País</th>
+                        <th scope="col">Ano de Lançamento</th>
+                        <th scope="col">Avaliação</th>
+                     </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row"><a href="artist.html">Wesley Safadão</a></th>
+                        <td><a href="album.html">Duetos</a></td>
+                        <td>Brasil</td>
+                        <td>2016</td>
+                        <td>5,0/5,0</td>
+                    </tr>
+                </tbody>
+        </table>
+    </section>
+
+
+    <!--Footer-->
+    <footer class="page-footer font-small blue pt-4 mt-4 bg-dark">
+
+        <!--Copyright-->
+        <div class="footer-copyright text-center">
+            © 2018 Copyright: Sahudyscos
+        </div>
+        <!--/.Copyright-->
+
+    </footer>
+    <!--/.Footer-->
+</body>
+</html>
