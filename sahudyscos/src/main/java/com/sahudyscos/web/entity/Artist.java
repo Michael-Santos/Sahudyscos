@@ -1,0 +1,98 @@
+package com.sahudyscos.web.entity;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+@Entity // This tells Hibernate to make a table out of this class
+@Table(name = "banda")
+public class Artist {
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "cod_banda")
+    private Long id;
+
+    @Column(name = "nome")
+    private String name; 
+    @Column(name = "descricao")
+    private String description;
+    @Column(name = "genero1")
+    private String genre;
+    @Column(name = "genero2")
+    private String altGenre;
+
+    @Column(name = "data_fundacao")
+    private Date activityStart;
+
+    @ManyToMany(mappedBy = "artists")
+    private List<Album> albums = new ArrayList<>();
+
+    @ManyToMany(cascade = { 
+        CascadeType.PERSIST, 
+        CascadeType.MERGE
+    })
+    @JoinTable(name = "contrato",
+        joinColumns = @JoinColumn(name = "cod_banda"),
+        inverseJoinColumns = @JoinColumn(name = "cod_gravadora")
+    )
+    private List<Label> labelsContracted = new ArrayList<>();
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+    }
+
+    public String getDescription() {
+		return description;
+    }
+    
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getGenre() {
+		return genre;
+    }
+    
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public String getAltGenre() {
+		return altGenre;
+    }
+    
+    public void setAltGenre(String altGenre) {
+        this.altGenre = altGenre;
+    }
+
+    public List<Album> getAlbums() {
+        return albums;
+    }
+
+    public void setAlbums(List<Album> albums) {
+        this.albums = albums;
+    }
+}

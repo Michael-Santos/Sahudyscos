@@ -18,14 +18,16 @@
                         <img class="card-img-top img-thumbnail" src="cover/R-9674533-1484572870-4744.jpeg" alt="Card image cap">
                     </div>
                     <div class="col">
-                        <h2><a href="artist.html">Wesley Safadão</a> - Duetos </h2>
+                        <a th:each="artist,iterStat : ${artists}" th:href="@{/artist(id=${artist.id})}"><h2 th:text="${artist.name}"></h2></a>
+                        <hr/>
+                        <h2 th:text="${name}" />
                                 <li class="list-group-item">
                                     <h5>País</h5> 
-                                    <p class="mb-1">Brasil</p>
+                                    <p class="mb-1" th:text="${country}"/>
                                 </li>
                                 <li class="list-group-item">
                                     <h5>Lançamento</h5> 
-                                    <p class="mb-1">2016</p>
+                                    <p class="mb-1" th:text="${publication}"/>
                                 </li>
                                 <li class="list-group-item">
                                     <h5>Gênero</h5> 
@@ -43,7 +45,7 @@
                 <ul class="list-group">
                     <li class="list-group-item">
                         <h2>Avaliação Média</h2>
-                        <h4 class="mb-1 alert">5,0/5,0</h4>
+                        <h4 class="mb-1 alert" th:text="${rating}"/>
                     </li>
                 </ul>
             </div>
@@ -66,12 +68,12 @@
                      </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row"><a href="release.html">Duetos</a></th>
-                        <td>Original</td>
-                        <td>CD</td>
-                        <td>2016</td>
-                        <td><a href="release.html"><button type="button" class="btn btn-success">R$90,00</button></a></td>
+                    <tr th:each="release : ${releases}">
+                        <th scope="row"><a th:href="@{/release(id=${release.id})}" th:text="${name}"></a></th>
+                        <td th:text="${release.type}"></td>
+                        <td th:text="${release.format}"></td>
+                        <td th:text="${release.releaseDate}"></td>
+                        <td><a th:href="@{/release(id=${release.id})}"><button type="button" class="btn btn-success" th:text="'R$' + ${release.price}"></button></a></td>
                     </tr>
                 </tbody>
             </table>

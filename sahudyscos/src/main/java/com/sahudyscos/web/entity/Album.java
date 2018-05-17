@@ -2,92 +2,150 @@ package com.sahudyscos.web.entity;
 
 import java.net.URL;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.NaturalId;
 
 @Entity // This tells Hibernate to make a table out of this class
+@Table(name = "album")
 public class Album {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Long cod_album;
+    @Column(name = "cod_album")
+    private Long id;
 
-    private String nome, pais, descricao, genero1, genero2;
-    private Float avaliacao;
-    private URL capa;
-    private Date data_publicacao;
+    @ManyToMany(cascade = { 
+        CascadeType.PERSIST, 
+        CascadeType.MERGE
+    })
+    @JoinTable(name = "gravacao",
+        joinColumns = @JoinColumn(name = "cod_album"),
+        inverseJoinColumns = @JoinColumn(name = "cod_banda")
+    )
+    private List<Artist> artists = new ArrayList<>();
 
-	public Long getCodAlbum() {
-		return cod_album;
+    @OneToMany(mappedBy = "album")
+    private List<Release> releases = new ArrayList<>();
+
+    @NaturalId
+    @Column(name = "nome")
+    private String name; 
+    @Column(name = "pais")
+    private String country;
+    @Column(name = "descricao")
+    private String description;
+    @Column(name = "genero1")
+    private String genre;
+    @Column(name = "genero2")
+    private String altGenre;
+
+    @Column(name = "avaliacao")
+    private Float rating;
+
+    @Column(name = "capa")
+    private URL cover;
+
+    @Column(name = "data_publicacao")
+    private Date publication;
+
+	public Long getId() {
+		return id;
 	}
 
-	public void setCodAlbum(Long cod_album) {
-		this.cod_album = cod_album;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String name) {
+		this.name = name;
     }
 
-    public String getPais() {
-		return pais;
+    public String getCountry() {
+		return country;
     }
     
-    public void setPais(String pais) {
-        this.pais = pais;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
-    public String getDescricao() {
-		return descricao;
+    public String getDescription() {
+		return description;
     }
     
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getGenero1() {
-		return genero1;
+    public String getGenre() {
+		return genre;
     }
     
-    public void setGenero1(String genre) {
-        this.genero1 = genre;
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
-    public String getGenero2() {
-		return genero2;
+    public String getAltGenre() {
+		return altGenre;
     }
     
-    public void setGenero2(String genero2) {
-        this.genero2 = genero2;
+    public void setAltGenre(String altGenre) {
+        this.altGenre = altGenre;
     }
 
-    public Float getAvaliacao() {
-		return avaliacao;
+    public Float getRating() {
+		return rating;
     }
     
-    public void setAvaliacao(Float avaliacao) {
-        this.avaliacao = avaliacao;
+    public void setRating(Float rating) {
+        this.rating = rating;
     }
     
-    public URL getCapa() {
-		return capa;
+    public URL getCover() {
+		return cover;
     }
     
-    public void setCapa(URL capa) {
-        this.capa = capa;
+    public void setCover(URL cover) {
+        this.cover = cover;
     }
 
-    public Date getPublicacao() {
-		return data_publicacao;
+    public Date getPublication() {
+		return publication;
     }
     
-    public void setPublicacao(Date data_publicacao) {
-        this.data_publicacao = data_publicacao;
+    public void setPublication(Date publication) {
+        this.publication = publication;
+    }
+
+    public List<Artist> getArtists() {
+        return artists;
+    }
+
+    public void setArtists(List<Artist> artists) {
+        this.artists = artists;
+    }
+
+    public List<Release> getReleases() {
+        return releases;
+    }
+
+    public void setReleases(List<Release> releases) {
+        this.releases = releases;
     }
 }
