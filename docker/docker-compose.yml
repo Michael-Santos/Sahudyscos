@@ -1,0 +1,22 @@
+version: "3"
+services:
+
+  php-apache:
+    build: .
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:      
+      - ./www:/var/www/html
+    
+    links: 
+      - postgres 
+    env_file: .env
+   
+  postgres:
+    image: postgres:10
+    ports:
+      - "5432:5432"
+    volumes:
+      - /var/lib/postgresql
+    env_file: .env
