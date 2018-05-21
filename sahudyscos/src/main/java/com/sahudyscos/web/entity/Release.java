@@ -25,6 +25,8 @@ import javax.persistence.Table;
 import com.sahudyscos.web.entity.key.ReleaseId;
 
 import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name = "versao")
@@ -40,8 +42,9 @@ public class Release {
     private Long albumId;
 
     @ManyToOne(fetch=FetchType.LAZY)
+    @NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(name = "cod_album", insertable = false, updatable = false)
-    private Album album = new Album();
+    private Album album;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="cod_gravadora")
