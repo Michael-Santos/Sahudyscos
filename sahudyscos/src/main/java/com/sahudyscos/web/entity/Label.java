@@ -86,6 +86,14 @@ public class Label {
         this.altGenre = altGenre;
     }
 
+    public Date getActivityStart() {
+        return activityStart;
+    }
+
+    public void setActivityStart(Date activityStart) {
+        this.activityStart = activityStart;
+    }
+
     public String getPhone() {
 		return phone;
     }
@@ -100,5 +108,13 @@ public class Label {
     
     public void setAltPhone(String altPhone) {
         this.altPhone = altPhone;
+    }
+
+    public List<Release> getReleases() {
+        return releases;
+    }
+
+    public void setReleases(List<Release> releases) {
+        this.releases = releases;
     }
 }

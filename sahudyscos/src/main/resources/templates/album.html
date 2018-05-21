@@ -69,11 +69,11 @@
                 </thead>
                 <tbody>
                     <tr th:each="release : ${releases}">
-                        <th scope="row"><a th:href="@{/release(id=${release.id})}" th:text="${name}"></a></th>
+                        <th scope="row"><a th:href="@{/release(id=${release.id},album=${id})}" th:text="${name}"></a></th>
                         <td th:text="${release.type}"></td>
                         <td th:text="${release.format}"></td>
                         <td th:text="${release.releaseDate}"></td>
-                        <td><a th:href="@{/release(id=${release.id})}"><button type="button" class="btn btn-success" th:text="'R$' + ${release.price}"></button></a></td>
+                        <td><a th:href="@{/release(id=${release.id},album=${id})}"><button type="button" class="btn btn-success" th:text="'R$' + ${release.price}"></button></a></td>
                     </tr>
                 </tbody>
             </table>

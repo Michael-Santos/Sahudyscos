@@ -32,6 +32,7 @@ public class AlbumController {
 
         currentAlbum = albumRepository.findById(id.longValue());
 
+        model.addAttribute("id", id);
         model.addAttribute("name", currentAlbum.get().getName());
         model.addAttribute("country", currentAlbum.get().getCountry());
         model.addAttribute("publication", currentAlbum.get().getPublication());

@@ -88,6 +88,14 @@ public class Artist {
         this.altGenre = altGenre;
     }
 
+    public Date getActivityStart() {
+        return activityStart;
+    }
+
+    public void setActivityStart(Date activityStart) {
+        this.activityStart = activityStart;
+    }
+
     public List<Album> getAlbums() {
         return albums;
     }

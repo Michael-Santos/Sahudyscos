@@ -22,6 +22,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.sahudyscos.web.entity.key.ReleaseId;
+
 import org.hibernate.annotations.NaturalId;
 
 @Entity // This tells Hibernate to make a table out of this class
@@ -37,9 +39,9 @@ public class Release {
     @Column(name = "cod_album")
     private Long albumId;
 
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "cod_album", insertable = false, updatable = false)
-    private Album album;
+    private Album album = new Album();
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="cod_gravadora")
@@ -143,11 +145,4 @@ public class Release {
         this.label = label;
     }
     
-}
-
-@Embeddable
-class ReleaseId implements Serializable {
-    private static final long serialVersionUID = 1L;
-	Long id;
-    Long albumId;
 }
