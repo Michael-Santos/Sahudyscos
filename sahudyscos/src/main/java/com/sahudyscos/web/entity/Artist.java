@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name = "banda")
@@ -35,18 +38,21 @@ public class Artist {
     @Column(name = "data_fundacao")
     private Date activityStart;
 
-    @ManyToMany(mappedBy = "artists")
-    private List<Album> albums = new ArrayList<>();
+    @ManyToMany(mappedBy = "artists", fetch=FetchType.LAZY)
+    @JsonIgnore
+    private List<Album> albums;
 
     @ManyToMany(cascade = { 
         CascadeType.PERSIST, 
         CascadeType.MERGE
-    })
+    },
+    fetch=FetchType.LAZY)
     @JoinTable(name = "contrato",
         joinColumns = @JoinColumn(name = "cod_banda"),
         inverseJoinColumns = @JoinColumn(name = "cod_gravadora")
     )
-    private List<Label> labelsContracted = new ArrayList<>();
+    @JsonIgnore
+    private List<Label> labelsContracted;
 
 	public Long getId() {
 		return id;

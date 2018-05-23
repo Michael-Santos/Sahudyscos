@@ -60,3 +60,7 @@ obrigatorio{
     font-size: small;
     font-style: italic;
 }
+
+.readonly {
+	font-weight:bold;
+}

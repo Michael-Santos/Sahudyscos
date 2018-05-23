@@ -6,12 +6,15 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.hibernate.annotations.NaturalId;
 
@@ -40,11 +43,13 @@ public class Label {
     @Column(name = "data_fundacao")
     private Date activityStart;
 
-    @ManyToMany(mappedBy = "labelsContracted")
-    private List<Artist> artistsContracted = new ArrayList<>();
+    @ManyToMany(mappedBy = "labelsContracted", fetch=FetchType.LAZY)
+    @JsonIgnore
+    private List<Artist> artistsContracted;
 
-    @OneToMany(mappedBy = "label")
-    private List<Release> releases = new ArrayList<>();
+    @OneToMany(mappedBy = "label", fetch=FetchType.LAZY)
+    @JsonIgnore
+    private List<Release> releases;
 
 	public Long getId() {
 		return id;

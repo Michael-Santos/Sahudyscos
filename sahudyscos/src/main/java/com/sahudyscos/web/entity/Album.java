@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,6 +17,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.hibernate.annotations.NaturalId;
 
@@ -30,15 +33,18 @@ public class Album {
     @ManyToMany(cascade = { 
         CascadeType.PERSIST, 
         CascadeType.MERGE
-    })
+    },
+    fetch=FetchType.LAZY)
     @JoinTable(name = "gravacao",
         joinColumns = @JoinColumn(name = "cod_album"),
         inverseJoinColumns = @JoinColumn(name = "cod_banda")
     )
-    private List<Artist> artists = new ArrayList<>();
+    @JsonIgnore
+    private List<Artist> artists;
 
-    @OneToMany(mappedBy = "album")
-    private List<Release> releases = new ArrayList<>();
+    @OneToMany(mappedBy = "album", fetch=FetchType.LAZY)
+    @JsonIgnore
+    private List<Release> releases;
 
     @NaturalId
     @Column(name = "nome")

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sahudyscos.web.entity.Album;
 import com.sahudyscos.web.entity.Artist;
 import com.sahudyscos.web.entity.Recording;

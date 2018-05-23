@@ -9,23 +9,6 @@ public class HomeController {
     @GetMapping("/")
     public String home() {
         return "index";
-    }
-
-    /*@GetMapping("/album")
-    public String album() {
-        return "album";
-    }
-
-    @GetMapping("/artist")
-    public String artist() {
-        return "artist";
-    }
-
-    @GetMapping("/label")
-    public String label() {
-        return "label";
-    }*/
-
-    
+    }   
 
 }
