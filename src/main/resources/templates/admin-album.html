@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Álbum</title>
+    <div th:replace="fragments/layout :: common-head">
+    </div>
+    <script th:src="@{~/js/admin/album/check.js}"></script>
+</head>
+<body>
+    <header th:replace="fragments/layout :: header-main">
+    </header>
+
+    <!-- Menu de opções -->
+    <main class=" container pt-3 row mx-auto">        
+        
+        <div class="row container-fluid my-2">
+            <div class="col">
+                <form class="form-inline my-2 my-md-0">
+                    <div class="input-group">
+                        <input class="form-control" type="search" placeholder="Pesquisar" aria-label="Search" aria-describedby="basic-addon1">
+                            <div class="input-group-append">
+                                <select class="custom-select" id="sel1"> <!-- Podemos tirar isso mas vai ficar difícil pra caramba de fazer consulta (FTS) -->
+                                    <option>Código</option>
+                                    <option>Nome</option>
+                                    <option>Bandas</option>
+                                    <option>Gravadora</option>
+                                </select>
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+                        </div>   
+                    </div>
+                </form>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-add" name="add"><i class="fas fa-plus"></i></a> Adicionar Álbum
+            </div>
+        </div>
+
+        <div class="table-responsive col-md-12">
+            <table class="table table-striped" cellspacing="0" cellpadding="0">
+                <thead>
+                    <tr>
+                        <th scope="col">Código</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Bandas</th>
+                        <th scope="col">Publicação</th>
+                        <th scope="col" class="options">Opções</th>
+                     </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="album : ${albums}">
+                        <th scope="row" id="albumId" th:text="${album.id}">4</th>
+                        <td th:text="${album.name}">Odessa</td>
+                        <td th:each="artist : ${album.artists}">
+                            <div th:text="${artist.name}"></div>
+                        </td>
+                        <td th:text="${album.publication}">1969</td>
+                        <td class="option">
+                            <button type="submit" th:onclick="${'javascript:viewAlbum(' + '4' + ')'}" th:value="view" id="view-button" class="btn btn-success btn-sm mx-1" data-toggle="modal" data-target="#modal-view" name="view"><i class="fas fa-search"></i></button>
+                            <button type="submit" th:onclick="${'javascript:editAlbum(' + '4' + ')'}" th:value="edit" id="edit-button" class="btn btn-warning btn-sm mx-1" data-toggle="modal" data-target="#modal-edit" name="edit"><i class="fas fa-wrench"></i></button>
+                            <button type="submit" th:value="delete" id="delete-button" class="btn btn-danger btn-sm mx-1" data-toggle="modal" data-target="#modal-delete" name="delete"><i class="fas fa-times"></i></button>
+                        </td>
+                    </tr>
+
+                    <div class="modal fade" id="modal-add" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLongTitle">Editar</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="addForm" th:action="@{/admin/album}" th:object="${album}" method="post" >
+                                        <div class="form-group">
+                                            <label class="alinhar">Nome:<obrigatorio>*</obrigatorio></label>
+                                            <input name="name" type="text" id="add-name" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="alinhar">País:</label>
+                                            <select name="country" id="edit-country" class ="form-control" >
+                                                <option value="None" selected="Brasil">Selecione o país</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="alinhar">Avaliação:<obrigatorio>*</obrigatorio></label>
+                                        <input name="rating" type="number" id="add-rating" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="alinhar"> Data de Publicação:<obrigatorio>*</obrigatorio></label>
+                                            <input name="publication" type="publication" min="1889-01-01" id="add-publication" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="alinhar">Bandas:<obrigatorio>*</obrigatorio></label>
+                                            <!--
+                                            <input name="artists" type="text" id="artists" class="form-control" value="Bee Gees">
+                                            -->
+                                        </div>
+                                        <div class="form-group">   
+                                            <label class="alinhar">Gênero 1:<obrigatorio>*</obrigatorio></label>
+                                            <input name="genre" type="text" id="add-genre" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="alinhar">Gênero 2:</label>
+                                        <input name="alt-genre" type="text" id="add-alt-genre" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="alinhar">Descrição:</label>
+                                            <textarea name="description" rows="4"  id="add-description" class="form-control"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-success">Inserir</button>
+                                            <button type="button" class="btn btn btn-warning" onclick="limparTudo()" id="limpar">Limpar</button>
+                                            <button type="button" onclick="location.href='admin-album.html'" class="btn btn-default">Voltar</button>
+                                        </div>                    
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" form="mainForm" class="btn btn btn-warning" onclick="limparTudo()" id="limpar">Limpar</button>
+                                  <button type="button" form="mainForm" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                  <button type="submit" form="mainForm" class="btn btn-primary">Salvar</button>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+
+                    <div class="modal fade" id="modal-view" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLongTitle">Visualizar</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="viewForm">
+                                    <p th:if="${album != null}" th:text="${album.name}"></p>
+                                    <div class="form-group">
+                                        <label class="alinhar">Nome:</label>
+                                        <input name="nome" type="text" id="view-name" class="readonly form-control-plaintext" readonly="true"  th:value ="${name}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="alinhar">País:</label>
+                                        <input name="country" type="text" id="view-country" value="Reino Unido" class="readonly form-control-plaintext" readonly="true">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="alinhar">Avaliação:</label>
+                                        <input name="rating" type="number" id="view-rating" class="readonly form-control-plaintext" readonly="true" value="5.0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="alinhar"> Data de Publicação:</label>
+                                        <input name="publication" type="publication" min="1889-01-01" id="view-publication" class="readonly form-control-plaintext" readonly="true" value ="1969-01-01">
+                                    </div>
+                                    <div class="form-group" id="artists-field">
+                                        <label class="alinhar">artists:</label>
+                                        <!--
+                                        <input name="artists" type="text" id="view-artists" value="Bee Gees" class="form-control-plaintext" readonly="true">
+                                        -->
+                                    </div>
+                                    <div class="form-group">   
+                                        <label class="alinhar">Gênero 1:</label>
+                                        <input name="genre" type="text" id="view-genre" class="readonly form-control-plaintext" readonly="true"  value="Rock Progressivo">
+                                    </div>
+                                    <div class="form-group">
+                                            <label class="alinhar">Gênero 2:</label>
+                                        <input name="alt-genre" type="text" id="view-alt-genre" class="readonly form-control-plaintext" readonly="true" value ="Rock Psicodélico">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="alinhar">Descrição:</label>
+                                        <textarea name="description" rows="4"  id="view-description" class="readonly form-control-plaintext" readonly="true"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                              <button type="button" class="btn btn btn-warning" method="post" data-toggle="modal" data-target="#modal-edit" name="edit" value="id">Editar</button>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    
+                    <div class="modal fade" id="modal-edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLongTitle">Editar</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="mainForm" th:action="@{/admin/album}" th:object="${album}" method="post" >
+                                    <div class="form-group">
+                                        <label class="alinhar">Nome:<obrigatorio>*</obrigatorio></label>
+                                        <input name="name" type="text" id="edit-name" class="form-control" th:value ="Odessa">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="alinhar">País:</label>
+                                        <select name="country" id="edit-country" class ="form-control" >
+                                            <option value="None" selected="Brasil">Selecione o país</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="alinhar">Avaliação:<obrigatorio>*</obrigatorio></label>
+                                    <input name="rating" type="number" id="edit-rating" class="form-control" value="5.0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="alinhar"> Data de Publicação:<obrigatorio>*</obrigatorio></label>
+                                        <input name="publication" type="publication" min="1889-01-01" id="edit-publication" class="form-control" value ="1969-01-01">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="alinhar">Bandas:<obrigatorio>*</obrigatorio></label>
+                                        <!--
+                                        <input name="artists" type="text" id="artists" class="form-control" value="Bee Gees">
+                                        -->
+                                    </div>
+                                    <div class="form-group">   
+                                        <label class="alinhar">Gênero 1:<obrigatorio>*</obrigatorio></label>
+                                        <input name="genre" type="text" id="edit-genre" class="form-control" value="Rock Progressivo">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="alinhar">Gênero 2:</label>
+                                    <input name="alt-genre" type="text" id="edit-alt-genre" class="form-control" value ="Rock Psicodélico">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="alinhar">Descrição:</label>
+                                        <textarea name="description" rows="4"  id="edit-description" class="form-control"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-success">Inserir</button>
+                                        <button type="button" class="btn btn btn-warning" onclick="limparTudo()" id="limpar">Limpar</button>
+                                        <button type="button" onclick="location.href='admin-album.html'" class="btn btn-default">Voltar</button>
+                                    </div>                    
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" form="mainForm" class="btn btn btn-warning" onclick="limparTudo()" id="limpar">Limpar</button>
+                              <button type="button" form="mainForm" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                              <button type="submit" form="mainForm" class="btn btn-primary">Salvar</button>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLongTitle">Excluir</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                                    <h3>Você tem certeza?</h3>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                              <button type="button" class="btn btn-danger">Sim</button>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </tbody>
+            </table>
+ 
+        </div>
+
+        <nav aria-label="Navegação">
+            <ul class="pagination">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    
+    </main>
+   
+    <footer th:replace="fragments/layout :: footer">
+    </footer>
+</body>
+</html>

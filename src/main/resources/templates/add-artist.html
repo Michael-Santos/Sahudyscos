@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Adicionar Banda</title>
+     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    
+    
+    
+    <script>
+        $(document).ready(function() {
+            
+                $('form').submit(function(){
+                    name = document.getElementById('name').value;
+                    data = document.getElementById('data').value;
+                    genero1 = document.getElementById('genero1').value;
+                if(name == "" || data == "" || genero1 == ""){
+                    alert('Preencha todos os campos obrigatórios');
+                    if(name == ""){
+                        document.getElementById('name').style.backgroundColor = "yellow";
+                    }
+                    if(data == ""){
+                        document.getElementById('data').style.backgroundColor = "yellow";
+                    }
+                    if(genero1 == ""){
+                        document.getElementById('genero1').style.backgroundColor = "yellow";
+                    }
+                    return false;
+                }else{
+                    alert('Adição feita com sucesso!');
+                }
+            });
+        });
+</script>
+
+<script>
+    function limparTudo(){
+        document.getElementById('name').style.backgroundColor = "white";
+        document.getElementById('name').value = "";
+        document.getElementById('data').style.backgroundColor = "white";
+        document.getElementById('data').value = "";
+        document.getElementById('genero1').style.backgroundColor = "white";
+        document.getElementById('genero1').value = "";
+        document.getElementById('genero2').value = "";
+        document.getElementById('descricao').value = "";
+    }
+</script>
+        
+    
+</head>
+<body>
+    <header>
+        <nav class="navbar justify-content-center navbar-expand-lg navbar-dark bg-dark">
+              
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <a class="navbar-brand justify-content-start" href="index.html"><img src="logo/logo.png" alt=""></a>
+                <ul class="navbar-nav mr-auto">
+                   
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item nav-link my-2">
+                       Olá usuário de teste!
+                    </li>
+                    <li class="nav-item my-2">
+                        <a class="nav-link" href="signup.html">Sair</a>
+                    </li>
+                </ul>
+            </div>
+
+            <button class="navbar-toggler justify-content-end" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+    </header>
+
+    <main class="container pt-3 mx-auto"> 
+        <div class="row container">
+            <h1>Inserir Banda</h1>
+        </div>
+        <div class="row container">
+            <obrigatorio>campos marcados com "*" são obrigatórios</obrigatorio>
+        </div>
+    
+        <form>
+            <div class="form-group">
+                <label class="alinhar">Nome:<obrigatorio>*</obrigatorio></label>
+                <input name="nome" type="text" id="name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="alinhar"> Data de Fundação:<obrigatorio>*</obrigatorio></label>
+                <input name="data" type="date" min="1889-01-01" id="data" class="form-control">
+            </div>  
+               <div class="form-group">
+                <label class="alinhar">Gênero 1:<obrigatorio>*</obrigatorio></label>
+            <input name="genero1" type="text" id="genero1" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="alinhar">Gênero 2:</label>
+                <input name="genero2" type="text" id="genero2" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="alinhar">Descrição:</label>
+                <textarea name="descricao" rows="4" id="descricao" class="form-control"></textarea>   
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">Inserir</button>
+                <button type="button" class="btn btn btn-warning" onclick="limparTudo()" id="limpar">Limpar</button>
+                <button type="button" onclick="location.href='admin-artist.html'" class="btn btn-default">Voltar</button>
+            <!--<input name="enviar" type="submit" value="Enviar" style="width: auto" id= "enviar">-->
+            <!--<button type="button btn btn-warning" onclick="limparTudo()" id = "limpar">Limpar</button>-->
+            <!--<button type="button" onclick="location.href='admin-release.html'" id = "voltar">Voltar</button>-->
+            </div>
+        </form>
+    </main>
+
+    <!--Footer-->
+    <footer class="page-footer font-small blue pt-4 mt-4 bg-dark">
+
+        <!--Copyright-->
+        <div class="footer-copyright text-center">
+            © 2018 Copyright: Sahudyscos
+        </div>
+        <!--/.Copyright-->
+
+    </footer>
+    <!--/.Footer-->
+</body>
+</html>

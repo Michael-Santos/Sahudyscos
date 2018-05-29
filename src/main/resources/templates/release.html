@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Álbum</title>
+    <div th:replace="fragments/layout :: common-head">
+    </div>
+</head>
+<body>
+    <header th:replace="fragments/layout :: header-result">
+    </header>
+
+    <main class="py-3">
+        <div class="container-fluid">
+            <div class="row">
+                <section class="col">
+                    <div class="row">
+                        <div class="col">
+                            <img class="card-img-top img-thumbnail" src="cover/R-9674533-1484572870-4744.jpeg" alt="Card image cap">
+                        </div>
+                        <div class="col">
+                            <a th:each="artist,iterStat : ${album.artists}" th:href="@{/artist(id=${artist.id})}"><h2 th:text="${artist.name}"></h2></a>
+                            <hr/>
+                            <a th:href="@{/album(id=${album.id})}"><h2 th:text="${album.name}"></h2></a>
+                            <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <h5>Gravadora</h5> 
+                                        <p class="mb-1"><a th:href="@{/label(id=${label.id})}" th:text="${label.name}">Som Livre</a></p>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <h5>Formato</h5> 
+                                        <p class="mb-1" th:text="${format}">CD</p>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <h5>Lançamento</h5> 
+                                        <p class="mb-1" th:text="${date}">2016</p>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <h5>Gênero</h5> 
+                                        <p class="mb-1" th:text="${album.genre}">Axé</p>
+                                        <p class="mb-1" th:text="${album.altGenre}">Axé</p>
+                                    </li>
+                            </ul>
+                        </div>
+                    </div>
+                
+                </section>
+                <aside class="col-4">
+                    <div class="container">
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-primary">
+                            <h1 th:text="'R$' + ${price}">R$ 90,00</h1>
+                        </li>
+                        <li class="list-group-item">
+                            <h2>Versão</h2>
+                            <h4 class="mb-1 alert" th:text="${type}">Original</h4>
+                        </li>
+                        <li class="list-group-item">
+                            <h2>Unidades Disponíveis</h2>
+                            <h4 class="mb-1 alert" th:text="${amount}">6</h4>
+                        </li>
+                        <li class="list-group-item">
+                            <h2>Avaliação Média</h2>
+                            <h4 class="mb-1 alert" th:text="${album.rating}">5,0/5,0</h4>
+                        </li>
+                    </ul>
+                </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="fragments/layout :: footer">
+    </footer>
+</body>
+</html>
