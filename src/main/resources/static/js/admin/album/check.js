@@ -7,6 +7,8 @@ $(document).ready(function() {
         });
         $("#dropDownPaises").html(options);
     });
+
+    artistAutocomplete($('#edit-artists'));
 });
 
 $(document).ready(function() {
@@ -43,51 +45,71 @@ $(document).ready(function() {
 });
 
 function limparTudo(){
-    document.getElementById('name').style.backgroundColor = "white";
-    document.getElementById('name').value = "";
-    document.getElementById('rating').style.backgroundColor = "white";
-    document.getElementById('rating').value = "";
-    document.getElementById('publication').style.backgroundColor = "white";
-    document.getElementById('publication').value = "";
-    document.getElementById('artists').style.backgroundColor = "white";
-    document.getElementById('artists').value = "";
-    document.getElementById('genre').style.backgroundColor = "white";
-    document.getElementById('genre').value = "";
-    document.getElementById('alt-genre').value = "";
-    document.getElementById('description').value = "";
+    document.getElementById('edit-id').value = "";
+    document.getElementById('edit-name').style.backgroundColor = "white";
+    document.getElementById('edit-name').value = "";
+    document.getElementById('edit-rating').style.backgroundColor = "white";
+    document.getElementById('edit-rating').value = "";
+    document.getElementById('edit-publication').style.backgroundColor = "white";
+    document.getElementById('edit-publication').value = "";
+    var field = document.getElementById('edit-artists-group');
+    while (field.childElementCount != 1) {
+        field.removeChild(field.lastChild);
+    }
+    var input = document.createElement("input");
+    input.setAttribute('name', 'artists');
+    input.setAttribute('type', 'text');
+    var counter = 0;
+    input.setAttribute('id', 'edit-artist-' + counter);
+    input.setAttribute('class', 'form-control');
+    field.appendChild(input);
+    artistAutocomplete($('#edit-artist-'+counter));
+    counter++;
+    document.getElementById('edit-genre').style.backgroundColor = "white";
+    document.getElementById('edit-genre').value = "";
+    document.getElementById('edit-alt-genre').value = "";
+    document.getElementById('edit-description').value = "";
 }
 
 function viewAlbum(id) {
-$.ajax({
-    url:"/admin/album",
-    type:"POST",
-    data:' {"type": "view", "id": ' + id + '} ',
-    contentType:"application/json; charset=utf-8",
-    dataType:"json",
-    success: function(album){
-        document.getElementById('view-name').value = album.name;
-        document.getElementById('view-country').value = album.country;
-        document.getElementById('view-rating').value = album.rating;
-        document.getElementById('view-publication').value = album.publication;
-        var field = document.getElementById('artists-field');
-        album.artists.forEach(function(obj) { 
-            var input = document.createElement("input");
-            input.setAttribute('name', 'artists');
-            input.setAttribute('type', 'text');
-            input.setAttribute('id', 'view-artists');
-            input.setAttribute('class', 'readonly form-control-plaintext');
-            input.setAttribute('readonly', 'true');
-            input.setAttribute('value', obj.name);
-            field.appendChild(input);
-        });
-        document.getElementById('view-genre').value = album.genre;
-        document.getElementById('view-alt-genre').value = album.altGenre;
-        document.getElementById('view-description').value = album.description;
+    var artists = document.getElementById('artists-field');
+    while (artists.childElementCount != 1) {
+        artists.removeChild(artists.lastChild);
     }
-  });
+    $.ajax({
+        url:"/admin/album",
+        type:"POST",
+        data:' {"type": "view", "id": ' + id + '} ',
+        contentType:"application/json; charset=utf-8",
+        dataType:"json",
+        success: function(album){
+            document.getElementById('view-name').value = album.name;
+            document.getElementById('view-country').value = album.country;
+            document.getElementById('view-rating').value = album.rating;
+            document.getElementById('view-publication').value = album.publication;
+            var field = document.getElementById('artists-field');
+            album.artists.forEach(function(obj) { 
+                var input = document.createElement("input");
+                input.setAttribute('name', 'artists');
+                input.setAttribute('type', 'text');
+                input.setAttribute('id', 'view-artists');
+                input.setAttribute('class', 'readonly form-control-plaintext');
+                input.setAttribute('readonly', 'true');
+                input.setAttribute('value', obj.name);
+                field.appendChild(input);
+            });
+            document.getElementById('view-genre').value = album.genre;
+            document.getElementById('view-alt-genre').value = album.altGenre;
+            document.getElementById('view-description').value = album.description;
+        }
+    });
 }
 
 function editAlbum(id) {
+    var field = document.getElementById('edit-artists-group');
+    while (field.childElementCount != 1) {
+        field.removeChild(field.lastChild);
+    }
     $.ajax({
         url:"/admin/album",
         type:"POST",
@@ -95,24 +117,85 @@ function editAlbum(id) {
         contentType:"application/json; charset=utf-8",
         dataType:"json",
         success: function(album){
+            document.getElementById('edit-id').value = album.id;
             document.getElementById('edit-name').value = album.name;
             document.getElementById('edit-country').value = album.country;
             document.getElementById('edit-rating').value = album.rating;
             document.getElementById('edit-publication').value = album.publication;
-            var field = document.getElementById('artists-field');
+            var counter = 0;
             album.artists.forEach(function(obj) { 
                 var input = document.createElement("input");
                 input.setAttribute('name', 'artists');
                 input.setAttribute('type', 'text');
-                input.setAttribute('id', 'edit-artists');
-                input.setAttribute('class', 'readonly form-control-plaintext');
-                input.setAttribute('readonly', 'true');
+                input.setAttribute('id', 'edit-artist-' + counter);
+                input.setAttribute('class', 'form-control');
                 input.setAttribute('value', obj.name);
                 field.appendChild(input);
+                artistAutocomplete($('#edit-artist-'+counter));
+                counter++;
             });
             document.getElementById('edit-genre').value = album.genre;
             document.getElementById('edit-alt-genre').value = album.altGenre;
             document.getElementById('edit-description').value = album.description;
         }
-      });
-    }
+    });
+}
+
+function addArtist() {
+    var group = document.getElementById('edit-artists-group');
+    var div = document.createElement("div");
+    var input = document.createElement("input");
+    var button = document.createElement("button");
+
+    div.setAttribute('class', 'input-group-append my-2');
+    div.setAttribute('id', 'artist-' + counter);
+
+    input.setAttribute('name', 'artists');
+    input.setAttribute('type', 'text');
+    input.setAttribute('class', 'form-control');
+    input.setAttribute('id', 'edit-artist-' + counter);
+
+    button.setAttribute('type', 'button');
+    button.setAttribute('class', 'btn btn-danger btn-sm mx-1');
+    button.setAttribute('onclick', 'removeArtist(' + counter + ')');
+    button.innerHTML = "Remover Banda";
+
+    div.appendChild(input);
+    div.appendChild(button);
+    group.appendChild(div);
+
+    artistAutocomplete($('#edit-artists' + counter));
+
+    counter++;
+    
+}
+
+function removeArtist(i) {
+    var group = document.getElementById('edit-artists-group');
+    var div = document.getElementById('artist-' + i);
+    group.removeChild(div);
+    counter--;
+}
+
+function artistAutocomplete(input) {
+    input.autocomplete({
+        serviceUrl: '/admin/album/artist',
+        minChars: 3,
+		paramName: "name",
+	    delimiter: ",",
+	    transformResult: function(response) {	
+		    return {      	
+		        //must convert json to javascript object before process
+		        suggestions: $.map($.parseJSON(response), function(item) {    	
+		            return { value: item.name, data: item.id };
+		        })
+		    };        
+        },
+        appendTo: '#edit-artists-group',
+        onSelect: function (suggestion) {
+            input.setAttribute('value', suggestion.value);
+            input.setAttribute('th:value', '*{artists[' + counter + '].id}');
+            //alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+        }
+     });
+}

@@ -6,8 +6,11 @@ import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sahudyscos.web.controller.util.Pager;
 import com.sahudyscos.web.entity.Album;
+import com.sahudyscos.web.entity.Artist;
 import com.sahudyscos.web.repository.AlbumRepository;
+import com.sahudyscos.web.repository.ArtistRepository;
 import com.sahudyscos.web.repository.PageAlbumRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +31,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class AdminAlbumController {
+    private static final int BUTTONS_TO_SHOW = 3;
+    private static final int INITIAL_PAGE = 0;
+    private static final int INITIAL_PAGE_SIZE = 10;
+    private static final int[] PAGE_SIZES = {10, 20, 30};
 
     @Autowired
     private AlbumRepository albumRepository;
@@ -35,9 +42,17 @@ public class AdminAlbumController {
     @Autowired
     private PageAlbumRepository pageAlbumRepository;
 
+    @Autowired
+    private ArtistRepository artistRepository;
+
     @GetMapping("/admin/album")
     public String album(Model model, Pageable pageable) {
-        model.addAttribute("albums", pageAlbumRepository.findAll(pageable));
+        Page<Album> page = pageAlbumRepository.findAll(pageable);
+        Pager pager = new Pager(page.getTotalPages(),page.getNumber(),BUTTONS_TO_SHOW);
+        model.addAttribute("albums", page);
+        model.addAttribute("pageSizes", PAGE_SIZES);
+        model.addAttribute("pager", pager);
+        model.addAttribute("album", new Album());
         return "admin-album";
     }
 
@@ -58,6 +73,18 @@ public class AdminAlbumController {
 			e.printStackTrace();
         }
         return null;
+    }
+
+    @GetMapping(value = "/admin/album/artist")
+    @ResponseBody
+    @JsonIgnoreProperties({"description", "genre", "altGenre", "activityStart", "albums", "labelsContracted"})
+	List<Artist> getArtists(@RequestParam String name) {
+		return artistRepository.findByNameStartsWith(name);
+    }
+    
+    @PostMapping("/admin/album/save")
+    public String create(@ModelAttribute Album album) {
+        return "admin-album";
     }
 }
 

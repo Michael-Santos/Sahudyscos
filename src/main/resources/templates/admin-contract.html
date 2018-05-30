@@ -1,40 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Contratos</title>
-    <link rel="stylesheet" href="style-crud.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <title>Álbum</title>
+    <div th:replace="fragments/layout :: common-head">
+    </div>
+    <script th:src="@{~/js/admin/contract/check.js}"></script>
 </head>
 <body>
-    <header>
-        <nav class="navbar justify-content-center navbar-expand-lg navbar-dark bg-dark">
-              
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <a class="navbar-brand justify-content-start" href="index.html"><img src="logo/logo.png" alt=""></a>
-                <ul class="navbar-nav mr-auto">
-                   
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item nav-link my-2">
-                       Olá usuário de teste!
-                    </li>
-                    <li class="nav-item my-2">
-                        <a class="nav-link" href="signup.html">Sair</a>
-                    </li>
-                </ul>
-            </div>
-
-            <button class="navbar-toggler justify-content-end" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </nav>
+    <header th:replace="fragments/layout :: header-main">
     </header>
 
     <!-- Menu de opções -->
@@ -57,7 +30,7 @@
                 </form>
             </div>
             <div class="col">
-                <a class="btn btn-primary btn-sm" href="add-contract.html"><i class="fas fa-plus"></i></a> Adicionar Contrato
+                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-edit" name="add" th:onclick="${'javascript:limparTudo()'}"><i class="fas fa-plus"></i></a> Adicionar Contrato
             </div>
         </div>
 
@@ -65,101 +38,154 @@
             <table class="table table-striped" cellspacing="0" cellpadding="0">
                 <thead>
                     <tr>
-                        <th scope="col">Código</th>
                         <th scope="col">Banda</th>
                         <th scope="col">Gravadora</th>
                         <th scope="col" class="options">Opções</th>
                      </tr>
                 </thead>
                 <tbody>
-     
-                    <tr>
-                        <th scope="row">00001</th>
-                        <td>Bee Gees</td>
-                        <td>Polydor</td>
-                        <td class="options">
-                            <a class="btn btn-success btn-sm" href="view-contract.html"><i class="fas fa-search"></i></a>
-                            <a class="btn btn-danger btn-sm"  href="#" data-toggle="modal" data-target="#delete-modal"><i class="fas fa-times"></i></a>
-                        </td>
-                    </tr>
-     
-                    <tr>
-                        <th scope="row">00002</th>
-                        <td>Michael Jackson</td>
-                        <td>Motown Records</td>
-                        <td class="options">
-                            <a class="btn btn-success btn-sm" href="view-contract.html"><i class="fas fa-search"></i></a>
-                            <a class="btn btn-danger btn-sm"  href="#" data-toggle="modal" data-target="#delete-modal"><i class="fas fa-times"></i></a>
-                        </td>
-                    </tr>
-     
-                    <tr>
-                        <th scope="row">00003</th>
-                        <td>Michael Jackson</td>
-                        <td>Sony Music Entertainment</td>
-                        <td class="options">
-                            <a class="btn btn-success btn-sm" href="view-contract.html"><i class="fas fa-search"></i></a>
-                            <a class="btn btn-danger btn-sm"  href="#" data-toggle="modal" data-target="#delete-modal"><i class="fas fa-times"></i></a>
-                        </td>
-                    </tr>
-     
-                    <tr>
-                        <th scope="row">00004</th>
-                        <td>Wesley Safadão</td>
-                        <td>Som Livre</td>
-                        <td class="options">
-                            <a class="btn btn-success btn-sm" href="view-contract.html"><i class="fas fa-search"></i></a>
-                            <a class="btn btn-danger btn-sm"  href="#" data-toggle="modal" data-target="#delete-modal"><i class="fas fa-times"></i></a>
-                        </td>
-                    </tr>
-     
-                    <tr>
-                        <th scope="row">00005</th>
-                        <td>Elton John</td>
-                        <td>Universal Music Group</td>
-                        <td class="options">
-                            <a class="btn btn-success btn-sm" href="view-contract.html"><i class="fas fa-search"></i></a>
-                            <a class="btn btn-danger btn-sm"  href="#" data-toggle="modal" data-target="#delete-modal"><i class="fas fa-times"></i></a>
+                    <tr th:each="contract : ${contracts}">
+                        <th scope="row" th:text="${contract.artistName}">Odessa</th>
+                        <th scope="row" th:text="${contract.labelName}">1969</th>
+                        <td class="option">
+                            <button type="submit" th:onclick="${'javascript:viewContract(' + contract.artistId + ', ' + contract.labelId + ')'}" th:value="view" id="view-button" class="btn btn-success btn-sm mx-1" data-toggle="modal" data-target="#modal-view" name="view"><i class="fas fa-search"></i></button>
+                            <button type="submit" th:onclick="${'javascript:editContract(' + contract.artistId + ', ' + contract.labelId + ')'}" th:value="edit" id="edit-button" class="btn btn-warning btn-sm mx-1" data-toggle="modal" data-target="#modal-edit" name="edit"><i class="fas fa-wrench"></i></button>
+                            <button type="submit" th:onclick="${'javascript:deleteContract(' + contract.artistId + ', ' + contract.labelId + ')'}" th:value="delete" id="delete-button" class="btn btn-danger btn-sm mx-1" data-toggle="modal" data-target="#modal-delete" name="delete"><i class="fas fa-times"></i></button>
                         </td>
                     </tr>
 
+                    <div class="modal fade" id="modal-view" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLongTitle">Visualizar</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="viewForm">
+                                    <div class="form-group">
+                                        <label class="alinhar">Banda:</label>
+                                        <input name="artist" type="text" id="view-artist" class="readonly form-control-plaintext" readonly="true">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="alinhar">Gravadora:</label>
+                                        <input name="label" type="text" id="view-label" class="readonly form-control-plaintext" readonly="true">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                              <button type="button" class="btn btn btn-warning" method="post" data-toggle="modal" data-target="#modal-edit" name="edit" value="id">Editar</button>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    
+                    <div class="modal fade" id="modal-edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLongTitle">Editar</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="mainForm" th:action="@{/admin/contract/save}" th:object="${contract}" method="post" >
+                                    <input type="hidden" id="edit-label-id" th:field="*{labelId}">
+                                    <input type="hidden" id="edit-artist-id" th:field="*{artistId}">
+                                    <div class="form-group" id="artist-group">
+                                        <label class="alinhar">Banda:</label>
+                                        <input type="text" id="edit-artist" class="form-control">
+                                    </div>
+                                    <div class="form-group" id="label-group">
+                                        <label class="alinhar">Gravadora:</label>
+                                        <input type="text" id="edit-label" class="form-control">
+                                    </div>                
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="reset" form="mainForm" class="btn btn btn-warning" onclick="limparTudo()" id="limpar">Limpar</button>
+                              <button type="button" form="mainForm" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                              <button type="submit" form="mainForm" class="btn btn-primary">Salvar</button>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLongTitle">Excluir</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                                    <h3>Você tem certeza?</h3>
+                            </div>
+                            <div class="modal-footer">
+                                <form id="deleteForm" th:action="@{/admin/contract/delete}" th:object="${contract}" method="post" >
+                                    <input type="hidden" id="delete-label-id" th:field="*{labelId}">
+                                    <input type="hidden" id="delete-artist-id" th:field="*{artistId}">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                                    <button type="submit" class="btn btn-danger">Sim</button>
+                                </form>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
                 </tbody>
             </table>
  
         </div>
 
-        <nav aria-label="Navegação">
-            <ul class="pagination">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                      <span class="sr-only">Previous</span>
-                    </a>
-                  </li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                      <span class="sr-only">Next</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+        <div class="row">
+            <div class="form-group col-md-1">
+                <select class="form-control pagination" id="pageSizeSelect">
+                    <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
+                        th:value="${pageSize}"
+                        th:selected="${pageSize} == ${selectedPageSize}"></option>
+                </select>
+            </div>
+            <div th:if="${contracts.totalPages != 1}"
+                class="form-group col-md-11 pagination-centered">
+                <ul class="pagination">
+                    <li th:class="${contracts.number == 0} ? 'page-item disabled' : 'page-item'"><a
+                        class="page-link"
+                        th:href="@{/admin/contract(size=${selectedPageSize}, page=1)}">&laquo;</a>
+                    </li>
+                    <li th:class="${contracts.number == 0} ? 'page-item disabled' : 'page-item'"><a
+                        class="page-link"
+                        th:href="@{/admin/contract(size=${selectedPageSize}, page=${contracts.number})}">&larr;</a>
+                    </li>
+                    <li
+                        th:class="${contracts.number == page} ? 'page-item active pointer-disabled' : 'page-item'"
+                        th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+                        <a class="page-link"
+                        th:href="@{/admin/contract(size=${selectedPageSize}, page=${page})}"
+                        th:text="${page}"></a>
+                    </li>
+                    <li
+                        th:class="${contracts.number + 1 == contracts.totalPages} ? 'page-item disabled' : 'page-item'">
+                        <a class="page-link"
+                        th:href="@{/admin/contract(size=${selectedPageSize}, page=${contracts.number + 2})}">&rarr;</a>
+                    </li>
+                    <li
+                        th:class="${contracts.number + 1 == contracts.totalPages} ? 'page-item disabled' : 'page-item'">
+                        <a class="page-link"
+                        th:href="@{/admin/contract(pageSize=${selectedPageSize}, page=${contracts.totalPages})}">&raquo;</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     
     </main>
    
-    <!-- Footer -->
-    <footer class="page-footer font-small blue pt-4 mt-5 bg-dark">
-
-        <!--Copyright-->
-        <div class="footer-copyright text-center">
-            © 2018 Copyright: Sahudyscos
-        </div>
-        <!--/.Copyright-->
-
+    <footer th:replace="fragments/layout :: footer">
     </footer>
-    <!-- Footer -->
 </body>
 </html>

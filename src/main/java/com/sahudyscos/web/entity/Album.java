@@ -39,7 +39,7 @@ public class Album {
         joinColumns = @JoinColumn(name = "cod_album"),
         inverseJoinColumns = @JoinColumn(name = "cod_banda")
     )
-    @JsonIgnore
+    //@JsonIgnore
     private List<Artist> artists;
 
     @OneToMany(mappedBy = "album", fetch=FetchType.LAZY)
