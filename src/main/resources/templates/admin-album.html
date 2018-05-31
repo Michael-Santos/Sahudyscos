@@ -55,9 +55,9 @@
                         </td>
                         <td th:text="${album.publication}">1969</td>
                         <td class="option">
-                            <button type="submit" th:onclick="${'javascript:viewAlbum(' + album.id + ')'}" th:value="view" id="view-button" class="btn btn-success btn-sm mx-1" data-toggle="modal" data-target="#modal-view" name="view"><i class="fas fa-search"></i></button>
-                            <button type="submit" th:onclick="${'javascript:editAlbum(' + album.id + ')'}" th:value="edit" id="edit-button" class="btn btn-warning btn-sm mx-1" data-toggle="modal" data-target="#modal-edit" name="edit"><i class="fas fa-wrench"></i></button>
-                            <button type="submit" th:value="delete" id="delete-button" class="btn btn-danger btn-sm mx-1" data-toggle="modal" data-target="#modal-delete" name="delete"><i class="fas fa-times"></i></button>
+                            <button type="submit" th:onclick="${'javascript:viewAlbum(' + album.id + ')'}" id="view-button" class="btn btn-success btn-sm mx-1" data-toggle="modal" data-target="#modal-view"><i class="fas fa-search"></i></button>
+                            <button type="submit" th:onclick="${'javascript:editAlbum(' + album.id + ')'}" th:value="edit" id="edit-button" class="btn btn-warning btn-sm mx-1" data-toggle="modal" data-target="#modal-edit"><i class="fas fa-wrench"></i></button>
+                            <button type="button" th:value="delete" id="delete-button" class="btn btn-danger btn-sm mx-1" data-toggle="modal" data-target="#modal-delete"><i class="fas fa-times"></i></button>
                         </td>
                     </tr>
 
@@ -74,37 +74,37 @@
                                 <form id="viewForm">
                                     <div class="form-group">
                                         <label class="alinhar">Nome:</label>
-                                        <input name="nome" type="text" id="view-name" class="readonly form-control-plaintext" readonly="true"  th:value ="${name}">
+                                        <input type="text" id="view-name" class="readonly form-control-plaintext" readonly="true">
                                     </div>
                                     <div class="form-group">
                                         <label class="alinhar">País:</label>
-                                        <input name="country" type="text" id="view-country" value="Reino Unido" class="readonly form-control-plaintext" readonly="true">
+                                        <input type="text" id="view-country" value="Reino Unido" class="readonly form-control-plaintext" readonly="true">
                                     </div>
                                     <div class="form-group">
                                         <label class="alinhar">Avaliação:</label>
-                                        <input name="rating" type="number" id="view-rating" class="readonly form-control-plaintext" readonly="true" value="5.0">
+                                        <input type="number" id="view-rating" class="readonly form-control-plaintext" readonly="true" value="5.0">
                                     </div>
                                     <div class="form-group">
                                         <label class="alinhar"> Data de Publicação:</label>
-                                        <input name="publication" type="publication" min="1889-01-01" id="view-publication" class="readonly form-control-plaintext" readonly="true" value ="1969-01-01">
+                                        <input type="publication" min="1889-01-01" id="view-publication" class="readonly form-control-plaintext" readonly="true" value ="1969-01-01">
                                     </div>
                                     <div class="form-group" id="artists-field">
                                         <label class="alinhar">Bandas:</label>
                                         <!--
-                                        <input name="artists" type="text" id="view-artists" value="Bee Gees" class="form-control-plaintext" readonly="true">
+                                        <input name="rows" type="text" id="view-rows" value="Bee Gees" class="form-control-plaintext" readonly="true">
                                         -->
                                     </div>
                                     <div class="form-group">   
                                         <label class="alinhar">Gênero 1:</label>
-                                        <input name="genre" type="text" id="view-genre" class="readonly form-control-plaintext" readonly="true"  value="Rock Progressivo">
+                                        <input type="text" id="view-genre" class="readonly form-control-plaintext" readonly="true"  value="Rock Progressivo">
                                     </div>
                                     <div class="form-group">
                                             <label class="alinhar">Gênero 2:</label>
-                                        <input name="alt-genre" type="text" id="view-alt-genre" class="readonly form-control-plaintext" readonly="true" value ="Rock Psicodélico">
+                                        <input type="text" id="view-alt-genre" class="readonly form-control-plaintext" readonly="true" value ="Rock Psicodélico">
                                     </div>
                                     <div class="form-group">
                                         <label class="alinhar">Descrição:</label>
-                                        <textarea name="description" rows="4"  id="view-description" class="readonly form-control-plaintext" readonly="true"></textarea>
+                                        <textarea rows="4"  id="view-description" class="readonly form-control-plaintext" readonly="true"></textarea>
                                     </div>
                                 </form>
                             </div>
@@ -126,46 +126,53 @@
                               </button>
                             </div>
                             <div class="modal-body">
-                                <form id="mainForm" th:action="@{/admin/album/save}" th:object="${album}" method="post" >
-                                    <input type="hidden" id="edit-id" th:value="*{id}">
+                                <form id="mainForm" th:action="@{/admin/album/save}" th:object="${formContent}" method="post" >
+                                    <div class="form-group">
+                                        <label class="alinhar">ID:<obrigatorio>*</obrigatorio></label>
+                                        <input type="text" id="edit-id" class="form-control" th:value="*{album.id}">
+                                    </div>
                                     <div class="form-group">
                                         <label class="alinhar">Nome:<obrigatorio>*</obrigatorio></label>
-                                        <input name="name" type="text" id="edit-name" class="form-control" th:value="*{name}">
+                                        <input type="text" id="edit-name" class="form-control" th:field="*{album.name}">
                                     </div>
                                     <div class="form-group">
                                         <label class="alinhar">País:</label>
-                                        <select name="country" id="edit-country" class ="form-control" >
-                                            <option value="None" selected="Brasil" th:value="*{country}">Selecione o país</option>
-                                        </select>
+                                        <input type="text" min="1889-01-01" id="edit-country" th:field="*{album.country}" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label class="alinhar">Avaliação:<obrigatorio>*</obrigatorio></label>
-                                    <input name="rating" type="number" id="edit-rating" th:value="*{rating}" class="form-control">
+                                    <input type="number" id="edit-rating" th:field="*{album.rating}" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label class="alinhar"> Data de Publicação:<obrigatorio>*</obrigatorio></label>
-                                        <input name="publication" type="date" min="1889-01-01" id="edit-publication" th:value="*{publication}" class="form-control">
+                                        <input type="date" min="1889-01-01" id="edit-publication" th:field="*{album.publication}" class="form-control">
                                     </div>
                                     <div class="form-group" id="edit-artists-group">
                                         <label class="alinhar">Bandas:<obrigatorio>*</obrigatorio></label>
+                                        <div th:each="artist, stat : *{artistIds}">
+                                            <input type="text" th:field="*{artistIds[__${stat.index}__]}" />
+                                        </div>
                                         <!--
                                         <input name="artists" type="text" value="Banda" id="edit-artist-0" class="form-control">
                                         -->
                                     </div>
                                     <div class="row">
+                                        <button type="submit" name="addRow" th:text="#{album.artist.add}" onclick="addArtist()">Adicionar Banda</button>
+                                        <!--
                                         <button type="button" class="btn btn-success btn-sm mx-1" onclick="addArtist()">Adicionar Banda</button>
+                                        -->
                                     </div>
                                     <div class="form-group">   
                                         <label class="alinhar">Gênero 1:<obrigatorio>*</obrigatorio></label>
-                                        <input name="genre" type="text" id="edit-genre" class="form-control" th:value="*{genre}">
+                                        <input type="text" id="edit-genre" class="form-control" th:field="*{album.genre}">
                                     </div>
                                     <div class="form-group">
                                         <label class="alinhar">Gênero 2:</label>
-                                    <input name="alt-genre" type="text" id="edit-alt-genre" class="form-control" th:value="*{altGenre}">
+                                    <input type="text" id="edit-alt-genre" class="form-control" th:field="*{album.altGenre}">
                                     </div>
                                     <div class="form-group">
                                         <label class="alinhar">Descrição:</label>
-                                        <textarea name="description" rows="4"  id="edit-description" th:value="*{description}" class="form-control"></textarea>
+                                        <textarea rows="4"  id="edit-description" th:field="*{album.description}" class="form-control"></textarea>
                                     </div>                  
                                 </form>
                             </div>

@@ -23,7 +23,6 @@ import org.hibernate.annotations.NotFoundAction;
 @IdClass(ReleaseId.class)
 public class Release {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "cod_barras")
     private Long id;
 
@@ -31,12 +30,11 @@ public class Release {
     @Column(name = "cod_album")
     private Long albumId;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @NotFound(action = NotFoundAction.IGNORE)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "cod_album", insertable = false, updatable = false)
     private Album album;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="cod_gravadora")
     private Label label;
     
@@ -64,6 +62,14 @@ public class Release {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getAlbumId() {
+        return albumId;
+    }
+
+    public void setAlbumId(Long albumId) {
+        this.albumId = albumId;
     }
 
     public String getFormat() {

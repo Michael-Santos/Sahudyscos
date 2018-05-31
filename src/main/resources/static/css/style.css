@@ -69,3 +69,23 @@ obrigatorio{
 .autocomplete-suggestion { padding: 5px 5px; white-space: nowrap; width: 300px; overflow: auto;font-size:12px}
 .autocomplete-selected { background: #F0F0F0; }
 .autocomplete-suggestions strong { font-weight: bold; color: #3399FF; }
+
+.little-box {
+	float: left;
+	width: 20px;
+	height: 20px;
+	margin: 5px;
+	border: 1px solid rgba(0, 0, 0, .2);
+  }
+  
+  .success-green {
+	background: #c3e6cb;
+  }
+  
+  .danger-red {
+	background: #f5c6cb;
+  }
+  
+  .warning-yellow {
+	background: #ffeeba;
+  }

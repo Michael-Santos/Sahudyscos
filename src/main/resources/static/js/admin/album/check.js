@@ -7,8 +7,6 @@ $(document).ready(function() {
         });
         $("#dropDownPaises").html(options);
     });
-
-    artistAutocomplete($('#edit-artists'));
 });
 
 $(document).ready(function() {
@@ -50,6 +48,8 @@ function limparTudo(){
     document.getElementById('edit-name').value = "";
     document.getElementById('edit-rating').style.backgroundColor = "white";
     document.getElementById('edit-rating').value = "";
+    document.getElementById('edit-country').style.backgroundColor = "white";
+    document.getElementById('edit-country').value = "";
     document.getElementById('edit-publication').style.backgroundColor = "white";
     document.getElementById('edit-publication').value = "";
     var field = document.getElementById('edit-artists-group');
@@ -57,19 +57,25 @@ function limparTudo(){
         field.removeChild(field.lastChild);
     }
     var input = document.createElement("input");
-    input.setAttribute('name', 'artists');
+    var hiddenField = document.createElement("input");
     input.setAttribute('type', 'text');
-    var counter = 0;
+    counter = 0;
     input.setAttribute('id', 'edit-artist-' + counter);
     input.setAttribute('class', 'form-control');
+    hiddenField.setAttribute('type', 'hidden');
+    hiddenField.setAttribute('id', 'edit-artist-id-' + counter);
+    hiddenField.setAttribute('name', 'artistsIds');
+    //hiddenField.setAttribute('th:field', '*{artists[' + counter + '].id}');
     field.appendChild(input);
-    artistAutocomplete($('#edit-artist-'+counter));
+    field.appendChild(hiddenField);
+    artistAutocomplete(counter);
     counter++;
     document.getElementById('edit-genre').style.backgroundColor = "white";
     document.getElementById('edit-genre').value = "";
     document.getElementById('edit-alt-genre').value = "";
     document.getElementById('edit-description').value = "";
 }
+
 
 function viewAlbum(id) {
     var artists = document.getElementById('artists-field');
@@ -90,7 +96,6 @@ function viewAlbum(id) {
             var field = document.getElementById('artists-field');
             album.artists.forEach(function(obj) { 
                 var input = document.createElement("input");
-                input.setAttribute('name', 'artists');
                 input.setAttribute('type', 'text');
                 input.setAttribute('id', 'view-artists');
                 input.setAttribute('class', 'readonly form-control-plaintext');
@@ -105,6 +110,7 @@ function viewAlbum(id) {
     });
 }
 
+counter = 1;
 function editAlbum(id) {
     var field = document.getElementById('edit-artists-group');
     while (field.childElementCount != 1) {
@@ -122,16 +128,20 @@ function editAlbum(id) {
             document.getElementById('edit-country').value = album.country;
             document.getElementById('edit-rating').value = album.rating;
             document.getElementById('edit-publication').value = album.publication;
-            var counter = 0;
+            counter = 0;
             album.artists.forEach(function(obj) { 
                 var input = document.createElement("input");
-                input.setAttribute('name', 'artists');
+                var hiddenField = document.createElement("input");
                 input.setAttribute('type', 'text');
                 input.setAttribute('id', 'edit-artist-' + counter);
                 input.setAttribute('class', 'form-control');
                 input.setAttribute('value', obj.name);
+                hiddenField.setAttribute('type', 'hidden');
+                hiddenField.setAttribute('id', 'edit-artist-id-' + counter);
+                hiddenField.setAttribute('name', 'artistsIds');
+                field.appendChild(hiddenField);
                 field.appendChild(input);
-                artistAutocomplete($('#edit-artist-'+counter));
+                artistAutocomplete(counter);
                 counter++;
             });
             document.getElementById('edit-genre').value = album.genre;
@@ -146,11 +156,11 @@ function addArtist() {
     var div = document.createElement("div");
     var input = document.createElement("input");
     var button = document.createElement("button");
+    var hiddenField = document.createElement("input");
 
     div.setAttribute('class', 'input-group-append my-2');
     div.setAttribute('id', 'artist-' + counter);
 
-    input.setAttribute('name', 'artists');
     input.setAttribute('type', 'text');
     input.setAttribute('class', 'form-control');
     input.setAttribute('id', 'edit-artist-' + counter);
@@ -160,11 +170,17 @@ function addArtist() {
     button.setAttribute('onclick', 'removeArtist(' + counter + ')');
     button.innerHTML = "Remover Banda";
 
+    hiddenField.setAttribute('type', 'hidden');
+    hiddenField.setAttribute('id', 'edit-artist-id-' + counter);
+    hiddenField.setAttribute('name', 'artistsIds');
+    //hiddenField.setAttribute('th:field', '*{artists[' + counter + '].id}');
+
     div.appendChild(input);
+    div.appendChild(hiddenField);
     div.appendChild(button);
     group.appendChild(div);
 
-    artistAutocomplete($('#edit-artists' + counter));
+    artistAutocomplete(counter);
 
     counter++;
     
@@ -177,8 +193,8 @@ function removeArtist(i) {
     counter--;
 }
 
-function artistAutocomplete(input) {
-    input.autocomplete({
+function artistAutocomplete(i) {
+    $('#edit-artist-' + i).autocomplete({
         serviceUrl: '/admin/album/artist',
         minChars: 3,
 		paramName: "name",
@@ -193,8 +209,8 @@ function artistAutocomplete(input) {
         },
         appendTo: '#edit-artists-group',
         onSelect: function (suggestion) {
-            input.setAttribute('value', suggestion.value);
-            input.setAttribute('th:value', '*{artists[' + counter + '].id}');
+            field = document.getElementById('edit-artist-id-' + i);
+            field.setAttribute('value', suggestion.data);
             //alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
         }
      });
