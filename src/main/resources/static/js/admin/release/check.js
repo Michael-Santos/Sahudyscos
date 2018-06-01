@@ -20,6 +20,48 @@ $(document).ready(function() {
             alert('Adição feita com sucesso!');
         }
     });
+
+    $('#edit-album').autocomplete({
+        serviceUrl: '/admin/release/album',
+        minChars: 3,
+		paramName: "name",
+	    delimiter: ",",
+	    transformResult: function(response) {	
+		    return {      	
+		        //must convert json to javascript object before process
+		        suggestions: $.map($.parseJSON(response), function(item) {    	
+		            return { value: item.name, data: item.id };
+		        })
+		    };        
+        },
+        appendTo: '#album-group',
+        onSelect: function (suggestion) {
+            var input = document.getElementById('edit-album-id');
+            input.setAttribute('value', suggestion.data);
+            //alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+        }
+     });
+
+     $('#edit-label').autocomplete({
+        serviceUrl: '/admin/release/label',
+        minChars: 3,
+		paramName: "name",
+	    delimiter: ",",
+	    transformResult: function(response) {	
+		    return {      	
+		        //must convert json to javascript object before process
+		        suggestions: $.map($.parseJSON(response), function(item) {    	
+		            return { value: item.name, data: item.id };
+		        })
+		    };        
+        },
+        appendTo: '#label-group',
+        onSelect: function (suggestion) {
+            var input = document.getElementById('edit-label-id');
+            input.setAttribute('value', suggestion.data);
+            //alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+        }
+     });
 });
 
 function limparTudo(){
@@ -69,7 +111,7 @@ function viewRelease(id, albumId) {
 
 function editRelease(id, albumId) {
     $.ajax({
-        url:"/admin/label",
+        url:"/admin/release",
         type:"POST",
         data:' {"type": "edit", "id": ' + id + ', "albumId": ' + albumId + '} ',
         contentType:"application/json; charset=utf-8",

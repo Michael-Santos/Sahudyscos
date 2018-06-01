@@ -24,7 +24,7 @@
         <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand justify-content-start" href="/" th:href"@{/}"><img th:src="@{/img/logo.png}"/></a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav navbar-right ml-auto">
+                <ul class="navbar-nav navbar-right ml-auto" sec:authorize="!isFullyAuthenticated()">
                     <li class="nav-item my-2">
                         <a class="nav-link" href="/signup" th:href="@{/signup}">Registrar</a>
                     </li>
@@ -32,17 +32,15 @@
                         <a class="nav-link" href="/login" th:href="@{/login}"><button class="btn btn-success">Login</button></a>
                     </li>
                 </ul>
-                <!--
-                <ul class="navbar-nav navbar-right" th:if="${#authorization.expression('isAuthenticated()')}">
+                <ul class="navbar-nav navbar-right ml-auto" sec:authorize="isFullyAuthenticated()">
                     <li class="nav-item nav-link my-2">
-                       Olá!
+                       Olá <span sec:authentication="name" style="text-decoration-color: chartreuse"></span>!
                     </li>
                     <li class="nav-item my-2">
-                        <a class="nav-link" href="/logout" th:href="@{#}" onclick="$('#form').submit();">Sair</a>
+                        <a class="nav-link" href="/logout" th:href="@{/logout}" >Sair</a>
                         <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>
                     </li>
                 </ul>
-                -->
             </div>
 
             <button class="navbar-toggler justify-content-end" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

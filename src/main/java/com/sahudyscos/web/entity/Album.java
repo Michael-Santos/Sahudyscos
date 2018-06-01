@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -26,7 +27,9 @@ import org.hibernate.annotations.NaturalId;
 @Table(name = "album")
 public class Album {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    //@GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(generator = "album_sequence", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "album_sequence", sequenceName = "album_sequence",allocationSize=1)
     @Column(name = "cod_album")
     private Long id;
 

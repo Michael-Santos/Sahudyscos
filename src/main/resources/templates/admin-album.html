@@ -4,7 +4,7 @@
     <title>Álbum</title>
     <div th:replace="fragments/layout :: common-head">
     </div>
-    <script th:src="@{~/js/admin/album/check.js}"></script>
+    <script th:src="@{~/js/admin/album/check.js}" th:inline="javascript"></script>
 </head>
 <body>
     <header th:replace="fragments/layout :: header-main">
@@ -147,20 +147,14 @@
                                         <label class="alinhar"> Data de Publicação:<obrigatorio>*</obrigatorio></label>
                                         <input type="date" min="1889-01-01" id="edit-publication" th:field="*{album.publication}" class="form-control">
                                     </div>
-                                    <div class="form-group" id="edit-artists-group">
+                                    <div class="form-group" id="edit-artists-group" th:object="${formContent.artistsIds}">
                                         <label class="alinhar">Bandas:<obrigatorio>*</obrigatorio></label>
-                                        <div th:each="artist, stat : *{artistIds}">
-                                            <input type="text" th:field="*{artistIds[__${stat.index}__]}" />
-                                        </div>
                                         <!--
                                         <input name="artists" type="text" value="Banda" id="edit-artist-0" class="form-control">
                                         -->
                                     </div>
                                     <div class="row">
-                                        <button type="submit" name="addRow" th:text="#{album.artist.add}" onclick="addArtist()">Adicionar Banda</button>
-                                        <!--
                                         <button type="button" class="btn btn-success btn-sm mx-1" onclick="addArtist()">Adicionar Banda</button>
-                                        -->
                                     </div>
                                     <div class="form-group">   
                                         <label class="alinhar">Gênero 1:<obrigatorio>*</obrigatorio></label>

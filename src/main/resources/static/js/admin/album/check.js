@@ -110,6 +110,7 @@ function viewAlbum(id) {
     });
 }
 
+
 counter = 1;
 function editAlbum(id) {
     var field = document.getElementById('edit-artists-group');
@@ -138,6 +139,7 @@ function editAlbum(id) {
                 input.setAttribute('value', obj.name);
                 hiddenField.setAttribute('type', 'hidden');
                 hiddenField.setAttribute('id', 'edit-artist-id-' + counter);
+                hiddenField.setAttribute('value', obj.id);
                 hiddenField.setAttribute('name', 'artistsIds');
                 field.appendChild(hiddenField);
                 field.appendChild(input);
@@ -209,8 +211,12 @@ function artistAutocomplete(i) {
         },
         appendTo: '#edit-artists-group',
         onSelect: function (suggestion) {
-            field = document.getElementById('edit-artist-id-' + i);
-            field.setAttribute('value', suggestion.data);
+            var field = document.getElementById('edit-artist-' + i);
+            field.setAttribute('text', suggestion.value);
+            var hiddenField = document.getElementById('edit-artist-id-' + i)
+            hiddenField.setAttribute('value', suggestion.data);
+            var test = document.getElementById('mainForm');
+            test.appendChild(hiddenField);
             //alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
         }
      });

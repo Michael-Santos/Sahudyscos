@@ -34,6 +34,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 @Controller
 public class AdminAlbumController {
@@ -41,6 +44,8 @@ public class AdminAlbumController {
     private static final int INITIAL_PAGE = 0;
     private static final int INITIAL_PAGE_SIZE = 10;
     private static final int[] PAGE_SIZES = {10, 20, 30};
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private AlbumRepository albumRepository;
@@ -88,15 +93,16 @@ public class AdminAlbumController {
 		return artistRepository.findByNameStartsWith(name);
     }
     
-    @PostMapping("/admin/album/save")
+    @PostMapping(value = "/admin/album/save")
     public String create(@ModelAttribute formPOJO formContent) {
-        List<Artist> artists = (List<Artist>) artistRepository.findAllById(formContent.getArtistIds());
+        List<Artist> artists = (List<Artist>) artistRepository.findAllById(formContent.getArtistsIds());
         formContent.getAlbum().setArtists(artists);
+        logger.info(formContent.getArtistsIds().toString());
         albumRepository.save(formContent.getAlbum());
         return "admin-album";
     }
 
-    @PostMapping("/admin/album/delete")
+    @PostMapping(value = "/admin/album/delete")
     public String delete(@ModelAttribute formPOJO formContent) {
         albumRepository.delete(formContent.getAlbum());
         return "admin-album";
@@ -108,6 +114,12 @@ public class AdminAlbumController {
         if (artist.get() != null) {
             album.getArtists().add(artist.get());
         }
+        return "admin-album";
+    }
+
+    @RequestMapping(value="/admin/album", params={"viewAlbum"})
+    public String viewAlbum(formPOJO formContent, final BindingResult bindingResult, @RequestParam("id") Integer id) {
+        formContent.setAlbum(albumRepository.findById(Long.valueOf(id)).get());
         return "admin-album";
     }
 
@@ -151,6 +163,7 @@ class formPOJO {
     formPOJO(Album album, List<Long> artistsIds) {
         this.album = album;
         this.artistsIds = artistsIds;
+        artistsIds.size();
     }
 
     public Album getAlbum() {
@@ -161,11 +174,11 @@ class formPOJO {
         this.album = album;
     }
 
-    public List<Long> getArtistIds() {
+    public List<Long> getArtistsIds() {
         return artistsIds;
     }
 
-    public void setArtistIds(List<Long> artistIds) {
+    public void setArtistsIds(List<Long> artistIds) {
         this.artistsIds = artistIds;
     }
 }
