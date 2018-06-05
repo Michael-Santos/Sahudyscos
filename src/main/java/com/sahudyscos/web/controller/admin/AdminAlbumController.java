@@ -16,6 +16,8 @@ import com.sahudyscos.web.repository.AlbumRepository;
 import com.sahudyscos.web.repository.ArtistRepository;
 import com.sahudyscos.web.repository.PageAlbumRepository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,17 +27,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.ModelAndView;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 @Controller
@@ -63,7 +58,7 @@ public class AdminAlbumController {
         model.addAttribute("albums", page);
         model.addAttribute("pageSizes", PAGE_SIZES);
         model.addAttribute("pager", pager);
-        model.addAttribute("formContent", new formPOJO(new Album(), new ArrayList<Long>()));
+        model.addAttribute("formContent", new albumFormPOJO(new Album(), new ArrayList<Long>()));
         return "admin-album";
     }
 
@@ -94,7 +89,7 @@ public class AdminAlbumController {
     }
     
     @PostMapping(value = "/admin/album/save")
-    public String create(@ModelAttribute formPOJO formContent) {
+    public String create(@ModelAttribute albumFormPOJO formContent) {
         List<Artist> artists = (List<Artist>) artistRepository.findAllById(formContent.getArtistsIds());
         formContent.getAlbum().setArtists(artists);
         logger.info(formContent.getArtistsIds().toString());
@@ -103,7 +98,7 @@ public class AdminAlbumController {
     }
 
     @PostMapping(value = "/admin/album/delete")
-    public String delete(@ModelAttribute formPOJO formContent) {
+    public String delete(@ModelAttribute albumFormPOJO formContent) {
         albumRepository.delete(formContent.getAlbum());
         return "admin-album";
     }
@@ -118,7 +113,7 @@ public class AdminAlbumController {
     }
 
     @RequestMapping(value="/admin/album", params={"viewAlbum"})
-    public String viewAlbum(formPOJO formContent, final BindingResult bindingResult, @RequestParam("id") Integer id) {
+    public String viewAlbum(albumFormPOJO formContent, final BindingResult bindingResult, @RequestParam("id") Integer id) {
         formContent.setAlbum(albumRepository.findById(Long.valueOf(id)).get());
         return "admin-album";
     }
@@ -154,13 +149,13 @@ class albumRequest {
 
 }
 
-class formPOJO {
+class albumFormPOJO {
     private Album album;
     private List<Long> artistsIds;
 
-    formPOJO () { }
+    albumFormPOJO () { }
 
-    formPOJO(Album album, List<Long> artistsIds) {
+    albumFormPOJO(Album album, List<Long> artistsIds) {
         this.album = album;
         this.artistsIds = artistsIds;
         artistsIds.size();

@@ -26,15 +26,13 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         response.setStatus(HttpServletResponse.SC_OK);
         
         boolean admin = false;
-        
-        logger.info("AT onAuthenticationSuccess(...) function!");
 
         logger.info(String.valueOf(authentication.getAuthorities()));
         
         for (GrantedAuthority auth : authentication.getAuthorities()) {
             if ("ADMIN".equals(auth.getAuthority())){
                 admin = true;
-                logger.info("Admin logged in");
+                logger.info("Admin logged in!");
             }
         }
         

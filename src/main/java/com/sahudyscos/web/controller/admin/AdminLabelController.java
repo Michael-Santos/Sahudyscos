@@ -6,11 +6,8 @@ import java.util.Optional;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sahudyscos.web.controller.util.Pager;
-import com.sahudyscos.web.entity.Artist;
 import com.sahudyscos.web.entity.Label;
-import com.sahudyscos.web.repository.ArtistRepository;
 import com.sahudyscos.web.repository.LabelRepository;
-import com.sahudyscos.web.repository.PageArtistRepository;
 import com.sahudyscos.web.repository.PageLabelRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;

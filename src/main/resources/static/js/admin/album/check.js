@@ -1,4 +1,4 @@
-$(document).ready(function() {
+/*$(document).ready(function() {
     $.getJSON('paises.json', function (data) {
         var items = [];
         var options = '<option value="">Por favor, selecione um país</option>';
@@ -7,7 +7,7 @@ $(document).ready(function() {
         });
         $("#dropDownPaises").html(options);
     });
-});
+});*/
 
 $(document).ready(function() {
                 

@@ -2,6 +2,7 @@ package com.sahudyscos.web.service;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 import com.sahudyscos.web.entity.access.Role;
 import com.sahudyscos.web.entity.access.User;
@@ -37,6 +38,13 @@ public class UserServiceImpl implements UserService{
         Role userRole = roleRepository.findByRole("ADMIN");
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         */
+		userRepository.save(user);
+	}
+
+	@Override
+	public void saveUserAndRoles(User user, List<Role> roles) {
+		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+		user.setRoles(new HashSet<Role>(roles));
 		userRepository.save(user);
 	}
 

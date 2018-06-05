@@ -4,6 +4,7 @@
     <title>Sahudyscos</title>
     <div th:replace="fragments/layout :: common-head">
     </div>
+    <script th:src="@{js/util.js}"></script>
 </head>
 <body>
     <header th:replace="fragments/layout :: header-main">
@@ -20,237 +21,195 @@
 
                 <section class="col-sm-12 col-md-10 py-3">
                     <ul class="nav nav-tabs" id="main-tabs">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="all-tab" data-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="true">Tudo</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="albums-tab" data-toggle="tab" href="#albums" role="tab" aria-controls="albums" aria-selected="false">Álbuns</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="releases-tab" data-toggle="tab" href="#releases" role="tab" aria-controls="releases" aria-selected="false">Versões</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="labels-tab" data-toggle="tab" href="#labels" role="tab" aria-controls="labels" aria-selected="false">Gravadoras</a>
-                    </li>
-                    <li>
-                         <form class="form-inline my-2 my-md-0">
-                            <div class="input-group">
-                                <input class="form-control" type="search" placeholder="Pesquisar" aria-label="Search" aria-describedby="basic-addon1">
-                                <div class="input-group-append">
-                                    <select class="custom-select" id="sel1"> <!-- Podemos tirar isso mas vai ficar difícil pra caramba de fazer consulta -->
-                                        <option>Banda</option>
-                                        <option>Álbum</option>
-                                        <option>Versão</option>
-                                        <option>Gravadora</option>
-                                        <option>País</option>
-                                    </select>
-                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+                        <li class="nav-item">
+                            <a class="nav-link active" id="releases-tab" data-toggle="tab" href="#releases" role="tab" aria-controls="releases" aria-selected="false">Versões</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="albums-tab" data-toggle="tab" href="#albums" role="tab" aria-controls="albums" aria-selected="false">Álbuns</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="labels-tab" data-toggle="tab" href="#labels" role="tab" aria-controls="labels" aria-selected="false">Gravadoras</a>
+                        </li>
+                        <li>
+                             <form class="form-inline my-2 my-md-0">
+                                <div class="input-group">
+                                    <input class="form-control" type="search" placeholder="Pesquisar" aria-label="Search" aria-describedby="basic-addon1">
+                                    <div class="input-group-append">
+                                        <select class="custom-select" id="sel1"> <!-- Podemos tirar isso mas vai ficar difícil pra caramba de fazer consulta -->
+                                            <option>Banda</option>
+                                            <option>Álbum</option>
+                                            <option>Versão</option>
+                                            <option>Gravadora</option>
+                                            <option>País</option>
+                                        </select>
+                                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+                                    </div>
                                 </div>
-                                
-                            </div>
-                        </form>
-                    </li>
+                            </form>
+                        </li>
                     </ul>
                 
                     <div class="tab-content" id="main-tabs">
-                        <class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
-                        <div class="row col-md-11">
-                        <div class="col-xs-4 col-sm-4 col-md-3 my-1">
-                            <div class="card showbox">
-                                <a href="release.html"><img class="card-img-top img-thumbnail" src="cover/R-9674533-1484572870-4744.jpeg" alt="Card image cap"></a>
-                                <div class="card-body">
-                                    <h5 class="card-title"><a href="artist.html">Wesley Safadão</a></h5>
-                                    <p class="card-text"><a href="release.html">Duetos</a> <button class="btn btn-sm btn-outline-success float-right ">R$90,00</button></p>
+
+                        <div class="tab-pane fade show active" id="releases" role="tabpanel" aria-labelledby="releases-tab">
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-4 col-md-3 my-1" th:each="release : ${releases}">
+                                    <div class="card showbox">
+                                        <a th:href="@{/release(id=__${release.id}__, album=__${release.album.id}__)}"><img class="card-img-top img-thumbnail" src="cover/R-9674533-1484572870-4744.jpeg" alt="Card image cap"></a>
+                                        <div class="card-body">
+                                            <h5 class="card-title" th:each="artist : ${release.album.artists}"><a th:href="@{/artist(id=__${artist.id}__)}" th:text="${artist.name}">Wesley Safadão</a></h5>
+                                            <p class="card-text"><a th:href="@{/release(id=__${release.id}__, album=__${release.album.id}__)}" th:text="${release.album.name}">Duetos</a> <button class="btn btn-sm float-right" th:classappend="${release.onSaleStatus} ? btn-outline-success : btn-outline-primary" th:text="'R$' + ${release.price}">R$90,00</button></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-1">
+                                    <select class="form-control pagination" id="pageSizeSelect">
+                                        <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
+                                            th:value="${pageSize}"
+                                            th:selected="${pageSize} == ${selectedPageSize}"></option>
+                                    </select>
+                                </div>
+                                <div th:if="${releases.totalPages != 1}"
+                                    class="form-group col-md-11 pagination-centered">
+                                    <ul class="pagination">
+                                        <li th:class="${releases.number == 0} ? 'page-item disabled' : 'page-item'"><a
+                                            class="page-link"
+                                            th:href="@{/#releases(size=${selectedPageSize}, page=1)}">&laquo;</a>
+                                        </li>
+                                        <li th:class="${releases.number == 0} ? 'page-item disabled' : 'page-item'"><a
+                                            class="page-link"
+                                            th:href="@{/#releases(size=${selectedPageSize}, page=${releases.number})}">&larr;</a>
+                                        </li>
+                                        <li
+                                            th:class="${releases.number == page} ? 'page-item active pointer-disabled' : 'page-item'"
+                                            th:each="page : ${#numbers.sequence(releasePager.startPage, releasePager.endPage)}">
+                                            <a class="page-link"
+                                            th:href="@{/#releases(size=${selectedPageSize}, page=${page})}"
+                                            th:text="${page}"></a>
+                                        </li>
+                                        <li
+                                            th:class="${releases.number + 1 == releases.totalPages} ? 'page-item disabled' : 'page-item'">
+                                            <a class="page-link"
+                                            th:href="@{/#releases(size=${selectedPageSize}, page=${releases.number + 2})}">&rarr;</a>
+                                        </li>
+                                        <li
+                                            th:class="${releases.number + 1 == releases.totalPages} ? 'page-item disabled' : 'page-item'">
+                                            <a class="page-link"
+                                            th:href="@{/#releases(pageSize=${selectedPageSize}, page=${releases.totalPages})}">&raquo;</a>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-4 col-sm-4 col-md-3 my-1">
-                            <div class="card showbox">
-                                <img class="card-img-top img-thumbnail" src="cover/R-9674411-1484570978-1942.jpg" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">Wesley Safadão</h5>
-                                    <p class="card-text">WS Em Casa</p>
+
+                        <div class="tab-pane fade" id="albums" role="tabpanel" aria-labelledby="albums-tab">
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-4 col-md-3 my-1" th:each="album : ${albums}">
+                                    <div class="card showbox">
+                                        <a th:href="@{/album(id=__${album.id}__)}"><img class="card-img-top img-thumbnail" src="cover/R-9674533-1484572870-4744.jpeg" alt="Card image cap"></a>
+                                        <div class="card-body">
+                                            <h5 class="card-title" th:each="artist : ${album.artists}"><a th:href="@{/artist(id=__${artist.id}__)}" th:text="${artist.name}">Wesley Safadão</a></h5>
+                                            <p class="card-text"><a th:href="@{/album(id=__${album.id}__)}" th:text="${album.name}">Duetos</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-1">
+                                    <select class="form-control pagination" id="pageSizeSelect">
+                                        <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
+                                            th:value="${pageSize}"
+                                            th:selected="${pageSize} == ${selectedPageSize}"></option>
+                                    </select>
+                                </div>
+                                <div th:if="${albums.totalPages != 1}"
+                                    class="form-group col-md-11 pagination-centered">
+                                    <ul class="pagination">
+                                        <li th:class="${albums.number == 0} ? 'page-item disabled' : 'page-item'"><a
+                                            class="page-link"
+                                            th:href="@{/#albums(size=${selectedPageSize}, page=1)}">&laquo;</a>
+                                        </li>
+                                        <li th:class="${albums.number == 0} ? 'page-item disabled' : 'page-item'"><a
+                                            class="page-link"
+                                            th:href="@{/#albums(size=${selectedPageSize}, page=${albums.number})}">&larr;</a>
+                                        </li>
+                                        <li
+                                            th:class="${albums.number == page} ? 'page-item active pointer-disabled' : 'page-item'"
+                                            th:each="page : ${#numbers.sequence(albumPager.startPage, albumPager.endPage)}">
+                                            <a class="page-link"
+                                            th:href="@{/#albums(size=${selectedPageSize}, page=${page})}"
+                                            th:text="${page}"></a>
+                                        </li>
+                                        <li
+                                            th:class="${albums.number + 1 == albums.totalPages} ? 'page-item disabled' : 'page-item'">
+                                            <a class="page-link"
+                                            th:href="@{/#albums(size=${selectedPageSize}, page=${albums.number + 2})}">&rarr;</a>
+                                        </li>
+                                        <li
+                                            th:class="${albums.number + 1 == albums.totalPages} ? 'page-item disabled' : 'page-item'">
+                                            <a class="page-link"
+                                            th:href="@{/#albums(pageSize=${selectedPageSize}, page=${albums.totalPages})}">&raquo;</a>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
-                       <div class="col-xs-4 col-sm-4 col-md-3 my-1">
-                            <div class="card showbox">
-                                <img class="card-img-top img-thumbnail" src="cover/R-9674533-1484572870-4746.jpeg" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">Wesley Safadão</h5>
-                                    <p class="card-text">Paradise</p>
-                                </div>
-                            </div>
-                        </div>
-                       <div class="col-xs-4 col-sm-4 col-md-3 my-1">
-                            <div class="card showbox">
-                                <img class="card-img-top img-thumbnail" src="cover/R-9674533-1484572870-4748.jpeg" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">Wesley Safadão</h5>
-                                    <p class="card-text">Paradise</p>
-                                </div>
-                            </div>
-                        </div>
-                       <div class="col-xs-4 col-sm-4 col-md-3 my-1">
-                            <div class="card showbox">
-                                <img class="card-img-top img-thumbnail" src="cover/R-9674533-1484572870-4750.jpeg" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">Wesley Safadão</h5>
-                                    <p class="card-text">Uma Nova História</p>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="col-xs-4 col-sm-4 col-md-3 my-1">
-                            <div class="card showbox">
-                                    <img class="card-img-top img-thumbnail" src="cover/R-9674533-1484572870-4752.jpeg" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Metallica</h5>
-                                        <p class="card-text">Master of Puppets</p>
-                                    </div>
-                                </div>
-                            </div>
-                       <div class="col-xs-4 col-sm-4 col-md-3 my-1">
-                            <div class="card showbox">
-                                    <img class="card-img-top img-thumbnail" src="cover/R-9674533-1484572870-4754.jpeg" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Metallica</h5>
-                                        <p class="card-text">Hardwired</p>
-                                    </div>
-                                </div>
-                            </div>
-                       <div class="col-xs-4 col-sm-4 col-md-3 my-1">
-                            <div class="card showbox">
-                                    <img class="card-img-top img-thumbnail" src="cover/R-9674533-1484572870-4756.jpeg" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Rainbow</h5>
-                                        <p class="card-text">Rising</p>
-                                    </div>
-                                </div>
-                            </div>
-                       <div class="col-xs-4 col-sm-4 col-md-3 my-1">
-                            <div class="card showbox">
-                                    <img class="card-img-top img-thumbnail" src="cover/R-9674533-1484572870-4744.jpeg" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Wesley</p>
-                                    </div>
-                                </div>
-                            </div>
-                       <div class="col-xs-4 col-sm-4 col-md-3 my-1">
-                            <div class="card showbox">
-                                    <img class="card-img-top img-thumbnail" src="cover/R-9674533-1484572870-4744.jpeg" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Wesley</p>
-                                    </div>
-                                </div>
-                            </div>
-                       
-                     
-                       <div class="col-xs-4 col-sm-4 col-md-3 my-1">
-                            <div class="card showbox">
-                                    <img class="card-img-top img-thumbnail" src="cover/R-9674533-1484572870-4744.jpeg" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Wesley</p>
-                                    </div>
-                                </div>
-                            </div>
-                       <div class="col-xs-4 col-sm-4 col-md-3 my-1">
-                            <div class="card showbox">
-                                    <img class="card-img-top img-thumbnail" src="cover/R-9674533-1484572870-4744.jpeg" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Wesley</p>
-                                    </div>
-                                </div>
-                            </div>
-                       <div class="col-xs-4 col-sm-4 col-md-3 my-1">
-                            <div class="card showbox">
-                                    <img class="card-img-top img-thumbnail" src="cover/R-9674533-1484572870-4744.jpeg" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Wesley</p>
-                                    </div>
-                                </div>
-                            </div>
-                       <div class="col-xs-4 col-sm-4 col-md-3 my-1">
-                            <div class="card showbox">
-                                    <img class="card-img-top img-thumbnail" src="cover/R-9674533-1484572870-4744.jpeg" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Wesley</p>
-                                    </div>
-                                </div>
-                            </div>
-                       <div class="col-xs-4 col-sm-4 col-md-3 my-1">
-                            <div class="card showbox">
-                                    <img class="card-img-top img-thumbnail" src="cover/R-9674533-1484572870-4744.jpeg" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Wesley</p>
-                                    </div>
-                                </div>
-                            </div>
                         
-                     
-                       <div class="col-xs-4 col-sm-4 col-md-3 my-1">
-                            <div class="card showbox">
-                                    <img class="card-img-top img-thumbnail" src="cover/R-9674533-1484572870-4744.jpeg" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Wesley</p>
-                                    </div>
-                            </div>
-                        </div>
-                       <div class="col-xs-4 col-sm-4 col-md-3 my-1">
-                            <div class="card showbox">
-                                    <img class="card-img-top img-thumbnail" src="cover/R-9674533-1484572870-4744.jpeg" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Wesley</p>
+                        <div class="tab-pane fade" id="labels" role="tabpanel" aria-labelledby="labels-tab">
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-4 col-md-3 my-1" th:each="label : ${labels}">
+                                    <div class="card showbox">
+                                        <a th:href="@{/label(id=__${label.id}__)}"><img class="card-img-top img-thumbnail" src="cover/R-9674533-1484572870-4744.jpeg" alt="Card image cap"></a>
+                                        <div class="card-body">
+                                            <h5 class="card-title"><a th:href="@{/label(id=__${label.id}__)}" th:text="${label.name}">Wesley Safadão</a></h5>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                       <div class="col-xs-4 col-sm-4 col-md-3 my-1">
-                            <div class="card showbox">
-                                    <img class="card-img-top img-thumbnail" src="cover/R-9674533-1484572870-4744.jpeg" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Wesley</p>
-                                    </div>
+                            <div class="row">
+                                <div class="form-group col-md-1">
+                                    <select class="form-control pagination" id="pageSizeSelect">
+                                        <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
+                                            th:value="${pageSize}"
+                                            th:selected="${pageSize} == ${selectedPageSize}"></option>
+                                    </select>
                                 </div>
-                            </div>
-                       <div class="col-xs-4 col-sm-4 col-md-3 my-1">
-                            <div class="card showbox">
-                                    <img class="card-img-top img-thumbnail" src="cover/R-9674533-1484572870-4744.jpeg" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Wesley</p>
-                                    </div>
-                                </div>
-                            </div>
-                       <div class="col-xs-4 col-sm-4 col-md-3 my-1">
-                            <div class="card showbox">
-                                <img class="card-img-top img-thumbnail" src="cover/R-9674533-1484572870-4744.jpeg" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">Wesley</p>
+                                <div th:if="${labels.totalPages != 1}"
+                                    class="form-group col-md-11 pagination-centered">
+                                    <ul class="pagination">
+                                        <li th:class="${labels.number == 0} ? 'page-item disabled' : 'page-item'"><a
+                                            class="page-link"
+                                            th:href="@{/#label(size=${selectedPageSize}, page=1)}">&laquo;</a>
+                                        </li>
+                                        <li th:class="${labels.number == 0} ? 'page-item disabled' : 'page-item'"><a
+                                            class="page-link"
+                                            th:href="@{/#label(size=${selectedPageSize}, page=${labels.number})}">&larr;</a>
+                                        </li>
+                                        <li
+                                            th:class="${labels.number == page} ? 'page-item active pointer-disabled' : 'page-item'"
+                                            th:each="page : ${#numbers.sequence(labelPager.startPage, labelPager.endPage)}">
+                                            <a class="page-link"
+                                            th:href="@{label(size=${selectedPageSize}, page=${page})}"
+                                            th:text="${page}"></a>
+                                        </li>
+                                        <li
+                                            th:class="${labels.number + 1 == labels.totalPages} ? 'page-item disabled' : 'page-item'">
+                                            <a class="page-link"
+                                            th:href="@{/#label(size=${selectedPageSize}, page=${labels.number + 2})}">&rarr;</a>
+                                        </li>
+                                        <li
+                                            th:class="${labels.number + 1 == labels.totalPages} ? 'page-item disabled' : 'page-item'">
+                                            <a class="page-link"
+                                            th:href="@{/#label(pageSize=${selectedPageSize}, page=${labels.totalPages})}">&raquo;</a>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
-                        </div>
-                        <div class="text-center my-5">
-                        <button class="btn btn-success">Ver mais</button>
-                        </div>
+
                     </div>
-
-                    <div class="tab-pane fade" id="albums" role="tabpanel" aria-labelledby="albums-tab"></div>
-
-                    <div class="tab-pane fade" id="releases" role="tabpanel" aria-labelledby="releases-tab"></div>
-
-                    <div class="tab-pane fade" id="labels" role="tabpanel" aria-labelledby="labels-tab"></div>
                 </section> 
             </div>
         </div>

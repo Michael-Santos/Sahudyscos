@@ -8,17 +8,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sahudyscos.web.controller.util.Pager;
 import com.sahudyscos.web.entity.Album;
-import com.sahudyscos.web.entity.Artist;
-import com.sahudyscos.web.entity.Contract;
 import com.sahudyscos.web.entity.Label;
 import com.sahudyscos.web.entity.Release;
-import com.sahudyscos.web.entity.key.ContractId;
 import com.sahudyscos.web.entity.key.ReleaseId;
 import com.sahudyscos.web.repository.AlbumRepository;
-import com.sahudyscos.web.repository.ArtistRepository;
-import com.sahudyscos.web.repository.ContractRepository;
 import com.sahudyscos.web.repository.LabelRepository;
-import com.sahudyscos.web.repository.PageContractRepository;
 import com.sahudyscos.web.repository.PageReleaseRepository;
 import com.sahudyscos.web.repository.ReleaseRepository;
 

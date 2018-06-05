@@ -2,7 +2,6 @@ package com.sahudyscos.web.entity;
 
 import java.net.URL;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
