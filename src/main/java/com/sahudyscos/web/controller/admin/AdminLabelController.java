@@ -5,14 +5,15 @@ import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.querydsl.core.types.Predicate;
 import com.sahudyscos.web.controller.util.Pager;
 import com.sahudyscos.web.entity.Label;
 import com.sahudyscos.web.repository.LabelRepository;
-import com.sahudyscos.web.repository.PageLabelRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,14 +30,11 @@ public class AdminLabelController {
     private static final int[] PAGE_SIZES = {10, 20, 30};
 
     @Autowired
-    private PageLabelRepository pageLabelRepository;
-
-    @Autowired
     private LabelRepository labelRepository;
 
     @GetMapping("/admin/label")
-    public String artist(Model model, Pageable pageable) {
-        Page<Label> page = pageLabelRepository.findAll(pageable);
+    public String artist(Model model, @QuerydslPredicate(root = Label.class) Predicate predicate, Pageable pageable) {
+        Page<Label> page = labelRepository.findAll(predicate, pageable);
         Pager pager = new Pager(page.getTotalPages(),page.getNumber(),BUTTONS_TO_SHOW);
         model.addAttribute("labels", page);
         model.addAttribute("pageSizes", PAGE_SIZES);

@@ -1,6 +1,7 @@
 package com.sahudyscos.web.entity;
 
 import java.sql.Date;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,6 +25,9 @@ public class Release {
     @Id
     @Column(name = "cod_album")
     private Long albumId;
+
+    @Column(name = "mbid")
+    private UUID mbid;
 
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "cod_album", insertable = false, updatable = false)
@@ -57,6 +61,14 @@ public class Release {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public UUID getMbid() {
+		return mbid;
+	}
+
+	public void setMbid(UUID mbid) {
+		this.mbid = mbid;
     }
 
     public Long getAlbumId() {

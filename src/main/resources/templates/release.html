@@ -4,6 +4,7 @@
     <title>Álbum</title>
     <div th:replace="fragments/layout :: common-head">
     </div>
+    <script th:src="@{/js/util.js}"></script>
 </head>
 <body>
     <header th:replace="fragments/layout :: header-result">
@@ -15,29 +16,29 @@
                 <section class="col">
                     <div class="row">
                         <div class="col">
-                            <img class="card-img-top img-thumbnail" src="cover/R-9674533-1484572870-4744.jpeg" alt="Card image cap">
+                            <img id="coverart" class="card-img-top img-thumbnail" th:onload="|changeReleaseCover(this, '${release.mbid}')|" th:src="@{/img/default/default-release.png}" th:alt="${release.album.name}">
                         </div>
                         <div class="col">
-                            <a th:each="artist,iterStat : ${album.artists}" th:href="@{/artist(id=${artist.id})}"><h2 th:text="${artist.name}"></h2></a>
+                            <a th:each="artist,iterStat : ${release.album.artists}" th:href="@{/artist(id=${artist.id})}"><h2 th:text="${artist.name}"></h2></a>
                             <hr/>
-                            <a th:href="@{/album(id=${album.id})}"><h2 th:text="${album.name}"></h2></a>
+                            <a th:href="@{/album(id=${release.album.id})}"><h2 th:text="${release.album.name}"></h2></a>
                             <ul class="list-group">
                                     <li class="list-group-item">
                                         <h5>Gravadora</h5> 
-                                        <p class="mb-1"><a th:href="@{/label(id=${label.id})}" th:text="${label.name}">Som Livre</a></p>
+                                        <p class="mb-1"><a th:href="@{/label(id=${release.label.id})}" th:text="${release.label.name}">Som Livre</a></p>
                                     </li>
                                     <li class="list-group-item">
                                         <h5>Formato</h5> 
-                                        <p class="mb-1" th:text="${format}">CD</p>
+                                        <p class="mb-1" th:text="${release.format}">CD</p>
                                     </li>
                                     <li class="list-group-item">
                                         <h5>Lançamento</h5> 
-                                        <p class="mb-1" th:text="${date}">2016</p>
+                                        <p class="mb-1" th:text="${release.releaseDate}">2016</p>
                                     </li>
                                     <li class="list-group-item">
                                         <h5>Gênero</h5> 
-                                        <p class="mb-1" th:text="${album.genre}">Axé</p>
-                                        <p class="mb-1" th:text="${album.altGenre}">Axé</p>
+                                        <p class="mb-1" th:text="${release.album.genre}">Axé</p>
+                                        <p class="mb-1" th:text="${release.album.altGenre}">Axé</p>
                                     </li>
                             </ul>
                         </div>
@@ -48,19 +49,19 @@
                     <div class="container">
                     <ul class="list-group">
                         <li class="list-group-item list-group-item-primary">
-                            <h1 th:text="'R$' + ${price}">R$ 90,00</h1>
+                            <h1 th:text="'R$' + ${release.price}">R$ 90,00</h1>
                         </li>
                         <li class="list-group-item">
                             <h2>Versão</h2>
-                            <h4 class="mb-1 alert" th:text="${type}">Original</h4>
+                            <h4 class="mb-1 alert" th:text="${release.type}">Original</h4>
                         </li>
                         <li class="list-group-item">
                             <h2>Unidades Disponíveis</h2>
-                            <h4 class="mb-1 alert" th:text="${amount}">6</h4>
+                            <h4 class="mb-1 alert" th:text="${release.amountAvailable}">6</h4>
                         </li>
                         <li class="list-group-item">
                             <h2>Avaliação Média</h2>
-                            <h4 class="mb-1 alert" th:text="${album.rating}">5,0/5,0</h4>
+                            <h4 class="mb-1 alert" th:text="${release.album.rating}">5,0/5,0</h4>
                         </li>
                     </ul>
                 </div>

@@ -4,6 +4,7 @@
     <title>Álbum</title>
     <div th:replace="fragments/layout :: common-head">
     </div>
+    <script th:src="@{/js/util.js}"></script>
 </head>
 <body>
     <header th:replace="fragments/layout :: header-result">
@@ -15,19 +16,19 @@
             <section class="col">
                 <div class="row">
                     <div class="col">
-                        <img class="card-img-top img-thumbnail" src="cover/R-9674533-1484572870-4744.jpeg" alt="Card image cap">
+                        <img id="coverart" class="card-img-top img-thumbnail" th:onload="|changeAlbumCover(this, '${album.mbid}')|" th:src="@{/img/default/default-release.png}" th:alt="${album.name}">
                     </div>
                     <div class="col">
-                        <a th:each="artist,iterStat : ${artists}" th:href="@{/artist(id=${artist.id})}"><h2 th:text="${artist.name}"></h2></a>
+                        <a th:each="artist,iterStat : ${album.artists}" th:href="@{/artist(id=${artist.id})}"><h2 th:text="${artist.name}"></h2></a>
                         <hr/>
-                        <h2 th:text="${name}" />
+                        <h2 th:text="${album.name}" />
                                 <li class="list-group-item">
                                     <h5>País</h5> 
-                                    <p class="mb-1" th:text="${country}"/>
+                                    <p class="mb-1" th:text="${album.country}"/>
                                 </li>
                                 <li class="list-group-item">
                                     <h5>Lançamento</h5> 
-                                    <p class="mb-1" th:text="${publication}"/>
+                                    <p class="mb-1" th:text="${album.publication}"/>
                                 </li>
                                 <li class="list-group-item">
                                     <h5>Gênero</h5> 
@@ -45,7 +46,7 @@
                 <ul class="list-group">
                     <li class="list-group-item">
                         <h2>Avaliação Média</h2>
-                        <h4 class="mb-1 alert" th:text="${rating}"/>
+                        <h4 class="mb-1 alert" th:text="${album.rating}"/>
                     </li>
                 </ul>
             </div>
@@ -68,12 +69,12 @@
                      </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="release : ${releases}">
-                        <th scope="row"><a th:href="@{/release(id=${release.id},album=${id})}" th:text="${name}"></a></th>
+                    <tr th:each="release : ${album.releases}">
+                        <th scope="row"><a th:href="@{/release(id=${release.id},album=${album.id})}" th:text="${album.name}"></a></th>
                         <td th:text="${release.type}"></td>
                         <td th:text="${release.format}"></td>
                         <td th:text="${release.releaseDate}"></td>
-                        <td><a th:href="@{/release(id=${release.id},album=${id})}"><button type="button" class="btn btn-success" th:text="'R$' + ${release.price}"></button></a></td>
+                        <td><a th:href="@{/release(id=${release.id},album=${album.id})}"><button type="button" class="btn btn-success" th:text="'R$' + ${release.price}"></button></a></td>
                     </tr>
                 </tbody>
             </table>

@@ -1,5 +1,10 @@
 package com.sahudyscos.web.controller.user;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.Optional;
 
 import com.sahudyscos.web.entity.Album;
@@ -23,14 +28,8 @@ public class AlbumController {
         Optional<Album> currentAlbum;
 
         currentAlbum = albumRepository.findById(id.longValue());
-
-        model.addAttribute("id", id);
-        model.addAttribute("name", currentAlbum.get().getName());
-        model.addAttribute("country", currentAlbum.get().getCountry());
-        model.addAttribute("publication", currentAlbum.get().getPublication());
-        model.addAttribute("rating", currentAlbum.get().getRating());
-        model.addAttribute("artists", currentAlbum.get().getArtists());
-        model.addAttribute("releases", currentAlbum.get().getReleases());
+        
+        model.addAttribute("album", currentAlbum.get());
         return "album";
     }
 

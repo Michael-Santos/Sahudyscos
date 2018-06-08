@@ -3,6 +3,7 @@ package com.sahudyscos.web.entity;
 import java.net.URL;
 import java.sql.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -31,6 +32,9 @@ public class Album {
     @SequenceGenerator(name = "album_sequence", sequenceName = "album_sequence",allocationSize=1)
     @Column(name = "cod_album")
     private Long id;
+
+    @Column(name = "mbid")
+    private UUID mbid;
 
     @ManyToMany(cascade = { 
         CascadeType.PERSIST, 
@@ -69,7 +73,15 @@ public class Album {
     @Column(name = "data_publicacao")
     private Date publication;
 
-	public Long getId() {
+	public UUID getMbid() {
+		return mbid;
+	}
+
+	public void setMbid(UUID mbid) {
+		this.mbid = mbid;
+    }
+    
+    public Long getId() {
 		return id;
 	}
 

@@ -4,9 +4,9 @@ import com.sahudyscos.web.controller.util.Pager;
 import com.sahudyscos.web.entity.Album;
 import com.sahudyscos.web.entity.Label;
 import com.sahudyscos.web.entity.Release;
-import com.sahudyscos.web.repository.PageAlbumRepository;
-import com.sahudyscos.web.repository.PageLabelRepository;
-import com.sahudyscos.web.repository.PageReleaseRepository;
+import com.sahudyscos.web.repository.AlbumRepository;
+import com.sahudyscos.web.repository.LabelRepository;
+import com.sahudyscos.web.repository.ReleaseRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,25 +23,25 @@ public class HomeController {
     private static final int[] PAGE_SIZES = {10, 20, 30};
 
     @Autowired
-    PageReleaseRepository pageReleaseRepository;
+    ReleaseRepository releaseRepository;
 
     @Autowired
-    PageAlbumRepository pageAlbumRepository;
+    AlbumRepository albumRepository;
 
     @Autowired
-    PageLabelRepository pageLabelRepository;
+    LabelRepository pageLabelRepository;
 
     @GetMapping("/")
     public String home(Model model, Pageable pageable) {
         // Releases
-        Page<Release> releasePage = pageReleaseRepository.findAll(pageable);
+        Page<Release> releasePage = releaseRepository.findAll(pageable);
         Pager releasePager = new Pager(releasePage.getTotalPages(),releasePage.getNumber(),BUTTONS_TO_SHOW);
         // Labels
         Page<Label> labelPage = pageLabelRepository.findAll(pageable);
         Pager labelPager = new Pager(labelPage.getTotalPages(), labelPage.getNumber(), BUTTONS_TO_SHOW);
 
         // Albums
-        Page<Album> albumPage = pageAlbumRepository.findAll(pageable);
+        Page<Album> albumPage = albumRepository.findAll(pageable);
         Pager albumPager = new Pager(albumPage.getTotalPages(),albumPage.getNumber(),BUTTONS_TO_SHOW);
 
         model.addAttribute("releases", releasePage);

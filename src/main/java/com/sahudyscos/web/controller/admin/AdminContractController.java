@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.querydsl.core.types.Predicate;
 import com.sahudyscos.web.controller.util.Pager;
 import com.sahudyscos.web.entity.Artist;
 import com.sahudyscos.web.entity.Contract;
@@ -14,11 +15,11 @@ import com.sahudyscos.web.entity.key.ContractId;
 import com.sahudyscos.web.repository.ArtistRepository;
 import com.sahudyscos.web.repository.ContractRepository;
 import com.sahudyscos.web.repository.LabelRepository;
-import com.sahudyscos.web.repository.PageContractRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,9 +37,6 @@ public class AdminContractController {
     private static final int[] PAGE_SIZES = {10, 20, 30};
 
     @Autowired
-    private PageContractRepository pageContractRepository;
-
-    @Autowired
     private ContractRepository contractRepository;
 
     @Autowired
@@ -48,8 +46,8 @@ public class AdminContractController {
     private LabelRepository labelRepository;
 
     @GetMapping("/admin/contract")
-    public String contract(Model model, Pageable pageable) {
-        Page<Contract> page = pageContractRepository.findAll(pageable);
+    public String contract(Model model, @QuerydslPredicate(root = Contract.class) Predicate predicate, Pageable pageable) {
+        Page<Contract> page = contractRepository.findAll(predicate, pageable);
         Pager pager = new Pager(page.getTotalPages(),page.getNumber(),BUTTONS_TO_SHOW);
         model.addAttribute("contracts", page);
         model.addAttribute("pageSizes", PAGE_SIZES);

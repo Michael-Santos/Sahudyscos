@@ -9,18 +9,19 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.querydsl.core.types.Predicate;
 import com.sahudyscos.web.controller.util.Pager;
 import com.sahudyscos.web.entity.Album;
 import com.sahudyscos.web.entity.Artist;
 import com.sahudyscos.web.repository.AlbumRepository;
 import com.sahudyscos.web.repository.ArtistRepository;
-import com.sahudyscos.web.repository.PageAlbumRepository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -46,14 +47,11 @@ public class AdminAlbumController {
     private AlbumRepository albumRepository;
 
     @Autowired
-    private PageAlbumRepository pageAlbumRepository;
-
-    @Autowired
     private ArtistRepository artistRepository;
 
     @GetMapping("/admin/album")
-    public String album(Model model, Pageable pageable) {
-        Page<Album> page = pageAlbumRepository.findAll(pageable);
+    public String album(Model model, @QuerydslPredicate(root = Album.class) Predicate predicate, Pageable pageable) {
+        Page<Album> page = albumRepository.findAll(predicate, pageable);
         Pager pager = new Pager(page.getTotalPages(),page.getNumber(),BUTTONS_TO_SHOW);
         model.addAttribute("albums", page);
         model.addAttribute("pageSizes", PAGE_SIZES);

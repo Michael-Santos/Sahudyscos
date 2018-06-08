@@ -1,13 +1,13 @@
 package com.sahudyscos.web.repository;
 
-import org.springframework.data.repository.CrudRepository;
-
 import com.sahudyscos.web.entity.Release;
 import com.sahudyscos.web.entity.key.ReleaseId;
 
-// This will be AUTO IMPLEMENTED by Spring into a Bean called releaseRepository
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
+
+// This will be AUTO IMPLEMENTED by Spring into a Bean called contractRepository
 // CRUD refers Create, Read, Update, Delete
 
-public interface ReleaseRepository extends CrudRepository<Release, ReleaseId> {
-    
+public interface ReleaseRepository extends JpaRepository<Release, ReleaseId>, QuerydslPredicateExecutor<Release> {
 }

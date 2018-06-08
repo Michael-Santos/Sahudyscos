@@ -14,3 +14,29 @@ $(".nav-tabs").find("li a").each(function(key, val) {
         location.hash = $(this).attr('href');
     });
 });
+
+function changeAlbumCover(tag, mbid) {
+    var reqUrl = "https://coverartarchive.org/release-group/" + mbid + "/front";
+    $.ajax({
+            url:reqUrl,
+            type:"GET",
+            statusCode: {
+                200: function (response) {
+                    tag.setAttribute("src", reqUrl);
+                }
+            }
+    });
+}
+
+function changeReleaseCover(tag, mbid) {
+    var reqUrl = "https://coverartarchive.org/release/" + mbid + "/front";
+    $.ajax({
+            url:reqUrl,
+            type:"GET",
+            statusCode: {
+                200: function (response) {
+                    tag.setAttribute("src", reqUrl);
+                }
+            }
+    });
+}

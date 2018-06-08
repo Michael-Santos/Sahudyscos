@@ -24,12 +24,7 @@ public class ArtistController {
 
         currentArtist = artistRepository.findById(id.longValue());
 
-        model.addAttribute("name", currentArtist.get().getName());
-        model.addAttribute("description", currentArtist.get().getDescription());
-        model.addAttribute("date", currentArtist.get().getActivityStart());
-        model.addAttribute("genre", currentArtist.get().getGenre());
-        model.addAttribute("altGenre", currentArtist.get().getAltGenre());
-        model.addAttribute("albums", currentArtist.get().getAlbums());
+        model.addAttribute("artist", currentArtist.get());
         return "artist";
     }
 

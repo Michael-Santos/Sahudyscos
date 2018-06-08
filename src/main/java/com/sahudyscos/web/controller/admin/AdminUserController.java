@@ -7,26 +7,19 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.querydsl.core.types.Predicate;
 import com.sahudyscos.web.controller.util.Pager;
-import com.sahudyscos.web.entity.Album;
-import com.sahudyscos.web.entity.Artist;
 import com.sahudyscos.web.entity.access.Role;
 import com.sahudyscos.web.entity.access.User;
-import com.sahudyscos.web.repository.AlbumRepository;
-import com.sahudyscos.web.repository.ArtistRepository;
-import com.sahudyscos.web.repository.PageAlbumRepository;
 import com.sahudyscos.web.repository.access.RoleRepository;
 import com.sahudyscos.web.repository.access.UserRepository;
 import com.sahudyscos.web.service.UserService;
-import com.sahudyscos.web.service.UserServiceImpl;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,7 +28,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -56,8 +48,8 @@ public class AdminUserController {
 	private UserService userService;
 
     @GetMapping("/admin/user")
-    public String user(Model model, Pageable pageable) {
-        Page<User> page = userRepository.findAll(pageable);
+    public String user(Model model, @QuerydslPredicate(root = User.class) Predicate predicate, Pageable pageable) {
+        Page<User> page = userRepository.findAll(predicate, pageable);
         Pager pager = new Pager(page.getTotalPages(),page.getNumber(),BUTTONS_TO_SHOW);
         List<Role> roles = roleRepository.findAll();
         model.addAttribute("users", page);

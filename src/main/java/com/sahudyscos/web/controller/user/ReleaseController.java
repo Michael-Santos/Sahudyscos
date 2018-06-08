@@ -25,13 +25,7 @@ public class ReleaseController {
 
         currentRelease = releaseRepository.findById(new ReleaseId(id.longValue(), albumId.longValue()));
 
-        model.addAttribute("album", currentRelease.get().getAlbum());
-        model.addAttribute("format", currentRelease.get().getFormat());
-        model.addAttribute("type", currentRelease.get().getType());
-        model.addAttribute("amount", currentRelease.get().getAmountAvailable());
-        model.addAttribute("label", currentRelease.get().getLabel());
-        model.addAttribute("price", currentRelease.get().getPrice());
-        model.addAttribute("date", currentRelease.get().getReleaseDate());
+        model.addAttribute("release", currentRelease.get());
         return "release";
     }
 

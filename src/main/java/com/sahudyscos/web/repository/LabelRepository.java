@@ -1,14 +1,15 @@
 package com.sahudyscos.web.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import com.sahudyscos.web.entity.Label;
 
 import java.util.List;
 
-import com.sahudyscos.web.entity.Label;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
-// This will be AUTO IMPLEMENTED by Spring into a Bean called labelRepository
+// This will be AUTO IMPLEMENTED by Spring into a Bean called contractRepository
 // CRUD refers Create, Read, Update, Delete
 
-public interface LabelRepository extends CrudRepository<Label, Long> {
+public interface LabelRepository extends JpaRepository<Label, Long>, QuerydslPredicateExecutor<Label> {
     List<Label> findByNameStartsWith(String name);
 }

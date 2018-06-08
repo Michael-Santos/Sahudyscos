@@ -5,14 +5,15 @@ import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.querydsl.core.types.Predicate;
 import com.sahudyscos.web.controller.util.Pager;
 import com.sahudyscos.web.entity.Artist;
 import com.sahudyscos.web.repository.ArtistRepository;
-import com.sahudyscos.web.repository.PageArtistRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,14 +30,11 @@ public class AdminArtistController {
     private static final int[] PAGE_SIZES = {10, 20, 30};
 
     @Autowired
-    private PageArtistRepository pageArtistRepository;
-
-    @Autowired
     private ArtistRepository artistRepository;
 
     @GetMapping("/admin/artist")
-    public String artist(Model model, Pageable pageable) {
-        Page<Artist> page = pageArtistRepository.findAll(pageable);
+    public String artist(Model model, @QuerydslPredicate(root = Artist.class) Predicate predicate, Pageable pageable) {
+        Page<Artist> page = artistRepository.findAll(predicate, pageable);
         Pager pager = new Pager(page.getTotalPages(),page.getNumber(),BUTTONS_TO_SHOW);
         model.addAttribute("artists", page);
         model.addAttribute("pageSizes", PAGE_SIZES);
