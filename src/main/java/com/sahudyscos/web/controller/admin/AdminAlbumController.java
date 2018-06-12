@@ -5,12 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.querydsl.core.types.Predicate;
-import com.sahudyscos.web.controller.util.Pager;
 import com.sahudyscos.web.entity.Album;
 import com.sahudyscos.web.entity.Artist;
 import com.sahudyscos.web.repository.AlbumRepository;
@@ -19,17 +16,17 @@ import com.sahudyscos.web.repository.ArtistRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+import org.springframework.ui.ModelMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -50,14 +47,13 @@ public class AdminAlbumController {
     private ArtistRepository artistRepository;
 
     @GetMapping("/admin/album")
-    public String album(Model model, @QuerydslPredicate(root = Album.class) Predicate predicate, Pageable pageable) {
-        Page<Album> page = albumRepository.findAll(predicate, pageable);
-        Pager pager = new Pager(page.getTotalPages(),page.getNumber(),BUTTONS_TO_SHOW);
-        model.addAttribute("albums", page);
-        model.addAttribute("pageSizes", PAGE_SIZES);
-        model.addAttribute("pager", pager);
+    public String album(Model model, @QuerydslPredicate(root = Album.class) Predicate predicate, 
+                        Pageable pageable, @RequestParam MultiValueMap<String, String> parameters, 
+                        @RequestHeader(name = "Search", defaultValue = "false") Boolean search) {
+        model.addAttribute("albums", albumRepository.findAll(predicate, pageable));
         model.addAttribute("formContent", new albumFormPOJO(new Album(), new ArrayList<Long>()));
-        return "admin-album";
+        
+        return search ? "admin-album :: searchBody" : "admin-album";
     }
 
     @PostMapping(value = "/admin/album", consumes="application/json")
@@ -98,29 +94,6 @@ public class AdminAlbumController {
     @PostMapping(value = "/admin/album/delete")
     public String delete(@ModelAttribute albumFormPOJO formContent) {
         albumRepository.delete(formContent.getAlbum());
-        return "admin-album";
-    }
-
-    @RequestMapping(value="/admin/album", params={"addArtist"})
-    public String addArtist(final Album album, final BindingResult bindingResult, @RequestParam("artist") Artist reqArtist) {
-        Optional<Artist> artist = artistRepository.findById(reqArtist.getId());
-        if (artist.get() != null) {
-            album.getArtists().add(artist.get());
-        }
-        return "admin-album";
-    }
-
-    @RequestMapping(value="/admin/album", params={"viewAlbum"})
-    public String viewAlbum(albumFormPOJO formContent, final BindingResult bindingResult, @RequestParam("id") Integer id) {
-        formContent.setAlbum(albumRepository.findById(Long.valueOf(id)).get());
-        return "admin-album";
-    }
-
-    @RequestMapping(value="/admin/album", params={"removeArtist"})
-    public String removeArtist(
-            final Album album, final BindingResult bindingResult, 
-            final HttpServletRequest req) {
-        album.getArtists().remove(Integer.valueOf(req.getParameter("removeArtist")).intValue());
         return "admin-album";
     }
 }

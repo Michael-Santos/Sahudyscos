@@ -9,8 +9,10 @@ import com.sahudyscos.web.repository.LabelRepository;
 import com.sahudyscos.web.repository.ReleaseRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,30 +31,16 @@ public class HomeController {
     AlbumRepository albumRepository;
 
     @Autowired
-    LabelRepository pageLabelRepository;
+    LabelRepository labelRepository;
 
+    @Async
     @GetMapping("/")
-    public String home(Model model, Pageable pageable) {
-        // Releases
-        Page<Release> releasePage = releaseRepository.findAll(pageable);
-        Pager releasePager = new Pager(releasePage.getTotalPages(),releasePage.getNumber(),BUTTONS_TO_SHOW);
-        // Labels
-        Page<Label> labelPage = pageLabelRepository.findAll(pageable);
-        Pager labelPager = new Pager(labelPage.getTotalPages(), labelPage.getNumber(), BUTTONS_TO_SHOW);
+    public String home(Model model, @Qualifier("release") Pageable releaseTab, @Qualifier("album") Pageable albumTab, @Qualifier("label") Pageable labelTab) {
 
-        // Albums
-        Page<Album> albumPage = albumRepository.findAll(pageable);
-        Pager albumPager = new Pager(albumPage.getTotalPages(),albumPage.getNumber(),BUTTONS_TO_SHOW);
+        model.addAttribute("releases", releaseRepository.findAll(releaseTab));
+        model.addAttribute("albums", albumRepository.findAll(albumTab));
+        model.addAttribute("labels", labelRepository.findAll(labelTab));
 
-        model.addAttribute("releases", releasePage);
-        model.addAttribute("albums", albumPage);
-        model.addAttribute("labels", labelPage);
-
-        model.addAttribute("releasePager", releasePager);
-        model.addAttribute("albumPager", albumPager);
-        model.addAttribute("labelPager", labelPager);
-
-        model.addAttribute("pageSizes", PAGE_SIZES);
         return "index";
     }
 

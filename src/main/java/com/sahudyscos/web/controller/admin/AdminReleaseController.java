@@ -22,10 +22,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -46,14 +48,12 @@ public class AdminReleaseController {
     private LabelRepository labelRepository;
 
     @GetMapping("/admin/release")
-    public String contract(Model model, @QuerydslPredicate(root = Release.class) Predicate predicate, Pageable pageable) {
-        Page<Release> page = releaseRepository.findAll(predicate, pageable);
-        Pager pager = new Pager(page.getTotalPages(),page.getNumber(),BUTTONS_TO_SHOW);
-        model.addAttribute("releases", page);
-        model.addAttribute("pageSizes", PAGE_SIZES);
-        model.addAttribute("pager", pager);
+    public String contract(Model model, @QuerydslPredicate(root = Release.class) Predicate predicate,
+                           Pageable pageable, @RequestParam MultiValueMap<String, String> parameters, 
+                           @RequestHeader(name = "Search", defaultValue = "false") Boolean search) {
+        model.addAttribute("releases", releaseRepository.findAll(predicate, pageable));
         model.addAttribute("release", new Release());
-        return "admin-release";
+        return search ? "admin-release :: searchBody" : "admin-release";
     }
 
     @PostMapping(value = "/admin/release", consumes="application/json")

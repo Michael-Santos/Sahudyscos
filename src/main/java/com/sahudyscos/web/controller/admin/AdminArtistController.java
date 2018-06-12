@@ -16,10 +16,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -33,14 +36,13 @@ public class AdminArtistController {
     private ArtistRepository artistRepository;
 
     @GetMapping("/admin/artist")
-    public String artist(Model model, @QuerydslPredicate(root = Artist.class) Predicate predicate, Pageable pageable) {
-        Page<Artist> page = artistRepository.findAll(predicate, pageable);
-        Pager pager = new Pager(page.getTotalPages(),page.getNumber(),BUTTONS_TO_SHOW);
-        model.addAttribute("artists", page);
-        model.addAttribute("pageSizes", PAGE_SIZES);
-        model.addAttribute("pager", pager);
+    public String artist(Model model, @QuerydslPredicate(root = Artist.class) Predicate predicate, 
+                         Pageable pageable, @RequestParam MultiValueMap<String, String> parameters, 
+                         @RequestHeader(name = "Search", defaultValue = "false") Boolean search) {
+
+        model.addAttribute("artists", artistRepository.findAll(predicate, pageable));
         model.addAttribute("artist", new Artist());
-        return "admin-artist";
+        return search ? "admin-artist :: searchBody" : "admin-artist";
     }
 
     @PostMapping(value = "/admin/artist", consumes="application/json")

@@ -62,6 +62,12 @@
         <artifactId>thymeleaf-extras-springsecurity4</artifactId>
         <version>3.0.2.RELEASE</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/io.github.jpenren/thymeleaf-spring-data-dialect -->
+    <dependency>
+        <groupId>io.github.jpenren</groupId>
+        <artifactId>thymeleaf-spring-data-dialect</artifactId>
+        <version>3.3.1</version>
+    </dependency>
     <!-- https://mvnrepository.com/artifact/com.querydsl/querydsl-apt -->
     <dependency>
         <groupId>com.querydsl</groupId>

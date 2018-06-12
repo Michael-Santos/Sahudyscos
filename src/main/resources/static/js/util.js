@@ -26,6 +26,8 @@ function changeAlbumCover(tag, mbid) {
                 }
             }
     });
+    // TODO Melhorar isso
+    tag.setAttribute('onload', '');
 }
 
 function changeReleaseCover(tag, mbid) {
@@ -39,4 +41,6 @@ function changeReleaseCover(tag, mbid) {
                 }
             }
     });
+    // TODO Melhorar isso
+    tag.setAttribute('onload', '');
 }

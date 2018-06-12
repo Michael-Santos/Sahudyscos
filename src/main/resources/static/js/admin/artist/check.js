@@ -36,6 +36,20 @@ function limparTudo(){
     document.getElementById('edit-description').value = "";
 }
 
+function dynamicSearch() {
+    $.ajax({
+        type: "GET",
+        beforeSend: function(request) {
+            request.setRequestHeader("Search", true);
+        },
+        url: "/admin/artist",
+        data: {name: "Pink Floyd"},
+        success: function(msg) {
+            document.getElementById('result').innerHTML = msg;
+        }
+    });
+}
+
 function viewArtist(id) {
     $.ajax({
         url:"/admin/artist",

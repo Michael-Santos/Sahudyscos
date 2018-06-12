@@ -51,7 +51,7 @@
                 
                     <div class="tab-content" id="main-tabs">
 
-                        <div class="tab-pane fade show active" id="releases" role="tabpanel" aria-labelledby="releases-tab">
+                        <div class="tab-pane fade show active" id="releases" role="tabpanel" aria-labelledby="releases-tab" sd:page-object="${releases}" sd:pagination-qualifier="releases">
                             <div class="row">
                                 <div class="col-xs-4 col-sm-4 col-md-3 my-1" th:each="release : ${releases}">
                                     <div class="card showbox">
@@ -75,47 +75,22 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-md-1">
-                                    <select class="form-control pagination" id="pageSizeSelect">
-                                        <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
-                                            th:value="${pageSize}"
-                                            th:selected="${pageSize} == ${selectedPageSize}"></option>
-                                    </select>
+                                <div class="col-sm-6">
+                                    <div sd:pagination-summary="">info</div>
                                 </div>
-                                <div th:if="${releases.totalPages != 1}"
-                                    class="form-group col-md-11 pagination-centered">
-                                    <ul class="pagination">
-                                        <li th:class="${releases.number == 0} ? 'page-item disabled' : 'page-item'"><a
-                                            class="page-link"
-                                            th:href="@{/#releases(size=${selectedPageSize}, page=1)}">&laquo;</a>
-                                        </li>
-                                        <li th:class="${releases.number == 0} ? 'page-item disabled' : 'page-item'"><a
-                                            class="page-link"
-                                            th:href="@{/#releases(size=${selectedPageSize}, page=${releases.number})}">&larr;</a>
-                                        </li>
-                                        <li
-                                            th:class="${releases.number == page} ? 'page-item active pointer-disabled' : 'page-item'"
-                                            th:each="page : ${#numbers.sequence(releasePager.startPage, releasePager.endPage)}">
-                                            <a class="page-link"
-                                            th:href="@{/#releases(size=${selectedPageSize}, page=${page})}"
-                                            th:text="${page}"></a>
-                                        </li>
-                                        <li
-                                            th:class="${releases.number + 1 == releases.totalPages} ? 'page-item disabled' : 'page-item'">
-                                            <a class="page-link"
-                                            th:href="@{/#releases(size=${selectedPageSize}, page=${releases.number + 2})}">&rarr;</a>
-                                        </li>
-                                        <li
-                                            th:class="${releases.number + 1 == releases.totalPages} ? 'page-item disabled' : 'page-item'">
-                                            <a class="page-link"
-                                            th:href="@{/#releases(pageSize=${selectedPageSize}, page=${releases.totalPages})}">&raquo;</a>
-                                        </li>
-                                    </ul>
+                                <div class="col-sm-6">
+                                    <nav class="pull-right">
+                                        <ul class="pagination" sd:pagination="full">
+                                            <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
+                                            <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                                               <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                                        </ul>
+                                    </nav>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="tab-pane fade" id="albums" role="tabpanel" aria-labelledby="albums-tab">
+                        <div class="tab-pane fade" id="albums" role="tabpanel" aria-labelledby="albums-tab" sd:page-object="${albums}" sd:pagination-qualifier="album">
                             <div class="row">
                                 <div class="col-xs-4 col-sm-4 col-md-3 my-1" th:each="album : ${albums}">
                                     <div class="card showbox">
@@ -130,47 +105,22 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-md-1">
-                                    <select class="form-control pagination" id="pageSizeSelect">
-                                        <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
-                                            th:value="${pageSize}"
-                                            th:selected="${pageSize} == ${selectedPageSize}"></option>
-                                    </select>
+                                <div class="col-sm-6">
+                                    <div sd:pagination-summary="">info</div>
                                 </div>
-                                <div th:if="${albums.totalPages != 1}"
-                                    class="form-group col-md-11 pagination-centered">
-                                    <ul class="pagination">
-                                        <li th:class="${albums.number == 0} ? 'page-item disabled' : 'page-item'"><a
-                                            class="page-link"
-                                            th:href="@{/#albums(size=${selectedPageSize}, page=1)}">&laquo;</a>
-                                        </li>
-                                        <li th:class="${albums.number == 0} ? 'page-item disabled' : 'page-item'"><a
-                                            class="page-link"
-                                            th:href="@{/#albums(size=${selectedPageSize}, page=${albums.number})}">&larr;</a>
-                                        </li>
-                                        <li
-                                            th:class="${albums.number == page} ? 'page-item active pointer-disabled' : 'page-item'"
-                                            th:each="page : ${#numbers.sequence(albumPager.startPage, albumPager.endPage)}">
-                                            <a class="page-link"
-                                            th:href="@{/#albums(size=${selectedPageSize}, page=${page})}"
-                                            th:text="${page}"></a>
-                                        </li>
-                                        <li
-                                            th:class="${albums.number + 1 == albums.totalPages} ? 'page-item disabled' : 'page-item'">
-                                            <a class="page-link"
-                                            th:href="@{/#albums(size=${selectedPageSize}, page=${albums.number + 2})}">&rarr;</a>
-                                        </li>
-                                        <li
-                                            th:class="${albums.number + 1 == albums.totalPages} ? 'page-item disabled' : 'page-item'">
-                                            <a class="page-link"
-                                            th:href="@{/#albums(pageSize=${selectedPageSize}, page=${albums.totalPages})}">&raquo;</a>
-                                        </li>
-                                    </ul>
+                                <div class="col-sm-6">
+                                    <nav class="pull-right">
+                                        <ul class="pagination" sd:pagination="full">
+                                            <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
+                                            <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                                               <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                                        </ul>
+                                    </nav>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="tab-pane fade" id="labels" role="tabpanel" aria-labelledby="labels-tab">
+                        <div class="tab-pane fade" id="labels" role="tabpanel" aria-labelledby="labels-tab" sd:page-object="${labels}" sd:pagination-qualifier="label">
                             <div class="row">
                                 <div class="col-xs-4 col-sm-4 col-md-3 my-1" th:each="label : ${labels}">
                                     <div class="card showbox">
@@ -182,42 +132,17 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-md-1">
-                                    <select class="form-control pagination" id="pageSizeSelect">
-                                        <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
-                                            th:value="${pageSize}"
-                                            th:selected="${pageSize} == ${selectedPageSize}"></option>
-                                    </select>
+                                <div class="col-sm-6">
+                                    <div sd:pagination-summary="">info</div>
                                 </div>
-                                <div th:if="${labels.totalPages != 1}"
-                                    class="form-group col-md-11 pagination-centered">
-                                    <ul class="pagination">
-                                        <li th:class="${labels.number == 0} ? 'page-item disabled' : 'page-item'"><a
-                                            class="page-link"
-                                            th:href="@{/#label(size=${selectedPageSize}, page=1)}">&laquo;</a>
-                                        </li>
-                                        <li th:class="${labels.number == 0} ? 'page-item disabled' : 'page-item'"><a
-                                            class="page-link"
-                                            th:href="@{/#label(size=${selectedPageSize}, page=${labels.number})}">&larr;</a>
-                                        </li>
-                                        <li
-                                            th:class="${labels.number == page} ? 'page-item active pointer-disabled' : 'page-item'"
-                                            th:each="page : ${#numbers.sequence(labelPager.startPage, labelPager.endPage)}">
-                                            <a class="page-link"
-                                            th:href="@{label(size=${selectedPageSize}, page=${page})}"
-                                            th:text="${page}"></a>
-                                        </li>
-                                        <li
-                                            th:class="${labels.number + 1 == labels.totalPages} ? 'page-item disabled' : 'page-item'">
-                                            <a class="page-link"
-                                            th:href="@{/#label(size=${selectedPageSize}, page=${labels.number + 2})}">&rarr;</a>
-                                        </li>
-                                        <li
-                                            th:class="${labels.number + 1 == labels.totalPages} ? 'page-item disabled' : 'page-item'">
-                                            <a class="page-link"
-                                            th:href="@{/#label(pageSize=${selectedPageSize}, page=${labels.totalPages})}">&raquo;</a>
-                                        </li>
-                                    </ul>
+                                <div class="col-sm-6">
+                                    <nav class="pull-right">
+                                        <ul class="pagination" sd:pagination="full">
+                                            <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
+                                            <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                                               <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                                        </ul>
+                                    </nav>
                                 </div>
                             </div>
                         </div>

@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.thymeleaf.dialect.springdata.SpringDataDialect;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer  {
@@ -15,6 +16,11 @@ public class WebMvcConfig implements WebMvcConfigurer  {
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		return bCryptPasswordEncoder;
 	}
+
+	@Bean
+    public SpringDataDialect springDataDialect() {
+        return new SpringDataDialect();
+    }
 
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/login").setViewName("login");

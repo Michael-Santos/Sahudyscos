@@ -16,10 +16,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -33,14 +36,12 @@ public class AdminLabelController {
     private LabelRepository labelRepository;
 
     @GetMapping("/admin/label")
-    public String artist(Model model, @QuerydslPredicate(root = Label.class) Predicate predicate, Pageable pageable) {
-        Page<Label> page = labelRepository.findAll(predicate, pageable);
-        Pager pager = new Pager(page.getTotalPages(),page.getNumber(),BUTTONS_TO_SHOW);
-        model.addAttribute("labels", page);
-        model.addAttribute("pageSizes", PAGE_SIZES);
-        model.addAttribute("pager", pager);
+    public String artist(Model model, @QuerydslPredicate(root = Label.class) Predicate predicate,
+                         Pageable pageable, @RequestParam MultiValueMap<String, String> parameters, 
+                         @RequestHeader(name = "Search", defaultValue = "false") Boolean search) {
+        model.addAttribute("labels", labelRepository.findAll(predicate, pageable));
         model.addAttribute("label", new Label());
-        return "admin-label";
+        return search ? "admin-label :: searchBody" : "admin-label";
     }
 
     @PostMapping(value = "/admin/label", consumes="application/json")

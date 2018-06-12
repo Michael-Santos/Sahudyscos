@@ -12,7 +12,8 @@
 
     <!-- Menu de opções -->
     <main class=" container pt-3 row mx-auto">        
-        
+            <div id="result">
+                    <th:block th:fragment="searchBody">
         <div class="row container-fluid my-2">
             <div class="col">
                 <form class="form-inline my-2 my-md-0">
@@ -178,44 +179,29 @@
         </div>
 
         <div class="row">
-                <div class="form-group col-md-1">
-                    <select class="form-control pagination" id="pageSizeSelect">
-                        <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
-                            th:value="${pageSize}"
-                            th:selected="${pageSize} == ${selectedPageSize}"></option>
-                    </select>
+                <div class="col-sm-6">
+                    <div sd:pagination-summary="">info</div>
                 </div>
-                <div th:if="${users.totalPages != 1}"
-                    class="form-group col-md-11 pagination-centered">
-                    <ul class="pagination">
-                        <li th:class="${users.number == 0} ? 'page-item disabled' : 'page-item'"><a
-                            class="page-link"
-                            th:href="@{/admin/user(size=${selectedPageSize}, page=1)}">&laquo;</a>
-                        </li>
-                        <li th:class="${users.number == 0} ? 'page-item disabled' : 'page-item'"><a
-                            class="page-link"
-                            th:href="@{/admin/user(size=${selectedPageSize}, page=${users.number})}">&larr;</a>
-                        </li>
-                        <li
-                            th:class="${users.number == page} ? 'page-item active pointer-disabled' : 'page-item'"
-                            th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
-                            <a class="page-link"
-                            th:href="@{/admin/user(size=${selectedPageSize}, page=${page})}"
-                            th:text="${page}"></a>
-                        </li>
-                        <li
-                            th:class="${users.number + 1 == users.totalPages} ? 'page-item disabled' : 'page-item'">
-                            <a class="page-link"
-                            th:href="@{/admin/user(size=${selectedPageSize}, page=${users.number + 2})}">&rarr;</a>
-                        </li>
-                        <li
-                            th:class="${users.number + 1 == users.totalPages} ? 'page-item disabled' : 'page-item'">
-                            <a class="page-link"
-                            th:href="@{/admin/user(pageSize=${selectedPageSize}, page=${users.totalPages})}">&raquo;</a>
-                        </li>
-                    </ul>
+                <div class="col-sm-6">
+                    <nav class="pull-right">
+                        <ul class="pagination" sd:pagination="full">
+                            <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
+                            <li class="disabled">
+                                <a href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a href="#">1
+                                    <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
+        </th:block>
+    </div>
     
     </main>
    

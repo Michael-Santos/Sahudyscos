@@ -22,12 +22,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -48,14 +51,11 @@ public class AdminUserController {
 	private UserService userService;
 
     @GetMapping("/admin/user")
-    public String user(Model model, @QuerydslPredicate(root = User.class) Predicate predicate, Pageable pageable) {
-        Page<User> page = userRepository.findAll(predicate, pageable);
-        Pager pager = new Pager(page.getTotalPages(),page.getNumber(),BUTTONS_TO_SHOW);
-        List<Role> roles = roleRepository.findAll();
-        model.addAttribute("users", page);
-        model.addAttribute("roles", roles);
-        model.addAttribute("pageSizes", PAGE_SIZES);
-        model.addAttribute("pager", pager);
+    public String user(Model model, @QuerydslPredicate(root = User.class) Predicate predicate,
+                       Pageable pageable, @RequestParam MultiValueMap<String, String> parameters, 
+                       @RequestHeader(name = "Search", defaultValue = "false") Boolean search) {
+        model.addAttribute("users", userRepository.findAll(predicate, pageable));
+        model.addAttribute("roles", roleRepository.findAll());
         model.addAttribute("formContent", new userFormPOJO(new User(), new ArrayList<String>()));
         return "admin-user";
     }

@@ -22,10 +22,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -46,14 +48,12 @@ public class AdminContractController {
     private LabelRepository labelRepository;
 
     @GetMapping("/admin/contract")
-    public String contract(Model model, @QuerydslPredicate(root = Contract.class) Predicate predicate, Pageable pageable) {
-        Page<Contract> page = contractRepository.findAll(predicate, pageable);
-        Pager pager = new Pager(page.getTotalPages(),page.getNumber(),BUTTONS_TO_SHOW);
-        model.addAttribute("contracts", page);
-        model.addAttribute("pageSizes", PAGE_SIZES);
-        model.addAttribute("pager", pager);
+    public String contract(Model model, @QuerydslPredicate(root = Contract.class) Predicate predicate, 
+                           Pageable pageable, @RequestParam MultiValueMap<String, String> parameters, 
+                           @RequestHeader(name = "Search", defaultValue = "false") Boolean search) {
+        model.addAttribute("contracts", contractRepository.findAll(predicate, pageable));
         model.addAttribute("contract", new Contract());
-        return "admin-contract";
+        return search ? "admin-contract :: searchBody" : "admin-contract";
     }
 
     @PostMapping(value = "/admin/contract", consumes="application/json")
