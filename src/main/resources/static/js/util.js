@@ -44,3 +44,44 @@ function changeReleaseCover(tag, mbid) {
     // TODO Melhorar isso
     tag.setAttribute('onload', '');
 }
+
+function dynamicSearch(url) {
+    var table = document.getElementById('result');
+    var spinner = document.createElement("img");
+    table.innerHTML = '';
+    spinner.setAttribute('src', '/img/animation/spinner.svg');
+    table.appendChild(spinner);
+    var searchInput = document.getElementById('search-input');
+    var searchData = ({[$('#searchSel').find(":selected").attr('id')]: searchInput.value})
+    $.ajax({
+        type: "GET",
+        beforeSend: function (request) {
+            request.setRequestHeader("Update-Table", true);
+        },
+        dataType: "html",
+        data: searchData,
+        url: url,
+        success: function (msg) {
+            table.innerHTML = msg;
+        }
+    });
+}
+
+function dynamicUpdate(url) {
+    var table = document.getElementById('result');
+    var spinner = document.createElement("img");
+    table.innerHTML = '';
+    spinner.setAttribute('src', '/img/animation/spinner.svg');
+    table.appendChild(spinner);
+    $.ajax({
+        type: "GET",
+        beforeSend: function (request) {
+            request.setRequestHeader("Update-Table", true);
+        },
+        dataType: "html",
+        url: url,
+        success: function (msg) {
+            table.innerHTML = msg;
+        }
+    });
+}

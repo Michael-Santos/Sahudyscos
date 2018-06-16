@@ -38,10 +38,10 @@ public class AdminLabelController {
     @GetMapping("/admin/label")
     public String artist(Model model, @QuerydslPredicate(root = Label.class) Predicate predicate,
                          Pageable pageable, @RequestParam MultiValueMap<String, String> parameters, 
-                         @RequestHeader(name = "Search", defaultValue = "false") Boolean search) {
+                         @RequestHeader(name = "Update-Table", defaultValue = "false") Boolean update) {
         model.addAttribute("labels", labelRepository.findAll(predicate, pageable));
         model.addAttribute("label", new Label());
-        return search ? "admin-label :: searchBody" : "admin-label";
+        return update ? "admin/label :: searchBody" : "admin/label";
     }
 
     @PostMapping(value = "/admin/label", consumes="application/json")

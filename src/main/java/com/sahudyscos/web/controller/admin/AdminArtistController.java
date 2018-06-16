@@ -38,11 +38,11 @@ public class AdminArtistController {
     @GetMapping("/admin/artist")
     public String artist(Model model, @QuerydslPredicate(root = Artist.class) Predicate predicate, 
                          Pageable pageable, @RequestParam MultiValueMap<String, String> parameters, 
-                         @RequestHeader(name = "Search", defaultValue = "false") Boolean search) {
+                         @RequestHeader(name = "Update-Table", defaultValue = "false") Boolean update) {
 
         model.addAttribute("artists", artistRepository.findAll(predicate, pageable));
         model.addAttribute("artist", new Artist());
-        return search ? "admin-artist :: searchBody" : "admin-artist";
+        return update ? "admin/artist :: searchBody" : "admin/artist";
     }
 
     @PostMapping(value = "/admin/artist", consumes="application/json")

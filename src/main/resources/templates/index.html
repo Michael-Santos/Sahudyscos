@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Sahudyscos</title>
     <div th:replace="fragments/layout :: common-head">
     </div>
     <script th:src="@{js/util.js}"></script>
 </head>
+
 <body>
     <header th:replace="fragments/layout :: header-main">
     </header>
@@ -20,56 +22,51 @@
                 </aside>
 
                 <section class="col-sm-12 col-md-10 py-3">
-                    <ul class="nav nav-tabs" id="main-tabs">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="releases-tab" data-toggle="tab" href="#releases" role="tab" aria-controls="releases" aria-selected="false">Versões</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="albums-tab" data-toggle="tab" href="#albums" role="tab" aria-controls="albums" aria-selected="false">Álbuns</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="labels-tab" data-toggle="tab" href="#labels" role="tab" aria-controls="labels" aria-selected="false">Gravadoras</a>
-                        </li>
-                        <li>
-                             <form class="form-inline my-2 my-md-0">
-                                <div class="input-group">
-                                    <input class="form-control" type="search" placeholder="Pesquisar" aria-label="Search" aria-describedby="basic-addon1">
-                                    <div class="input-group-append">
-                                        <select class="custom-select" id="sel1"> <!-- Podemos tirar isso mas vai ficar difícil pra caramba de fazer consulta -->
-                                            <option>Banda</option>
-                                            <option>Álbum</option>
-                                            <option>Versão</option>
-                                            <option>Gravadora</option>
-                                            <option>País</option>
-                                        </select>
-                                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </li>
-                    </ul>
-                
-                    <div class="tab-content" id="main-tabs">
-
-                        <div class="tab-pane fade show active" id="releases" role="tabpanel" aria-labelledby="releases-tab" sd:page-object="${releases}" sd:pagination-qualifier="releases">
-                            <div class="row">
+                    <form class="form-inline my-2 my-md-0">
+                        <div class="input-group">
+                            <input class="form-control" type="search" placeholder="Pesquisar" aria-label="Search" aria-describedby="basic-addon1" id="search-input">
+                            <div class="input-group-append">
+                                <select class="custom-select" id="searchSel">
+                                    <!-- Podemos tirar isso mas vai ficar difícil pra caramba de fazer consulta -->
+                                    <option id="album.artists.name">Banda</option>
+                                    <option id="album.name">Álbum</option>
+                                    <option id="album.name">Versão</option>
+                                    <option id="label.name">Gravadora</option>
+                                </select>
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="button" th:onclick="|dynamicSearch('@{/}')|">Pesquisar</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="container-fluid" id="result" role="tabpanel" aria-labelledby="releases-tab">
+                        <th:block th:fragment="searchBody">
+                            <div class=row>
                                 <div class="col-xs-4 col-sm-4 col-md-3 my-1" th:each="release : ${releases}">
                                     <div class="card showbox">
                                         <a th:href="@{/release(id=__${release.id}__, album=__${release.album.id}__)}">
                                             <th:block th:unless="${release.album.cover}">
                                                 <th:block th:switch="${release.format}">
-                                                    <img th:case="'Cassette'" class="card-img-top img-thumbnail" th:onload="|changeReleaseCover(this, '${release.mbid}')|" th:src="@{/img/default/default-release-cassette.png}" th:alt="${release.album.name}">
-                                                    <img th:case="'CD'" class="card-img-top img-thumbnail" th:onload="|changeReleaseCover(this, '${release.mbid}')|" th:src="@{/img/default/default-release-cd.png}" th:alt="${release.album.name}">
-                                                    <img th:case="*" class="card-img-top img-thumbnail" th:onload="|changeReleaseCover(this, '${release.mbid}')|" th:src="@{/img/default/default-release.png}" th:alt="${release.album.name}">
+                                                    <img th:case="'Cassette'" class="card-img-top img-thumbnail" th:onload="|changeReleaseCover(this, '${release.mbid}')|" th:src="@{/img/default/default-release-cassette.png}"
+                                                        th:alt="${release.album.name}">
+                                                    <img th:case="'CD'" class="card-img-top img-thumbnail" th:onload="|changeReleaseCover(this, '${release.mbid}')|" th:src="@{/img/default/default-release-cd.png}"
+                                                        th:alt="${release.album.name}">
+                                                    <img th:case="*" class="card-img-top img-thumbnail" th:onload="|changeReleaseCover(this, '${release.mbid}')|" th:src="@{/img/default/default-release.png}"
+                                                        th:alt="${release.album.name}">
                                                 </th:block>
                                             </th:block>
                                             <th:block th:if="${release.album.cover}">
-                                                <img class="card-img-top img-thumbnail" th:onload="|changeReleaseCover(this, '${release.mbid}')|" th:src="${release.cover}" th:alt="${release.album.name}">
+                                                <img class="card-img-top img-thumbnail" th:onload="|changeReleaseCover(this, '${release.mbid}')|" th:src="${release.cover}"
+                                                    th:alt="${release.album.name}">
                                             </th:block>
                                         </a>
                                         <div class="card-body">
-                                            <h5 class="card-title" th:each="artist : ${release.album.artists}"><a th:href="@{/artist(id=__${artist.id}__)}" th:text="${artist.name}">Wesley Safadão</a></h5>
-                                            <p class="card-text"><a th:href="@{/release(id=__${release.id}__, album=__${release.album.id}__)}" th:text="${release.album.name}">Duetos</a> <button class="btn btn-sm float-right" th:classappend="${release.onSaleStatus} ? btn-outline-success : btn-outline-primary" th:text="'R$' + ${release.price}">R$90,00</button></p>
+                                            <h5 class="card-title" th:each="artist : ${release.album.artists}">
+                                                <a th:href="@{/artist(id=__${artist.id}__)}" th:text="${artist.name}">Wesley Safadão</a>
+                                            </h5>
+                                            <p class="card-text">
+                                                <a th:href="@{/release(id=__${release.id}__, album=__${release.album.id}__)}" th:text="${release.album.name}">Duetos</a>
+                                                <button class="btn btn-sm float-right" th:classappend="${release.onSaleStatus} ? btn-outline-success : btn-outline-primary"
+                                                    th:text="'R$' + ${release.price}">R$90,00</button>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -78,77 +75,28 @@
                                 <div class="col-sm-6">
                                     <div sd:pagination-summary="">info</div>
                                 </div>
+                                <div th:text="${page}"></div>
                                 <div class="col-sm-6">
                                     <nav class="pull-right">
-                                        <ul class="pagination" sd:pagination="full">
+                                        <ul class="pagination" sd:pagination="full" sd:pagination-onclick="dynamicUpdate">
                                             <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
-                                            <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-                                               <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                                            <li class="disabled">
+                                                <a href="#" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>
+                                            <li class="active">
+                                                <a href="#">1
+                                                    <span class="sr-only">(current)</span>
+                                                </a>
+                                            </li>
                                         </ul>
                                     </nav>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="tab-pane fade" id="albums" role="tabpanel" aria-labelledby="albums-tab" sd:page-object="${albums}" sd:pagination-qualifier="album">
-                            <div class="row">
-                                <div class="col-xs-4 col-sm-4 col-md-3 my-1" th:each="album : ${albums}">
-                                    <div class="card showbox">
-                                        <a th:href="@{/album(id=__${album.id}__)}">
-                                            <img class="card-img-top img-thumbnail" th:onload="|changeAlbumCover(this, '${album.mbid}')|" th:src="@{/img/default/default-release.png}" th:alt="${album.name}">
-                                        </a>
-                                        <div class="card-body">
-                                            <h5 class="card-title" th:each="artist : ${album.artists}"><a th:href="@{/artist(id=__${artist.id}__)}" th:text="${artist.name}">Wesley Safadão</a></h5>
-                                            <p class="card-text"><a th:href="@{/album(id=__${album.id}__)}" th:text="${album.name}">Duetos</a></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div sd:pagination-summary="">info</div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <nav class="pull-right">
-                                        <ul class="pagination" sd:pagination="full">
-                                            <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
-                                            <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-                                               <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="tab-pane fade" id="labels" role="tabpanel" aria-labelledby="labels-tab" sd:page-object="${labels}" sd:pagination-qualifier="label">
-                            <div class="row">
-                                <div class="col-xs-4 col-sm-4 col-md-3 my-1" th:each="label : ${labels}">
-                                    <div class="card showbox">
-                                        <a th:href="@{/label(id=__${label.id}__)}"><img class="card-img-top img-thumbnail" th:src="@{/img/default/default-label.png}" th:alt="${label.name}"></a>
-                                        <div class="card-body">
-                                            <h5 class="card-title"><a th:href="@{/label(id=__${label.id}__)}" th:text="${label.name}">Wesley Safadão</a></h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div sd:pagination-summary="">info</div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <nav class="pull-right">
-                                        <ul class="pagination" sd:pagination="full">
-                                            <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
-                                            <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-                                               <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
-                        </div>
-
+                        </th:block>
                     </div>
-                </section> 
+                </section>
             </div>
         </div>
     </main>
@@ -156,4 +104,5 @@
     <footer th:replace="fragments/layout :: footer">
     </footer>
 </body>
+
 </html>

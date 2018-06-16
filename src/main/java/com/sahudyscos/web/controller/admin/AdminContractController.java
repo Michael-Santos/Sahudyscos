@@ -50,10 +50,10 @@ public class AdminContractController {
     @GetMapping("/admin/contract")
     public String contract(Model model, @QuerydslPredicate(root = Contract.class) Predicate predicate, 
                            Pageable pageable, @RequestParam MultiValueMap<String, String> parameters, 
-                           @RequestHeader(name = "Search", defaultValue = "false") Boolean search) {
+                           @RequestHeader(name = "Update-Table", defaultValue = "false") Boolean update) {
         model.addAttribute("contracts", contractRepository.findAll(predicate, pageable));
         model.addAttribute("contract", new Contract());
-        return search ? "admin-contract :: searchBody" : "admin-contract";
+        return update ? "admin/contract :: searchBody" : "admin/contract";
     }
 
     @PostMapping(value = "/admin/contract", consumes="application/json")

@@ -29,11 +29,11 @@ public class Release {
     @Column(name = "mbid")
     private UUID mbid;
 
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "cod_album", insertable = false, updatable = false)
     private Album album;
 
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="cod_gravadora")
     private Label label;
     

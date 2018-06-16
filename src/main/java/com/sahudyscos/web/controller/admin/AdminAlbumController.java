@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -46,14 +47,15 @@ public class AdminAlbumController {
     @Autowired
     private ArtistRepository artistRepository;
 
+    @Async
     @GetMapping("/admin/album")
     public String album(Model model, @QuerydslPredicate(root = Album.class) Predicate predicate, 
                         Pageable pageable, @RequestParam MultiValueMap<String, String> parameters, 
-                        @RequestHeader(name = "Search", defaultValue = "false") Boolean search) {
+                        @RequestHeader(name = "Update-Table", defaultValue = "false") Boolean update) {
         model.addAttribute("albums", albumRepository.findAll(predicate, pageable));
         model.addAttribute("formContent", new albumFormPOJO(new Album(), new ArrayList<Long>()));
         
-        return search ? "admin-album :: searchBody" : "admin-album";
+        return update ? "admin/album :: searchBody" : "admin/album";
     }
 
     @PostMapping(value = "/admin/album", consumes="application/json")

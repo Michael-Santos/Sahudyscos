@@ -34,10 +34,8 @@ public class UserServiceImpl implements UserService{
 	public void saveUser(User user) {
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setActive(1);
-        /* Uncomment to create admins
-        Role userRole = roleRepository.findByRole("ADMIN");
+        Role userRole = roleRepository.findByRole("USER");
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
-        */
 		userRepository.save(user);
 	}
 

@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -21,7 +22,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "banda")
 public class Artist {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    //@GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(generator = "banda_sequence", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "banda_sequence", sequenceName = "banda",allocationSize=1)
     @Column(name = "cod_banda")
     private Long id;
 

@@ -53,11 +53,11 @@ public class AdminUserController {
     @GetMapping("/admin/user")
     public String user(Model model, @QuerydslPredicate(root = User.class) Predicate predicate,
                        Pageable pageable, @RequestParam MultiValueMap<String, String> parameters, 
-                       @RequestHeader(name = "Search", defaultValue = "false") Boolean search) {
+                       @RequestHeader(name = "Update-Table", defaultValue = "false") Boolean update) {
         model.addAttribute("users", userRepository.findAll(predicate, pageable));
         model.addAttribute("roles", roleRepository.findAll());
         model.addAttribute("formContent", new userFormPOJO(new User(), new ArrayList<String>()));
-        return "admin-user";
+        return update ? "admin/user :: searchBody" : "admin/user";
     }
 
     @PostMapping(value = "/admin/user", consumes="application/json")

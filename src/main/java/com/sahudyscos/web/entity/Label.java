@@ -11,17 +11,22 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.hibernate.annotations.NaturalId;
+import org.springframework.stereotype.Indexed;
 
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name = "gravadora")
+@Indexed
 public class Label {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    //@GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(generator = "gravadora_sequence", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "gravadora_sequence", sequenceName = "gravadora_sequence",allocationSize=1)
     @Column(name = "cod_gravadora")
     private Long id;
 

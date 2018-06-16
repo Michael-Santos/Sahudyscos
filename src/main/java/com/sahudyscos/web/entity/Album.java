@@ -22,9 +22,11 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.hibernate.annotations.NaturalId;
+import org.springframework.stereotype.Indexed;
 
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name = "album")
+@Indexed
 public class Album {
     @Id
     //@GeneratedValue(strategy=GenerationType.AUTO)

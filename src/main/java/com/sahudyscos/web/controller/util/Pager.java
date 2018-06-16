@@ -40,11 +40,11 @@ public class Pager {
     }
  
     public void setButtonsToShow(int buttonsToShow) {
-        if (buttonsToShow % 2 != 0) {
+        /*if (buttonsToShow % 2 != 0) {*/
             this.buttonsToShow = buttonsToShow;
-        } else {
+        /*} else {
             throw new IllegalArgumentException("Must be an odd value!");
-        }
+        }*/
     }
  
     public int getStartPage() {

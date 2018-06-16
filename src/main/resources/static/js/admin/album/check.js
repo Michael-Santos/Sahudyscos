@@ -110,20 +110,6 @@ function viewAlbum(id) {
     });
 }
 
-function dynamicSearch() {
-    $.ajax({
-        type: "GET",
-        beforeSend: function(request) {
-            request.setRequestHeader("Search", true);
-        },
-        url: "/admin/album?name=A",
-        success: function(msg) {
-            document.getElementById('result').innerHTML = msg;
-        }
-    });
-}
-
-
 counter = 1;
 function editAlbum(id) {
     var field = document.getElementById('edit-artists-group');

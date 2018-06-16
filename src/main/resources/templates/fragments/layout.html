@@ -33,8 +33,11 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav navbar-right ml-auto" sec:authorize="isFullyAuthenticated()">
-                    <li class="nav-item nav-link my-2">
-                       Olá <span sec:authentication="name" style="text-decoration-color: chartreuse"></span>!
+                    <li class="nav-item nav-link my-2" sec:authorize="hasAuthority('ADMIN')">
+                       Olá <a th:href="@{/admin/home}"><span sec:authentication="name" style="color: chartreuse"></span></a>!
+                    </li>
+                    <li class="nav-item nav-link my-2" sec:authorize="hasAuthority('USER')">
+                       Olá <a th:href="@{/admin/home}"></a><span sec:authentication="name" style="color: chartreuse"><a href="@{/}"></a></span>!
                     </li>
                     <li class="nav-item my-2">
                         <a class="nav-link" href="/logout" th:href="@{/logout}" >Sair</a>

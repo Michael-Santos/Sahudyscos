@@ -45,6 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/label").permitAll()
                 .antMatchers("/artist").permitAll()
                 .antMatchers("/search").permitAll()
+                .antMatchers("/api/**").permitAll() // TODO change this
                 .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
                     .authenticated().and().csrf().disable()
                 .formLogin().successHandler(customAuthenticationSuccessHandler)

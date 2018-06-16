@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Sahudyscos</title>
+    <div th:replace="fragments/layout :: common-head">
+    </div>
+    <script th:src="@{js/util.js}"></script>
+</head>
+
+<body>
+    <header th:replace="fragments/layout :: header-main">
+    </header>
+
+    <main>
+        <div class="container-fluid">
+            <div class="row">
+                <aside th:replace="fragments/layout :: aside">
+                </aside>
+
+                <section class="col-sm-12 col-md-10 py-3">
+                    <form class="form-inline my-2 my-md-0">
+                        <div class="input-group">
+                            <input class="form-control" type="search" placeholder="Pesquisar" aria-label="Search" aria-describedby="basic-addon1">
+                            <div class="input-group-append">
+                                <select class="custom-select" id="sel1">
+                                    <!-- Podemos tirar isso mas vai ficar difícil pra caramba de fazer consulta -->
+                                    <option>Banda</option>
+                                    <option>Álbum</option>
+                                    <option>Versão</option>
+                                    <option>Gravadora</option>
+                                    <option>País</option>
+                                </select>
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+                            </div>
+                        </div>
+                    </form>
+                    </li>
+
+                    <div class="container-fluid" id="albums" aria-labelledby="albums-tab" sd:page-object="${albums}" sd:pagination-qualifier="album">
+                        <div class="row">
+                            <div class="col-xs-4 col-sm-4 col-md-3 my-1" th:each="album : ${albums}">
+                                <div class="card showbox">
+                                    <a th:href="@{/album(id=__${album.id}__)}">
+                                        <img class="card-img-top img-thumbnail" th:onload="|changeAlbumCover(this, '${album.mbid}')|" th:src="@{/img/default/default-release.png}"
+                                            th:alt="${album.name}">
+                                    </a>
+                                    <div class="card-body">
+                                        <h5 class="card-title" th:each="artist : ${album.artists}">
+                                            <a th:href="@{/artist(id=__${artist.id}__)}" th:text="${artist.name}">Wesley Safadão</a>
+                                        </h5>
+                                        <p class="card-text">
+                                            <a th:href="@{/album(id=__${album.id}__)}" th:text="${album.name}">Duetos</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div sd:pagination-summary="">info</div>
+                            </div>
+                            <div class="col-sm-6">
+                                <nav class="pull-right">
+                                    <ul class="pagination" sd:pagination="full">
+                                        <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
+                                        <li class="disabled">
+                                            <a href="#" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <li class="active">
+                                            <a href="#">1
+                                                <span class="sr-only">(current)</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="fragments/layout :: footer">
+    </footer>
+</body>
+
+</html>

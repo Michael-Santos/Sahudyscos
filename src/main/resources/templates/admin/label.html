@@ -5,7 +5,8 @@
     <title>Álbum</title>
     <div th:replace="fragments/layout :: common-head">
     </div>
-    <script th:src="@{~/js/admin/artist/check.js}"></script>
+    <script th:src="@{~/js/admin/label/check.js}"></script>
+    <script th:src="@{~/js/util.js}"></script>
 </head>
 
 <body>
@@ -19,16 +20,15 @@
             <div class="col">
                 <form class="form-inline my-2 my-md-0">
                     <div class="input-group">
-                        <input class="form-control" type="search" placeholder="Pesquisar" aria-label="Search" aria-describedby="basic-addon1">
+                        <input class="form-control" type="search" placeholder="Pesquisar" aria-label="Search" aria-describedby="basic-addon1" id="search-input">
                         <div class="input-group-append">
-                            <select class="custom-select" id="sel1">
+                            <select class="custom-select" id="searchSel">
                                 <!-- Podemos tirar isso mas vai ficar difícil pra caramba de fazer consulta (FTS) -->
-                                <option>Código</option>
-                                <option>Nome</option>
-                                <option>Bandas</option>
-                                <option>Gravadora</option>
+                                <option id="id">Código</option>
+                                <option id="name">Nome</option>
+                                <option id="genre">Gênero</option>
                             </select>
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="button" th:onclick="|dynamicSearch('@{/admin/artist}')|">Pesquisar</button>
                         </div>
                     </div>
                 </form>
@@ -36,7 +36,7 @@
             <div class="col">
                 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-edit" name="add" th:onclick="${'javascript:limparTudo()'}">
                     <i class="fas fa-plus"></i>
-                    </a> Adicionar Banda
+                    </a> Adicionar Gravadora
             </div>
         </div>
 
@@ -46,28 +46,28 @@
                     <table class="table table-striped" cellspacing="0" cellpadding="0">
                         <thead>
                             <tr>
-                                <th scope="col">Código</th>
-                                <th scope="col">Nome</th>
-                                <th scope="col">Data de Fundação</th>
+                                <th scope="col"><a class="sorted" sd:pagination-sort="id" >Código</a></th>
+                                <th scope="col"><a class="sorted" sd:pagination-sort="name" >Nome</a></th>
+                                <th scope="col"><a class="sorted" sd:pagination-sort="activityStart" >Data de Fundação</a></th>
                                 <th scope="col" class="options">Opções</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="artist : ${artists}">
-                                <th scope="row" id="artistId" th:text="${artist.id}">4</th>
-                                <td th:text="${artist.name}">Odessa</td>
-                                <td th:text="${artist.activityStart}">1969</td>
+                            <tr th:each="label : ${labels}">
+                                <th scope="row" id="labelId" th:text="${label.id}">4</th>
+                                <td th:text="${label.name}">Odessa</td>
+                                <td th:text="${label.activityStart}">1969</td>
                                 <td class="option">
-                                    <button type="submit" th:onclick="${'javascript:viewArtist(' + artist.id + ')'}" th:value="view" id="view-button" class="btn btn-success btn-sm mx-1"
+                                    <button type="submit" th:onclick="${'javascript:viewLabel(' + label.id + ')'}" th:value="view" id="view-button" class="btn btn-success btn-sm mx-1"
                                         data-toggle="modal" data-target="#modal-view" name="view">
                                         <i class="fas fa-search"></i>
                                     </button>
-                                    <button type="submit" th:onclick="${'javascript:editArtist(' + artist.id + ')'}" th:value="edit" id="edit-button" class="btn btn-warning btn-sm mx-1"
+                                    <button type="submit" th:onclick="${'javascript:editLabel(' + label.id + ')'}" th:value="edit" id="edit-button" class="btn btn-warning btn-sm mx-1"
                                         data-toggle="modal" data-target="#modal-edit" name="edit">
                                         <i class="fas fa-wrench"></i>
                                     </button>
-                                    <button type="submit" th:value="delete" id="delete-button" class="btn btn-danger btn-sm mx-1" data-toggle="modal" data-target="#modal-delete"
-                                        name="delete">
+                                    <button type="submit" th:onclick="${'javascript:deleteLabel(' + label.id + ')'}" th:value="delete" id="delete-button" class="btn btn-danger btn-sm mx-1"
+                                        data-toggle="modal" data-target="#modal-delete" name="delete">
                                         <i class="fas fa-times"></i>
                                     </button>
                                 </td>
@@ -85,15 +85,28 @@
                                         <div class="modal-body">
                                             <form id="viewForm">
                                                 <div class="form-group">
-                                                    <label class="alinhar">Nome:</label>
-                                                    <input name="nome" type="text" id="view-name" class="readonly form-control-plaintext" readonly="true">
+                                                    <label class="alinhar">Nome:
+                                                        <obrigatorio>*</obrigatorio>
+                                                    </label>
+                                                    <input name="name" type="text" id="view-name" class="readonly form-control-plaintext" readonly="true">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="alinhar"> Data de Fundação:</label>
-                                                    <input name="publication" type="date" min="1889-01-01" id="view-activity-start" class="readonly form-control-plaintext" readonly="true">
+                                                    <label class="alinhar">E-mail:
+                                                        <obrigatorio>*</obrigatorio>
+                                                    </label>
+                                                    <input name="email" type="email" id="view-email" class="readonly form-control-plaintext" readonly="true">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="alinhar">Gênero 1:</label>
+                                                    <label class="alinhar"> Data de Fundação:
+                                                        <obrigatorio>*</obrigatorio>
+                                                    </label>
+                                                    <input name="activity-start" type="date" min="1889-01-01" id="view-activity-start" class="readonly form-control-plaintext"
+                                                        readonly="true">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="alinhar">Gênero 1:
+                                                        <obrigatorio>*</obrigatorio>
+                                                    </label>
                                                     <input name="genre" type="text" id="view-genre" class="readonly form-control-plaintext" readonly="true">
                                                 </div>
                                                 <div class="form-group">
@@ -101,8 +114,14 @@
                                                     <input name="alt-genre" type="text" id="view-alt-genre" class="readonly form-control-plaintext" readonly="true">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="alinhar">Descrição:</label>
-                                                    <textarea name="description" rows="4" id="view-description" class="readonly form-control-plaintext" readonly="true"></textarea>
+                                                    <label class="alinhar">Telefone 1:
+                                                        <obrigatorio>*</obrigatorio>
+                                                    </label>
+                                                    <input name="phone" type="tel" id="view-phone" class="readonly form-control-plaintext" readonly="true">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="alinhar">Telefone 2:</label>
+                                                    <input name="alt-phone" type="tel" id="view-alt-phone" class="readonly form-control-plaintext" readonly="true">
                                                 </div>
                                             </form>
                                         </div>
@@ -125,7 +144,7 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form id="mainForm" th:action="@{/admin/artist/save}" th:object="${artist}" method="post">
+                                            <form id="mainForm" th:action="@{/admin/label/save}" th:object="${label}" method="post">
                                                 <input type="hidden" id="edit-id" th:value="*{id}">
                                                 <div class="form-group">
                                                     <label class="alinhar">Nome:
@@ -134,7 +153,13 @@
                                                     <input name="name" type="text" id="edit-name" class="form-control" th:value="*{name}">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="alinhar"> Data de Publicação:
+                                                    <label class="alinhar">E-mail:
+                                                        <obrigatorio>*</obrigatorio>
+                                                    </label>
+                                                    <input name="email" type="email" id="edit-email" class="form-control" placeholder="exemplo@exemplo.com" th:value="*{email}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="alinhar"> Data de Fundação:
                                                         <obrigatorio>*</obrigatorio>
                                                     </label>
                                                     <input name="activity-start" type="date" min="1889-01-01" id="edit-activity-start" th:value="*{activityStart}" class="form-control">
@@ -150,13 +175,19 @@
                                                     <input name="alt-genre" type="text" id="edit-alt-genre" class="form-control" th:value="*{altGenre}">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="alinhar">Descrição:</label>
-                                                    <textarea name="description" rows="4" id="edit-description" th:value="*{description}" class="form-control"></textarea>
+                                                    <label class="alinhar">Telefone 1:
+                                                        <obrigatorio>*</obrigatorio>
+                                                    </label>
+                                                    <input name="phone" type="tel" id="edit-phone" class="form-control" th:value="*{phone}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="alinhar">Telefone 2:</label>
+                                                    <input name="alt-phone" type="tel" id="edit-alt-phone" class="form-control" th:value="*{altPhone}">
                                                 </div>
                                             </form>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" form="mainForm" class="btn btn btn-warning" onclick="limparTudo()" id="limpar">Limpar</button>
+                                            <button type="reset" form="mainForm" class="btn btn btn-warning" onclick="limparTudo()" id="limpar">Limpar</button>
                                             <button type="button" form="mainForm" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                                             <button type="submit" form="mainForm" class="btn btn-primary">Salvar</button>
                                         </div>
@@ -177,8 +208,11 @@
                                             <h3>Você tem certeza?</h3>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
-                                            <button type="button" class="btn btn-danger">Sim</button>
+                                            <form id="deleteForm" th:action="@{/admin/label/delete}" th:object="${label}" method="post">
+                                                <input type="hidden" id="delete-label-id" th:field="*{id}">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                                                <button type="submit" class="btn btn-danger">Sim</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -194,7 +228,7 @@
                     </div>
                     <div class="col-sm-6">
                         <nav class="pull-right">
-                            <ul class="pagination" sd:pagination="full">
+                            <ul class="pagination" sd:pagination="full" sd:pagination-onclick="dynamicUpdate">
                                 <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
                                 <li class="disabled">
                                     <a href="#" aria-label="Previous">

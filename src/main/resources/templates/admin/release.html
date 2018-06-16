@@ -6,6 +6,7 @@
     <div th:replace="fragments/layout :: common-head">
     </div>
     <script th:src="@{~/js/admin/release/check.js}"></script>
+    <script th:src="@{~/js/util.js}"></script>
 </head>
 
 <body>
@@ -19,16 +20,17 @@
             <div class="col">
                 <form class="form-inline my-2 my-md-0">
                     <div class="input-group">
-                        <input class="form-control" type="search" placeholder="Pesquisar" aria-label="Search" aria-describedby="basic-addon1">
+                        <input class="form-control" type="search" placeholder="Pesquisar" aria-label="Search" aria-describedby="basic-addon1" id="search-input">
                         <div class="input-group-append">
-                            <select class="custom-select" id="sel1">
+                            <select class="custom-select" id="searchSel">
                                 <!-- Podemos tirar isso mas vai ficar difícil pra caramba de fazer consulta (FTS) -->
-                                <option>Código</option>
-                                <option>Nome</option>
-                                <option>Bandas</option>
-                                <option>Gravadora</option>
+                                <option id="id">Código</option>
+                                <option id="album.name">Nome</option>
+                                <option id="label.name">Gravadora</option>
+                                <option id="format">Gravadora</option>
+                                <option id="type">Tipo</option>
                             </select>
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="button" th:onclick="|dynamicSearch('@{/admin/release}')|">Pesquisar</button>
                         </div>
                     </div>
                 </form>
@@ -46,11 +48,11 @@
                     <table class="table table-striped" cellspacing="0" cellpadding="0">
                         <thead>
                             <tr>
-                                <th scope="col">Código de Barras</th>
-                                <th scope="col">Álbum</th>
-                                <th scope="col">Formato</th>
-                                <th scope="col">Gravadora</th>
-                                <th scope="col">Preço</th>
+                                <th scope="col"><a class="sorted" sd:pagination-sort="id" >Código de Barras</a></th>
+                                <th scope="col"><a class="sorted" sd:pagination-sort="album.name" >Álbum</a></th>
+                                <th scope="col"><a class="sorted" sd:pagination-sort="format" >Formato</a></th>
+                                <th scope="col"><a class="sorted" sd:pagination-sort="label.name" >Gravadora</a></th>
+                                <th scope="col"><a class="sorted" sd:pagination-sort="price" >Preço</a></th>
                                 <th scope="col" class="options">Opções</th>
                             </tr>
                         </thead>
@@ -268,7 +270,7 @@
                     </div>
                     <div class="col-sm-6">
                         <nav class="pull-right">
-                            <ul class="pagination" sd:pagination="full">
+                            <ul class="pagination" sd:pagination="full" sd:pagination-onclick="dynamicUpdate">
                                 <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
                                 <li class="disabled">
                                     <a href="#" aria-label="Previous">

@@ -50,10 +50,10 @@ public class AdminReleaseController {
     @GetMapping("/admin/release")
     public String contract(Model model, @QuerydslPredicate(root = Release.class) Predicate predicate,
                            Pageable pageable, @RequestParam MultiValueMap<String, String> parameters, 
-                           @RequestHeader(name = "Search", defaultValue = "false") Boolean search) {
+                           @RequestHeader(name = "Update-Table", defaultValue = "false") Boolean update) {
         model.addAttribute("releases", releaseRepository.findAll(predicate, pageable));
         model.addAttribute("release", new Release());
-        return search ? "admin-release :: searchBody" : "admin-release";
+        return update ? "admin/release :: searchBody" : "admin/release";
     }
 
     @PostMapping(value = "/admin/release", consumes="application/json")

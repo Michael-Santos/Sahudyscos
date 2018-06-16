@@ -89,3 +89,15 @@ obrigatorio{
   .warning-yellow {
 	background: #ffeeba;
   }
+
+.sorted-desc::after, .sorted-asc::after {
+    float: right;
+}
+
+.sorted-desc::after{
+    content:"\25BC";
+}
+
+.sorted-asc::after{
+    content: "\25B2";
+}
