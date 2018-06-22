@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class AdminLabelController {
@@ -50,10 +51,10 @@ public class AdminLabelController {
     public Optional<Label> view (@RequestBody String json) {
         ObjectMapper mapper = new ObjectMapper();
         Optional<Label> currentLabel;
-        artistRequest request;
+        labelRequest request;
 
         try {
-            request = mapper.readValue(json, artistRequest.class);
+            request = mapper.readValue(json, labelRequest.class);
             currentLabel = labelRepository.findById(Long.valueOf(request.getId()));
             return currentLabel;
 		} catch (IOException e) {
@@ -64,15 +65,15 @@ public class AdminLabelController {
     }
 
     @PostMapping("/admin/label/save")
-    public String create(@ModelAttribute Label label) {
+    public ModelAndView create(@ModelAttribute Label label) {
         labelRepository.save(label);
-        return "admin-label";
+        return new ModelAndView("redirect:admin/label");
     }
 
     @PostMapping("/admin/label/delete")
-    public String delete(@ModelAttribute Label label) {
+    public ModelAndView delete(@ModelAttribute Label label) {
         labelRepository.delete(label);
-        return "admin-label";
+        return new ModelAndView("redirect:admin/label");
     }
 }
 

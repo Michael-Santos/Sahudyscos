@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class AdminReleaseController {
@@ -89,15 +90,15 @@ public class AdminReleaseController {
     }
 
     @PostMapping("/admin/release/save")
-    public String create(@ModelAttribute Release release) {
+    public ModelAndView create(@ModelAttribute Release release) {
         releaseRepository.save(release);
-        return "admin-contract";
+        return new ModelAndView("redirect:/admin/release");
     }
 
     @PostMapping("/admin/release/delete")
-    public String delete(@ModelAttribute Release release) {
+    public ModelAndView delete(@ModelAttribute Release release) {
         releaseRepository.delete(release);
-        return "admin-contract";
+        return new ModelAndView("redirect:admin/release");
     }
 }
 
