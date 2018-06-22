@@ -26,10 +26,12 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class AdminContractController {
@@ -49,8 +51,7 @@ public class AdminContractController {
 
     @GetMapping("/admin/contract")
     public String contract(Model model, @QuerydslPredicate(root = Contract.class) Predicate predicate, 
-                           Pageable pageable, @RequestParam MultiValueMap<String, String> parameters, 
-                           @RequestHeader(name = "Update-Table", defaultValue = "false") Boolean update) {
+                           Pageable pageable, @RequestHeader(name = "Update-Table", defaultValue = "false") Boolean update) {
         model.addAttribute("contracts", contractRepository.findAll(predicate, pageable));
         model.addAttribute("contract", new Contract());
         return update ? "admin/contract :: searchBody" : "admin/contract";
@@ -90,15 +91,15 @@ public class AdminContractController {
     }
 
     @PostMapping("/admin/contract/save")
-    public String create(@ModelAttribute Contract contract) {
+    public ModelAndView create(@ModelAttribute Contract contract) {
         contractRepository.save(contract);
-        return "admin-contract";
+        return new ModelAndView("redirect:/admin/contract");
     }
 
     @PostMapping("/admin/contract/delete")
-    public String delete(@ModelAttribute Contract contract) {
+    public ModelAndView delete(@ModelAttribute Contract contract) {
         contractRepository.delete(contract);
-        return "admin-contract";
+        return new ModelAndView("redirect:/admin/contract");
     }
 }
 

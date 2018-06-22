@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class AdminArtistController {
@@ -65,9 +66,17 @@ public class AdminArtistController {
     }
 
     @PostMapping("/admin/artist/save")
-    public String create(@ModelAttribute Artist artist) {
-        return "admin-artist";
+    public ModelAndView create(@ModelAttribute Artist artist) {
+		artistRepository.save(artist);
+        return new ModelAndView("redirect:/admin/artist");
     }
+
+	@PostMapping("/admin/artist/delete")
+	public ModelAndView delete(@ModelAttribute Artist artist) {
+		artistRepository.delete(artist);
+		return new ModelAndView("redirect:/admin/artist");
+		
+	}
 }
 
 class artistRequest {

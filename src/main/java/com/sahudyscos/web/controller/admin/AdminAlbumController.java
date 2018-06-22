@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class AdminAlbumController {
@@ -85,18 +85,18 @@ public class AdminAlbumController {
     }
     
     @PostMapping(value = "/admin/album/save")
-    public String create(@ModelAttribute albumFormPOJO formContent) {
+    public ModelAndView create(@ModelAttribute albumFormPOJO formContent) {
         List<Artist> artists = (List<Artist>) artistRepository.findAllById(formContent.getArtistsIds());
         formContent.getAlbum().setArtists(artists);
         logger.info(formContent.getArtistsIds().toString());
         albumRepository.save(formContent.getAlbum());
-        return "admin-album";
+        return new ModelAndView("redirect:/admin/album");
     }
 
     @PostMapping(value = "/admin/album/delete")
-    public String delete(@ModelAttribute albumFormPOJO formContent) {
+    public ModelAndView delete(@ModelAttribute albumFormPOJO formContent) {
         albumRepository.delete(formContent.getAlbum());
-        return "admin-album";
+        return new ModelAndView("redirect:/admin/album");
     }
 }
 

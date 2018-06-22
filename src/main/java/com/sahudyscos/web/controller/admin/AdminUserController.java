@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class AdminUserController {
@@ -86,28 +86,28 @@ public class AdminUserController {
     }*/
     
     @PostMapping(value = "/admin/user/save")
-    public String create(@ModelAttribute userFormPOJO formContent) {
+    public ModelAndView create(@ModelAttribute userFormPOJO formContent) {
         List<Role> roles = roleRepository.findAllByRole(formContent.getRoles());
         userService.saveUserAndRoles(formContent.getUser(), roles);
-        return "admin-user";
+        return new ModelAndView("redirect:admin/user");
     }
 
     @PostMapping(value = "/admin/user/delete")
-    public String delete(@ModelAttribute userFormPOJO formContent) {
+    public ModelAndView delete(@ModelAttribute userFormPOJO formContent) {
         userRepository.delete(formContent.getUser());
-        return "admin-user";
+        return new ModelAndView("redirect:admin/user");
     }
 
     @RequestMapping(value="/admin/user", params={"viewUser"})
     public String viewUser(User user, final BindingResult bindingResult, final HttpServletRequest req) {
         user = userRepository.findById(Integer.valueOf(req.getParameter("id"))).get();
-        return "admin-user";
+        return "admin/user";
     }
 
     @RequestMapping(value="/admin/user", params={"addRole"})
     public String addRole(final User user, final BindingResult bindingResult) {
         user.getRoles().add(new Role());
-        return "admin-user";
+        return "admin/user";
     }
 
     @RequestMapping(value="/admin/user", params={"removeRole"})
@@ -118,7 +118,7 @@ public class AdminUserController {
         if (role.get() != null) {
             user.getRoles().remove(role.get());
         }
-        return "admin-user";
+        return "admin/user";
     }
 }
 
