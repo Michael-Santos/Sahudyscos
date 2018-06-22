@@ -14,44 +14,47 @@ import com.sahudyscos.web.entity.Release;
 import org.springframework.data.jpa.domain.Specification;
 
 public class Specifications {
-    public static Specification<Album> albumFts(String search) {
-        return new Specification<Album>() {
+	public static Specification<Album> albumFts(String search) {
+		return new Specification<Album>() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public Predicate toPredicate(Root<Album> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				return cb.isTrue(cb.function("fts", Boolean.class, cb.literal(search)));
 			}
-        };
+		};
 	}
+
 	public static Specification<Release> releaseFts(String search) {
-        return new Specification<Release>() {
+		return new Specification<Release>() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public Predicate toPredicate(Root<Release> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				return cb.isTrue(cb.function("fts", Boolean.class, cb.literal(search)));
 			}
-        };
+		};
 	}
+
 	public static Specification<Label> labelFts(String search) {
-        return new Specification<Label>() {
+		return new Specification<Label>() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public Predicate toPredicate(Root<Label> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				return cb.isTrue(cb.function("fts", Boolean.class, cb.literal(search)));
 			}
-        };
+		};
 	}
+
 	public static Specification<Artist> artistFts(String search) {
-        return new Specification<Artist>() {
+		return new Specification<Artist>() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public Predicate toPredicate(Root<Artist> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				return cb.isTrue(cb.function("fts", Boolean.class, cb.literal(search)));
 			}
-        };
-    }
+		};
+	}
 }

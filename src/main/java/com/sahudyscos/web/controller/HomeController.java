@@ -23,10 +23,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 
 @Controller
 public class HomeController {
-    private static final int BUTTONS_TO_SHOW = 6;
-    private static final int INITIAL_PAGE = 0;
-    private static final int INITIAL_PAGE_SIZE = 10;
-    private static final int[] PAGE_SIZES = {10, 20, 30};
 
     @Autowired
     ReleaseRepository releaseRepository;
@@ -35,11 +31,6 @@ public class HomeController {
     @Transactional(readOnly = true)
     public String home(Model model, Pageable pageable, @QuerydslPredicate(root = Release.class) Predicate predicate,
                        @RequestHeader(name = "Update-Table", defaultValue = "false") Boolean update) {
-        Page<Release> releasePage = releaseRepository.findAll(pageable);
-        Pager releasePager = new Pager(releasePage.getTotalPages(),releasePage.getNumber(),BUTTONS_TO_SHOW);
-
-        model.addAttribute("releasePager", releasePager);
-        model.addAttribute("pageSizes", PAGE_SIZES);
         model.addAttribute("releases", releaseRepository.findAll(predicate, pageable));
 
         return update ? "index :: searchBody" : "index";

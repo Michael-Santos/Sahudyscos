@@ -6,7 +6,10 @@ import java.util.Optional;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.StringPath;
 import com.sahudyscos.web.entity.Album;
+import com.querydsl.core.types.dsl.Expressions;
 import com.sahudyscos.web.entity.QAlbum;
+
+import com.querydsl.core.types.TemplateExpression;;
 
 import org.hibernate.SQLQuery;
 import org.hibernate.query.NativeQuery;
@@ -19,6 +22,8 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
 import org.springframework.data.querydsl.binding.QuerydslBindings;
 import org.springframework.data.rest.core.annotation.RestResource;
+
+import com.querydsl.core.types.dsl.BooleanTemplate;
 
 // This will be AUTO IMPLEMENTED by Spring into a Bean called albumRepository
 // CRUD refers Create, Read, Update, Delete
@@ -42,6 +47,6 @@ public interface AlbumRepository extends JpaRepository<Album, Long>, QuerydslPre
 
     default void customize(QuerydslBindings bindings, QAlbum album) {
 		  bindings.bind(album.name).first((path, value) -> path.contains(value));
-		  bindings.bind(String.class).first((StringPath path, String value) -> path.contains(value));
+          bindings.bind(album.document).first((StringPath path, String value) -> Expressions.booleanTemplate("FUNCTION('fts', {0}, {1}) = true ", path, value)); // TODO add boolean op!!! maybe change the source code of querydsl itself
     }
 }

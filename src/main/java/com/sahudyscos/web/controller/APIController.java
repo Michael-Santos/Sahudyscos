@@ -21,41 +21,43 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
 @Controller
 public class APIController {
 
-    @Autowired
-    private ApiService apiService;
+	@Autowired
+	private ApiService apiService;
 
-    //TODO metaprogramação?
+	@Autowired
+	private AlbumRepository albumRepository;
 
-    @RequestMapping("/api/album/fts")
-    @ResponseBody
-    @JsonIgnoreProperties({"artists"})
-    List<Album> getAlbums(@RequestParam(name = "query") String search, Pageable pageable, Predicate predicate) {
-		return apiService.findAllAlbumsFTS(search);
-    }
+	// TODO metaprogramação?
 
-    @RequestMapping("/api/artist/fts")
-    @ResponseBody
-    @JsonIgnoreProperties({"albums", "labelsContracted"})
-    List<Artist> getArtists(@RequestParam(name = "query") String search, Pageable pageable, Predicate predicate) {
+	@RequestMapping("/api/album/fts")
+	@ResponseBody
+	@JsonIgnoreProperties({ "artists" })
+	Iterable<Album> getAlbums(Predicate predicate) {
+		return albumRepository.findAll(predicate);
+	}
+
+	@RequestMapping("/api/artist/fts")
+	@ResponseBody
+	@JsonIgnoreProperties({ "albums", "labelsContracted" })
+	List<Artist> getArtists(@RequestParam(name = "query") String search, Pageable pageable, Predicate predicate) {
 		return apiService.findAllArtistsFTS(search);
-    }
+	}
 
-    @RequestMapping("/api/label/fts")
-    @ResponseBody
-    @JsonIgnoreProperties({"artists"})
-    List<Label> getLabels(@RequestParam(name = "query") String search, Pageable pageable, Predicate predicate) {
+	@RequestMapping("/api/label/fts")
+	@ResponseBody
+	@JsonIgnoreProperties({ "artists" })
+	List<Label> getLabels(@RequestParam(name = "query") String search, Pageable pageable, Predicate predicate) {
 		return apiService.findAllLabelsFTS(search);
-    }
+	}
 
-    @RequestMapping("/api/release/fts")
-    @ResponseBody
-    @JsonIgnoreProperties({"artists"})
-    List<Release> getReleases(@RequestParam(name = "query") String search, Pageable pageable, Predicate predicate) {
+	@RequestMapping("/api/release/fts")
+	@ResponseBody
+	@JsonIgnoreProperties({ "artists" })
+	List<Release> getReleases(@RequestParam(name = "query") String search, Pageable pageable, Predicate predicate) {
 		return apiService.findAllReleasesFTS(search);
-    }
+	}
 
 }

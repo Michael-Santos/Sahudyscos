@@ -21,6 +21,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.NaturalId;
 import org.springframework.stereotype.Indexed;
 
@@ -74,6 +75,17 @@ public class Album {
 
     @Column(name = "data_publicacao")
     private Date publication;
+
+    @Formula("nome")
+    String document;
+
+    public String getDocument() {
+        return document;
+    }
+
+    public void setdocument(String document) {
+        this.document = document;
+    }
 
 	public UUID getMbid() {
 		return mbid;
