@@ -12,6 +12,7 @@ import com.sahudyscos.web.entity.Label;
 import com.sahudyscos.web.entity.Release;
 import com.sahudyscos.web.repository.AlbumRepository;
 import com.sahudyscos.web.service.ApiService;
+import com.sahudyscos.web.service.HibernateSearchService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,13 +31,16 @@ public class APIController {
 	@Autowired
 	private AlbumRepository albumRepository;
 
+	@Autowired
+	private HibernateSearchService hibernateSearchService;
+
 	// TODO metaprogramação?
 
 	@RequestMapping("/api/album/fts")
 	@ResponseBody
 	@JsonIgnoreProperties({ "artists" })
-	Iterable<Album> getAlbums(Predicate predicate) {
-		return albumRepository.findAll(predicate);
+	Iterable<Album> getAlbums(@RequestParam(value = "search", required = false) String q, Predicate predicate) {
+		return hibernateSearchService.fuzzySearch(q);
 	}
 
 	@RequestMapping("/api/artist/fts")
