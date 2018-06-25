@@ -4,12 +4,13 @@
 
 var url = document.URL;
 var hash = url.substring(url.indexOf('#'));
+var searchData = {};
 
 $(".nav-tabs").find("li a").each(function(key, val) {
     if (hash == $(val).attr('href')) {
         $(val).click();
     }
-    
+
     $(val).click(function(ky, vl) {
         location.hash = $(this).attr('href');
     });
@@ -45,17 +46,23 @@ function changeReleaseCover(tag, mbid) {
     tag.setAttribute('onload', '');
 }
 
-function dynamicSearch(url) {
+function hideCarousel(show = true) {
+  if ($('#advertisement').is(":visible") && show) {
     $('#advertisement').toggle('slow', function() {
         // Animation complete.
     });
+  }
+}
+
+function dynamicSearch(url) {
+    hideCarousel();
     var table = document.getElementById('result');
     var spinner = document.createElement("img");
     table.innerHTML = '';
     spinner.setAttribute('src', '/img/animation/spinner.svg');
     table.appendChild(spinner);
     var searchInput = document.getElementById('search-input');
-    searchData = ({[$('#searchSel').find(":selected").attr('id')]: searchInput.value})
+    searchData[$('#searchSel').find(":selected").attr('id')] = searchInput.value;
     $.ajax({
         type: "GET",
         beforeSend: function (request) {
@@ -90,6 +97,7 @@ function dynamicUpdate(url) {
 }
 
 function dynamicFilter(url) {
+    hideCarousel();
     var table = document.getElementById('result');
     var spinner = document.createElement("img");
     table.innerHTML = '';
@@ -122,20 +130,33 @@ function updateFilter(value, field, url) {
 		var button = document.createElement("button");
 		button.setAttribute('type', 'button');
     	button.setAttribute('class', 'btn btn-danger btn-sm mx-1');
-    	button.setAttribute('onclick', 'cleanFilter("' + field + '")');
+    	button.setAttribute('onclick', 'clearFilter("' + field + '","' + value.getAttribute('id') + '","' + url + '")');
 		button.innerHTML = "&times;";
-		
+
 		filter.appendChild(button);
 
-        $(jQueryField).parent().append(filter);
-        
-        searchData = ({[value.getAttribute('id')]: value.innerHTML});
+    $(jQueryField).parent().append(filter);
 
-        dynamicFilter(url);
+    searchData[value.getAttribute('id')] = value.innerHTML;
+
+    dynamicFilter(url);
 
     });
 }
 
-function cleanFilter(field) {
+function clearFilter(field, id, url) {
+  hideCarousel(true);
 
+  jQueryField = '#' + field;
+
+  var x = document.getElementById(field + '-item');
+  x.removeChild(x.lastChild);
+
+  $(jQueryField).toggle('slow', function() {
+
+        delete searchData.id;
+
+        dynamicFilter(url);
+
+    });
 }
