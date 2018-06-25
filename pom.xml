@@ -38,6 +38,21 @@
     	  </plugin>
     </plugins>
   </build>
+  <repositories>
+		<repository>
+		<id>spring-plugins-release</id>
+		<url>https://repo.spring.io/plugins-release</url>
+    </repository>
+	</repositories>
+  <pluginRepositories>
+      <pluginRepository>
+        <id>spring-plugins-release</id>
+        <url>https://repo.spring.io/plugins-release</url>
+        <snapshots>
+          <enabled>false</enabled>
+        </snapshots>
+      </pluginRepository>
+    </pluginRepositories>
   <dependencies>
     <!-- https://mvnrepository.com/artifact/junit/junit -->
     <dependency>
@@ -118,6 +133,12 @@
         <artifactId>querydsl-jpa</artifactId>
         <version>4.2.1</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/fastily/jwiki -->
+    <dependency>
+      <groupId>fastily</groupId>
+      <artifactId>jwiki</artifactId>
+      <version>1.6.0</version>
+    </dependency>
     <!-- https://mvnrepository.com/artifact/org.webjars/bootstrap -->
     <dependency>
         <groupId>org.webjars</groupId>
@@ -160,5 +181,5 @@
         <artifactId>postgresql</artifactId>
         <version>42.2.2</version>
     </dependency>
-  </dependencies> 
+  </dependencies>
 </project>
