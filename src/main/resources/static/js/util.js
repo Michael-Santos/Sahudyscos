@@ -6,6 +6,14 @@ var url = document.URL;
 var hash = url.substring(url.indexOf('#'));
 var searchData = {};
 
+$( document ).ready(function() {
+  $('#search-input').keypress(function(x) {
+    if(x.which == 13) {
+        $('#search-button').click();
+    }
+  });
+});
+
 $(".nav-tabs").find("li a").each(function(key, val) {
     if (hash == $(val).attr('href')) {
         $(val).click();
@@ -154,7 +162,7 @@ function clearFilter(field, id, url) {
 
   $(jQueryField).toggle('slow', function() {
 
-        delete searchData.id;
+        delete searchData[id];
 
         dynamicFilter(url);
 

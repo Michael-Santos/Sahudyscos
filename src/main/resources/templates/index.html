@@ -22,7 +22,6 @@
                 <aside th:replace="fragments/layout :: aside">
                 </aside>
                 <section class="col-sm-12 col-md-10 py-3">
-                    <form class="form-inline my-2 my-md-0">
                         <div class="input-group">
                             <input class="form-control" type="search" placeholder="Pesquisar" aria-label="Search" aria-describedby="basic-addon1" id="search-input">
                             <div class="input-group-append">
@@ -36,7 +35,6 @@
                                 <button class="btn btn-outline-success my-2 my-sm-0" type="button" th:onclick="|dynamicSearch('@{/}')|">Pesquisar</button>
                             </div>
                         </div>
-                    </form>
             <div class="container-fluid" id="result" role="tabpanel" aria-labelledby="releases-tab">
                 <th:block th:fragment="searchBody">
                     <div class="row">
