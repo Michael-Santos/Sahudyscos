@@ -7,6 +7,7 @@ import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.StringPath;
 import com.sahudyscos.web.entity.Album;
 import com.sahudyscos.web.entity.QAlbum;
+import com.sahudyscos.web.entity.projection.Ranking;
 
 import org.hibernate.SQLQuery;
 import org.hibernate.query.NativeQuery;
@@ -44,4 +45,10 @@ public interface AlbumRepository extends JpaRepository<Album, Long>, QuerydslPre
 		  bindings.bind(album.name).first((path, value) -> path.contains(value));
 		  bindings.bind(String.class).first((StringPath path, String value) -> path.contains(value));
     }
+
+    @Query(value = "SELECT COUNT(*) AS ranking, pais AS item FROM album GROUP BY item ORDER BY ranking DESC", nativeQuery=true)
+    public List<Ranking> getCountries();
+
+    @Query(value = "SELECT COUNT(*) AS ranking, genero1 AS item FROM album GROUP BY item ORDER BY ranking DESC", nativeQuery=true)
+    public List<Ranking> getGenres();
 }

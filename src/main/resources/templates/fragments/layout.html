@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <div th:fragment="common-head">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
-        <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.1.0/css/bootstrap.min.css}"/>
-        <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.0.10/web-fonts-with-css/css/fontawesome-all.css}"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+        <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.1.0/css/bootstrap.min.css}" />
+        <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.0.10/web-fonts-with-css/css/fontawesome-all.css}"
+        />
         <!--
         <link rel="stylesheet" type="text/css" th:href="@{/webjars/jquery-ui/1.9.2/css/smoothness/jquery-ui-1.9.2.custom.css}"/>
         -->
@@ -17,36 +19,50 @@
         <script type="text/javascript" th:src="@{/webjars/jquery-ui/1.9.2/js/jquery-ui-1.9.2.custom.min.js}"></script>
         -->
         <script type="text/javascript" th:src="@{/webjars/bootstrap/4.1.0/js/bootstrap.bundle.min.js}"></script>
+        <script type="text/javascript" th:src="@{/webjars/mixitup/3.3.0/mixitup.js}"></script>
     </div>
 </head>
+
 <body>
     <header th:fragment="header-main">
         <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand justify-content-start" href="/" th:href"@{/}"><img th:src="@{/img/logo.png}"/></a>
+            <a class="navbar-brand justify-content-start" href="/" th:href "@{/}">
+                <img th:src="@{/img/logo.png}" />
+            </a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav navbar-right ml-auto" sec:authorize="!isFullyAuthenticated()">
                     <li class="nav-item my-2">
                         <a class="nav-link" href="/signup" th:href="@{/signup}">Registrar</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/login" th:href="@{/login}"><button class="btn btn-success">Login</button></a>
+                        <a class="nav-link" href="/login" th:href="@{/login}">
+                            <button class="btn btn-success">Login</button>
+                        </a>
                     </li>
                 </ul>
                 <ul class="navbar-nav navbar-right ml-auto" sec:authorize="isFullyAuthenticated()">
                     <li class="nav-item nav-link my-2" sec:authorize="hasAuthority('ADMIN')">
-                       Olá <a th:href="@{/admin/home}"><span sec:authentication="name" style="color: chartreuse"></span></a>!
+                        Olá
+                        <a th:href="@{/admin/home}">
+                            <span sec:authentication="name" style="color: chartreuse"></span>
+                        </a>!
                     </li>
                     <li class="nav-item nav-link my-2" sec:authorize="hasAuthority('USER')">
-                       Olá <a th:href="@{/admin/home}"></a><span sec:authentication="name" style="color: chartreuse"><a href="@{/}"></a></span>!
+                        Olá
+                        <a th:href="@{/admin/home}"></a>
+                        <span sec:authentication="name" style="color: chartreuse">
+                            <a href="@{/}"></a>
+                        </span>!
                     </li>
                     <li class="nav-item my-2">
-                        <a class="nav-link" href="/logout" th:href="@{/logout}" >Sair</a>
+                        <a class="nav-link" href="/logout" th:href="@{/logout}">Sair</a>
                         <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>
                     </li>
                 </ul>
             </div>
 
-            <button class="navbar-toggler justify-content-end" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler justify-content-end" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
         </nav>
@@ -54,58 +70,66 @@
 
     <header th:fragment="header-basic">
         <nav class="navbar justify-content-center navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="/" th:href="@{/}"><img th:src="@{/img/logo.png}"/></a>
+            <a class="navbar-brand" href="/" th:href="@{/}">
+                <img th:src="@{/img/logo.png}" />
+            </a>
         </nav>
     </header>
 
     <header th:fragment="header-result">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <a class="navbar-brand" href="/" th:href="@{/}"><img th:src="@{/img/logo.png}" alt=""></a>
-                  
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item-active px-5">
-                            <form class="form-inline my-2 my-md-0">
-                                <div class="input-group">
-                                    <input class="form-control" type="search" placeholder="Pesquisar" aria-label="Search" aria-describedby="basic-addon1">
-                                    <div class="input-group-append">
-                                        <select class="custom-select" id="sel1"> <!-- Podemos tirar isso mas vai ficar difícil pra caramba de fazer consulta -->
-                                            <option>Banda</option>
-                                            <option>Álbum</option>
-                                            <option>Versão</option>
-                                            <option>Gravadora</option>
-                                        </select>
-                                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
-                                    </div>
-                                    
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="/" th:href="@{/}">
+                <img th:src="@{/img/logo.png}" alt="">
+            </a>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item-active px-5">
+                        <form class="form-inline my-2 my-md-0">
+                            <div class="input-group">
+                                <input class="form-control" type="search" placeholder="Pesquisar" aria-label="Search" aria-describedby="basic-addon1">
+                                <div class="input-group-append">
+                                    <select class="custom-select" id="sel1">
+                                        <!-- Podemos tirar isso mas vai ficar difícil pra caramba de fazer consulta -->
+                                        <option>Banda</option>
+                                        <option>Álbum</option>
+                                        <option>Versão</option>
+                                        <option>Gravadora</option>
+                                    </select>
+                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
                                 </div>
-                            </form>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav">
-                        <li class="nav-item my-2">
-                            <a class="nav-link" th:href="@{/signup}">Registrar</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/login}"><button class="btn btn-success">Login</button></a>
-                        </li>
-                    </ul>
-                </div>
-    
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            </nav>
+
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item my-2">
+                        <a class="nav-link" th:href="@{/signup}">Registrar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/login}">
+                            <button class="btn btn-success">Login</button>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
     </header>
 
     <div class="container-fluid" th:fragment="carousel">
         <div id="advertisement" class="carousel slide" data-ride="carousel">
-             <ul class="carousel-indicators">
+            <ul class="carousel-indicators">
                 <li data-target="#advertisement" data-slide-to="0" class="active"></li>
                 <li data-target="#advertisement" data-slide-to="1"></li>
                 <li data-target="#advertisement" data-slide-to="2"></li>
             </ul>
-        
+
             <div class="carousel-inner" style="background-color: black">
                 <div class="carousel-item active">
                     <img th:src="@{img/banner/1.png}" class="d-block mx-auto" alt="São legais mesmo">
@@ -117,8 +141,8 @@
                     <img th:src="@{img/banner/1.png}" class="d-block mx-auto" alt="Pode confiar">
                 </div>
             </div>
-            
-                <!-- Left and right controls -->
+
+            <!-- Left and right controls -->
             <a class="carousel-control-prev" href="#advertisement" data-slide="prev">
                 <span class="carousel-control-prev-icon"></span>
             </a>
@@ -129,67 +153,125 @@
     </div>
 
     <aside class="col-sm-12 col-md-2 py-3" th:fragment="aside">
-            <nav>
-                <ul class="nav flex-column">
-                    <li class="nav-item py-3">
-                        <h4 class="text-center">Gênero</h4>
+        <nav>
+            <ul class="nav flex-column">
+                <li class="nav-item py-3" id="genre-item">
+                    <h4 class="text-center">Gênero</h4>
+                    <div class="container-fluid" id="genre">
                         <div class="list-group list-group-flush">
-                            <a href="/search" th:href="@{/search/?genre_exact=rock}" class="list-group-item list-group-item-action">Rock</a>
-                            <a href="/search" th:href="@{/search/?genre_exact=electronic}" class="list-group-item list-group-item-action">Eletrônica</a>
-                            <a href="/search" th:href="@{/search/?genre_exact=pop}" class="list-group-item list-group-item-action">Pop</a>
-                            <a href="/search" th:href="@{/search/?genre_exact=jazz}" class="list-group-item list-group-item-action">Jazz</a>
-                            <a href="/search" th:href="@{/search/?genre_exact=x}" class="list-group-item list-group-item-action list-group-item-info">Todos<a>
+                            <th:block th:each="genre, stat : ${genres}" th:unless="${stat.index > 5}">
+                                <a id="album.genre" class="list-group-item list-group-item-action" th:onclick="|updateFilter(this, 'genre', '@{/}')|" th:text="${genre.item}"></a>
+                            </th:block>
+                            <a class="list-group-item list-group-item-info" data-toggle="modal" data-target="#modal-genre">Todos</a>
                         </div>
-                    </li>
-                    <li class="nav-item py-3">
-                        <h4 class="text-center">Formato</h4>
-                        <div class="list-group list-group-flush">
-                                <a href="/search" th:href="@{/search/?format_exact=cd}" class="list-group-item list-group-item-action">CD</a>
-                                <a href="/search" th:href="@{/search/?format_exact=vinyl}" class="list-group-item list-group-item-action">Vinil</a>
-                                <a href="/search" th:href="@{/search/?format_exact=cassette}" class="list-group-item list-group-item-action">Cassete</a>
-                                <a href="/search" th:href="@{/search/?format_exact=vhs}" class="list-group-item list-group-item-action">VHS</a>
-                                <a href="/search" th:href="@{/search/?format_exact=x}" class="list-group-item list-group-item-action list-group-item-info">Todos<a>
-                            </div>
-                    </li>
-                    <li class="nav-item py-3">
-                        <h4 class="text-center">País</h4>
-                        <div class="list-group list-group-flush">
-                                <a href="/search" th:href="@{/search/?country_exact=USA}" class="list-group-item list-group-item-action">EUA</a>
-                                <a href="/search" th:href="@{/search/?country_exact=England}" class="list-group-item list-group-item-action">Inglaterra</a>
-                                <a href="/search" th:href="@{/search/?country_exact=Brasil}" class="list-group-item list-group-item-action">Brasil</a>
-                                <a href="/search" th:href="@{/search/?country_exact=France}" class="list-group-item list-group-item-action">França</a>
-                                <a href="/search" th:href="@{/search/?country_exact=x}"class="list-group-item list-group-item-action list-group-item-info">Todos<a>
+                    </div>
+                </li>
+                <li class="nav-item py-3" id="format-item">
+                    <h4 class="text-center">Formato</h4>
+                        <div class="list-group list-group-flush" id="format">
+                            <th:block th:each="format, stat : ${formats}" th:unless="${stat.index > 5}">
+                                <a id="format" class="list-group-item list-group-item-action" th:onclick="|updateFilter(this, 'format', '@{/}')|" th:text="${format.item}"></a>
+                            </th:block>
+                            <a class="list-group-item list-group-item-info" data-toggle="modal" data-target="#modal-format">Todos</a>
                         </div>
-                    </li>
-                    <li class="nav-item py-3">
-                        <h4 class="text-center">Década</h4>
-                        <div class="list-group list-group-flush">
-                                <a href="/search" th:href="@{/search/?decade=2010}" class="list-group-item list-group-item-action">2010</a>
-                                <a href="/search" th:href="@{/search/?decade=2000}" class="list-group-item list-group-item-action">2000</a>
-                                <a href="/search" th:href="@{/search/?decade=1990}" class="list-group-item list-group-item-action">1990</a>
-                                <a href="/search" th:href="@{/search/?decade=1980}" class="list-group-item list-group-item-action">1980</a>
-                                <a href="/search" th:href="@{/search/?decade=x}" class="list-group-item list-group-item-action list-group-item-info">Todos<a>
+                </li>
+                <li class="nav-item py-3" id="country-item">
+                    <h4 class="text-center">País</h4>
+                        <div class="list-group list-group-flush" id="country">
+                            <th:block th:each="country, stat : ${countries}" th:unless="${stat.index > 5}">
+                                <a id="country" class="list-group-item list-group-item-action" th:onclick="|updateFilter(this, 'country', '@{/}')|" th:text="${country.item}"></a>
+                            </th:block>
+                            <a class="list-group-item list-group-item-info" data-toggle="modal" data-target="#modal-country">Todos</a>
                         </div>
-                    </li>
-                    <li class="nav-item py-3">
-                        <h4 class="text-center">Avaliação</h4>
+                </li>
+                <li class="nav-item py-3">
+                    <h4 class="text-center">Década</h4>
+                    <div class="container-fluid" id="decade">
                         <div class="list-group list-group-flush">
-                                <a href="/search" th:href="@{/search/?rating_above=4}" class="list-group-item list-group-item-action">Acima de 4,0</a>
-                                <a href="/search" th:href="@{/search/?rating_above=3}" class="list-group-item list-group-item-action">Acima de 3,0</a>
-                                <a href="/search" th:href="@{/search/?rating_above=2}" class="list-group-item list-group-item-action">Acima de 2,0</a>
-                                <a href="/search" th:href="@{/search/?rating_above=1}" class="list-group-item list-group-item-action">Acima de 1,0</a>
-                                <a href="/search" th:href="@{/search/?rating_above=0}" class="list-group-item list-group-item-action list-group-item-info">Todos<a>
+                            <a href="/search" th:href="@{/search/?decade=2010}" class="list-group-item list-group-item-action">2010</a>
+                            <a href="/search" th:href="@{/search/?decade=2000}" class="list-group-item list-group-item-action">2000</a>
+                            <a href="/search" th:href="@{/search/?decade=1990}" class="list-group-item list-group-item-action">1990</a>
+                            <a href="/search" th:href="@{/search/?decade=1980}" class="list-group-item list-group-item-action">1980</a>
+                            <a href="/search" th:href="@{/search/?decade=x}" class="list-group-item list-group-item-action list-group-item-info">Todos</a>
                         </div>
-                    </li>
-                </ul>
-            </nav>
-        </aside>
+                    </div>
+                </li>
+                <li class="nav-item py-3">
+                    <h4 class="text-center">Avaliação</h4>
+                    <div class="container-fluid" id="rating">
+                        <div class="list-group list-group-flush">
+                            <a href="/search" th:href="@{/search/?rating_above=4}" class="list-group-item list-group-item-action">Acima de 4,0</a>
+                            <a href="/search" th:href="@{/search/?rating_above=3}" class="list-group-item list-group-item-action">Acima de 3,0</a>
+                            <a href="/search" th:href="@{/search/?rating_above=2}" class="list-group-item list-group-item-action">Acima de 2,0</a>
+                            <a href="/search" th:href="@{/search/?rating_above=1}" class="list-group-item list-group-item-action">Acima de 1,0</a>
+                            <a href="/search" th:href="@{/search/?rating_above=0}" class="list-group-item list-group-item-action list-group-item-info">Todos</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="modal fade" id="modal-genre" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Gênero</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="list-group list-group-flush" th:each="genre, stat : ${genres}">
+                            <a id="album.genre" class="list-group-item list-group-item-action" th:onclick="|updateFilter(this)|" th:text="${genre.item}"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modal-format" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Formato</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="list-group list-group-flush" th:each="format, stat : ${formats}">
+                            <a id="format" class="list-group-item list-group-item-action" th:onclick="|updateFilter(this)|" th:text="${format.item}"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modal-country" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Formato</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="list-group list-group-flush" th:each="country, stat : ${countries}">
+                            <a id="country" class="list-group-item list-group-item-action" th:onclick="|updateFilter(this)|" th:text="${country.item}"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
 
     <footer class="page-footer font-small blue pt-4 mt-4 bg-dark" th:fragment="footer">
         <div class="footer-copyright text-center">
             © 2018 Sahudyscos®
         </div>
     </footer>
-    
+
 </body>
+
 </html>

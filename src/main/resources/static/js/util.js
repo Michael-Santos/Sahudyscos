@@ -46,13 +46,16 @@ function changeReleaseCover(tag, mbid) {
 }
 
 function dynamicSearch(url) {
+    $('#advertisement').toggle('slow', function() {
+        // Animation complete.
+    });
     var table = document.getElementById('result');
     var spinner = document.createElement("img");
     table.innerHTML = '';
     spinner.setAttribute('src', '/img/animation/spinner.svg');
     table.appendChild(spinner);
     var searchInput = document.getElementById('search-input');
-    var searchData = ({[$('#searchSel').find(":selected").attr('id')]: searchInput.value})
+    searchData = ({[$('#searchSel').find(":selected").attr('id')]: searchInput.value})
     $.ajax({
         type: "GET",
         beforeSend: function (request) {
@@ -84,4 +87,55 @@ function dynamicUpdate(url) {
             table.innerHTML = msg;
         }
     });
+}
+
+function dynamicFilter(url) {
+    var table = document.getElementById('result');
+    var spinner = document.createElement("img");
+    table.innerHTML = '';
+    spinner.setAttribute('src', '/img/animation/spinner.svg');
+    table.appendChild(spinner);
+    $.ajax({
+        type: "GET",
+        beforeSend: function (request) {
+            request.setRequestHeader("Update-Table", true);
+        },
+        data: searchData,
+        dataType: "html",
+        url: url,
+        success: function (msg) {
+            table.innerHTML = msg;
+        }
+    });
+}
+
+function updateFilter(value, field, url) {
+	console.log(value);
+	jQueryField = '#' + field;
+	console.log($(jQueryField));
+	$(jQueryField).toggle('slow', function() {
+		var filter = document.createElement("div");
+		filter.setAttribute("class", "input-group-append");
+		filter.setAttribute("id", 'chosen-' + field);
+		filter.innerHTML = value.innerHTML;
+
+		var button = document.createElement("button");
+		button.setAttribute('type', 'button');
+    	button.setAttribute('class', 'btn btn-danger btn-sm mx-1');
+    	button.setAttribute('onclick', 'cleanFilter("' + field + '")');
+		button.innerHTML = "&times;";
+		
+		filter.appendChild(button);
+
+        $(jQueryField).parent().append(filter);
+        
+        searchData = ({[value.getAttribute('id')]: value.innerHTML});
+
+        dynamicFilter(url);
+
+    });
+}
+
+function cleanFilter(field) {
+
 }

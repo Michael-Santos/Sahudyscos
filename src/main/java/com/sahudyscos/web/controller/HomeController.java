@@ -31,6 +31,9 @@ public class HomeController {
     @Autowired
     ReleaseRepository releaseRepository;
 
+    @Autowired
+    AlbumRepository albumRepository;
+
     @GetMapping("/")
     @Transactional(readOnly = true)
     public String home(Model model, Pageable pageable, @QuerydslPredicate(root = Release.class) Predicate predicate,
@@ -41,6 +44,13 @@ public class HomeController {
         model.addAttribute("releasePager", releasePager);
         model.addAttribute("pageSizes", PAGE_SIZES);
         model.addAttribute("releases", releaseRepository.findAll(predicate, pageable));
+
+        model.addAttribute("formats", releaseRepository.getFormats());
+        model.addAttribute("types", releaseRepository.getTypes());
+        model.addAttribute("genres", albumRepository.getGenres());
+        model.addAttribute("countries", albumRepository.getCountries());
+
+
 
         return update ? "index :: searchBody" : "index";
     }
