@@ -43,7 +43,6 @@ public interface AlbumRepository extends JpaRepository<Album, Long>, QuerydslPre
 
     default void customize(QuerydslBindings bindings, QAlbum album) {
 		  bindings.bind(album.name).first((path, value) -> path.contains(value));
-		  bindings.bind(String.class).first((StringPath path, String value) -> path.contains(value));
     }
 
     @Query(value = "SELECT COUNT(*) AS ranking, pais AS item FROM album GROUP BY item ORDER BY ranking DESC", nativeQuery=true)
