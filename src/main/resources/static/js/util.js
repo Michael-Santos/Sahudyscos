@@ -9,6 +9,7 @@ var searchData = {};
 $( document ).ready(function() {
   $('#search-input').keypress(function(x) {
     if(x.which == 13) {
+        console.log(window.location.pathname);
         dynamicSearch('/');
     }
   });
