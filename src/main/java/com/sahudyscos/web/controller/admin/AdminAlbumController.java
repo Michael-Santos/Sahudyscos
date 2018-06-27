@@ -88,14 +88,14 @@ public class AdminAlbumController {
     public ModelAndView create(@ModelAttribute albumFormPOJO formContent) {
         List<Artist> artists = (List<Artist>) artistRepository.findAllById(formContent.getArtistsIds());
         formContent.getAlbum().setArtists(artists);
-        logger.info(formContent.getArtistsIds().toString());
+        logger.info(formContent.getAlbum().getId().toString());
         albumRepository.save(formContent.getAlbum());
         return new ModelAndView("redirect:/admin/album");
     }
 
     @PostMapping(value = "/admin/album/delete")
     public ModelAndView delete(@ModelAttribute albumFormPOJO formContent) {
-        albumRepository.delete(formContent.getAlbum());
+        albumRepository.deleteById(formContent.getAlbum().getId());
         return new ModelAndView("redirect:/admin/album");
     }
 }

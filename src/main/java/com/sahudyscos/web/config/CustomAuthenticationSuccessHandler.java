@@ -5,7 +5,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
- 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -27,7 +27,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         
         boolean admin = false;
 
-        logger.info(String.valueOf(authentication.getAuthorities()));
+        logger.info(String.valueOf(authentication.getDetails()));
         
         for (GrantedAuthority auth : authentication.getAuthorities()) {
             if ("ADMIN".equals(auth.getAuthority())){
@@ -41,5 +41,5 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         }else{
         	response.sendRedirect("/");
         }
-	}
+    }
 }

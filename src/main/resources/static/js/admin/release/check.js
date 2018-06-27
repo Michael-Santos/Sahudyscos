@@ -134,6 +134,6 @@ function editRelease(id, albumId) {
 }
 
 function deleteRelease(id, albumId) {
-    document.getElementById('delete-id') = id;
-    document.getElementById('delete-album-id') = albumId;
+    document.getElementById('delete-id').value = id;
+    document.getElementById('delete-album-id').value = albumId;
 }

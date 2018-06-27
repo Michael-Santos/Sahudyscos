@@ -8,6 +8,7 @@ import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import com.sahudyscos.web.entity.key.ContractId;
 
@@ -45,7 +46,7 @@ public class Contract {
     public void setLabelId(Long labelId) {
         this.labelId = labelId;
     }
-
+    
     public String getArtistName() {
         return artist.getName();
     }

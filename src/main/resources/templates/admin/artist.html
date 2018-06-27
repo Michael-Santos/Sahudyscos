@@ -46,9 +46,15 @@
                     <table class="table table-striped" cellspacing="0" cellpadding="0">
                         <thead>
                             <tr>
-                                <th scope="col"><a class="sorted" sd:pagination-sort="id" >Código</a></th>
-                                <th scope="col"><a class="sorted" sd:pagination-sort="name" >Nome</a></th>
-                                <th scope="col"><a class="sorted" sd:pagination-sort="activityStart" >Data de Fundação</a></th>
+                                <th scope="col">
+                                    <a class="sorted" sd:pagination-sort="id">Código</a>
+                                </th>
+                                <th scope="col">
+                                    <a class="sorted" sd:pagination-sort="name">Nome</a>
+                                </th>
+                                <th scope="col">
+                                    <a class="sorted" sd:pagination-sort="activityStart">Data de Fundação</a>
+                                </th>
                                 <th scope="col" class="options">Opções</th>
                             </tr>
                         </thead>
@@ -66,8 +72,8 @@
                                         data-toggle="modal" data-target="#modal-edit" name="edit">
                                         <i class="fas fa-wrench"></i>
                                     </button>
-                                    <button type="submit" th:value="delete" id="delete-button" class="btn btn-danger btn-sm mx-1" data-toggle="modal" data-target="#modal-delete"
-                                        name="delete">
+                                    <button type="submit" th:value="delete" id="delete-button" th:onclick="${'javascript:deleteArtist(' + artist.id + ')'}" class="btn btn-danger btn-sm mx-1"
+                                        data-toggle="modal" data-target="#modal-delete" name="delete">
                                         <i class="fas fa-times"></i>
                                     </button>
                                 </td>
@@ -177,8 +183,11 @@
                                             <h3>Você tem certeza?</h3>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
-                                            <button type="button" class="btn btn-danger">Sim</button>
+                                            <form id="deleteForm" th:action="@{/admin/artist/delete}" th:object="${artist}" method="post">
+                                                <input type="hidden" id="delete-artist-id" th:field="*{id}">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                                                <button type="submit" class="btn btn-danger">Sim</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
