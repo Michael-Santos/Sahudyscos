@@ -33,7 +33,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             if ("ADMIN".equals(auth.getAuthority())){
                 admin = true;
                 logger.info("Admin logged in!");
-                DbContextHolder.setDbType(DbType.ADMIN);
             }
         }
         
