@@ -26,6 +26,7 @@ public class ReleaseController {
         currentRelease = releaseRepository.findById(new ReleaseId(id.longValue(), albumId.longValue()));
 
         model.addAttribute("release", currentRelease.get());
+        
         return "release";
     }
 

@@ -27,10 +27,16 @@ public class ArtistController {
         Optional<Artist> currentArtist;
 
         currentArtist = artistRepository.findById(id.longValue());
-
+        String image;
         model.addAttribute("artist", currentArtist.get());
         model.addAttribute("description", wikiMediaService.getDescription(currentArtist.get().getName()));
+       // if((image = wikiMediaService.getImage(currentArtist.get().getName())) == null){
+            model.addAttribute("image", "/img/default/default-artist.png");
+        //}else{
+          //  model.addAttribute("image", image);
+        //}
         return "artist";
+        
     }
 
 }

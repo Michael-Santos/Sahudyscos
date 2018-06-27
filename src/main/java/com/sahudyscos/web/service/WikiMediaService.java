@@ -13,7 +13,7 @@ public interface WikiMediaService{
 
     public void wikiconnection();
     public String getDescription(String name);
-    public ImageInfo getImage(String name);
+    public String getImage(String name);
 
 
 }

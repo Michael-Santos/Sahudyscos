@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import com.sahudyscos.web.entity.Label;
 import com.sahudyscos.web.repository.LabelRepository;
+import com.sahudyscos.web.service.WikiMediaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,9 @@ public class LabelController {
     @Autowired
     private LabelRepository labelRepository;
 
+    @Autowired
+    private WikiMediaService wikiMediaService;
+    
     @GetMapping("/label")
     public String artist(@RequestParam(name="id") Integer id, Model model) {
         Optional<Label> currentLabel;
@@ -28,6 +32,8 @@ public class LabelController {
         model.addAttribute("genre", currentLabel.get().getGenre());
         model.addAttribute("altGenre", currentLabel.get().getAltGenre());
         model.addAttribute("releases", currentLabel.get().getReleases());
+        model.addAttribute("description", wikiMediaService.getDescription(currentLabel.get().getName()));
+
         return "label";
     }
 

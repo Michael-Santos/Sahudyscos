@@ -11,7 +11,7 @@
 
     <main class="container-fluid py-3">
         <div class="row">
-            <div class="col"><img th:src="@{/img/default/default-artist.png}" class="img-thumbnail" alt="${artist.name}"></div>
+            <div class="col"><img th:src="@{${image}}" class="img-thumbnail" alt="${artist.name}"></div>
             <div class="col">
                 <h1 th:text="${artist.name}"></h1>
                 <ul class="list-group">
@@ -21,7 +21,7 @@
                     </li>
                     <li class="list-group-item">
                         <h5>Descrição</h5>
-                        <p class="mb-1" th:text="${artist.description}">Wesley Oliveira da Silva (Fortaleza, 6 de setembro de 1988), mais conhecido como Wesley Safadão, é um cantor, produtor musical e empresário brasileiro. Começou a carreira em 2003 liderando a banda Garota Safada e, a partir de 2007, ganhou notoriedade na região nordeste, e logo passou a ter projeção nacional, se apresentando em todas as regiões do Brasil. Na banda, lançou sete álbuns de áudio e dois álbuns de vídeo, trazendo singles conhecidos como "Tentativas Em Vão", "Disco Voador" e "Vai Esperar".</p>
+                        <p class="mb-1" th:text="${description}">Wesley Oliveira da Silva (Fortaleza, 6 de setembro de 1988), mais conhecido como Wesley Safadão, é um cantor, produtor musical e empresário brasileiro. Começou a carreira em 2003 liderando a banda Garota Safada e, a partir de 2007, ganhou notoriedade na região nordeste, e logo passou a ter projeção nacional, se apresentando em todas as regiões do Brasil. Na banda, lançou sete álbuns de áudio e dois álbuns de vídeo, trazendo singles conhecidos como "Tentativas Em Vão", "Disco Voador" e "Vai Esperar".</p>
                     </li>
                     <li class="list-group-item">
                         <h5>Gêneros</h5>
