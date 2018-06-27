@@ -84,3 +84,7 @@ function editArtist(id) {
         }
     });
 }
+
+function deleteArtist(id) {
+    document.getElementById('delete-artist-id').value = id;
+}

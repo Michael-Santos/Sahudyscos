@@ -24,7 +24,7 @@ public class Artist {
     @Id
     //@GeneratedValue(strategy=GenerationType.AUTO)
     @GeneratedValue(generator = "banda_sequence", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "banda_sequence", sequenceName = "banda",allocationSize=1)
+    @SequenceGenerator(name = "banda_sequence", sequenceName = "banda_sequence",allocationSize=1)
     @Column(name = "cod_banda")
     private Long id;
 

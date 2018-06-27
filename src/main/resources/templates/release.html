@@ -49,7 +49,7 @@
                     <div class="container">
                     <ul class="list-group">
                         <li class="list-group-item list-group-item-primary">
-                            <h1 th:text="'R$' + ${release.price}">R$ 90,00</h1>
+                            <h1 th:text="'R$' + ${#numbers.formatDecimal(release.price, 0, 2)}">R$ 90,00</h1>
                         </li>
                         <li class="list-group-item">
                             <h2>Versão</h2>
@@ -57,11 +57,11 @@
                         </li>
                         <li class="list-group-item">
                             <h2>Unidades Disponíveis</h2>
-                            <h4 class="mb-1 alert" th:text="${release.amountAvailable}">6</h4>
+                            <h4 class="mb-1 alert" th:text="${#numbers.formatDecimal(release.amountAvailable, 0, 0)}">6</h4>
                         </li>
                         <li class="list-group-item">
                             <h2>Avaliação Média</h2>
-                            <h4 class="mb-1 alert" th:text="${release.album.rating}">5,0/5,0</h4>
+                            <h4 class="mb-1 alert" th:text="${#numbers.formatDecimal(release.album.rating, 0, 3)}">5,0/5,0</h4>
                         </li>
                     </ul>
                 </div>

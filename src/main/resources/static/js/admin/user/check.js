@@ -107,3 +107,7 @@ function removeRole(i) {
     group.removeChild(div);
     counter--;
 }
+
+function deleteUser(id) {
+    document.getElementById('delete-user-id').value = id;
+}

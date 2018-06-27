@@ -46,7 +46,7 @@
                 <ul class="list-group">
                     <li class="list-group-item">
                         <h2>Avaliação Média</h2>
-                        <h4 class="mb-1 alert" th:text="${album.rating}"/>
+                        <h4 class="mb-1 alert" th:text="${#numbers.formatDecimal(album.rating, 0, 3)}"/>
                     </li>
                 </ul>
             </div>
@@ -74,7 +74,7 @@
                         <td th:text="${release.type}"></td>
                         <td th:text="${release.format}"></td>
                         <td th:text="${release.releaseDate}"></td>
-                        <td><a th:href="@{/release(id=${release.id},album=${album.id})}"><button type="button" class="btn btn-success" th:text="'R$' + ${release.price}"></button></a></td>
+                        <td><a th:href="@{/release(id=${release.id},album=${album.id})}"><button type="button" class="btn btn-success" th:text="'R$' + ${#numbers.formatDecimal(release.price, 0, 2)}"></button></a></td>
                     </tr>
                 </tbody>
             </table>

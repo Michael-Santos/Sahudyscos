@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Consulta 1 - LabBD</title>
+    <div th:replace="fragments/layout :: common-head">
+    </div>
+    <script th:src="@{~/js/util.js}"></script>
+</head>
+
+<body>
+    <header th:replace="fragments/layout :: header-main">
+    </header>
+
+    <!-- Menu de opções -->
+    <main class=" container pt-3 row mx-auto">
+
+        <div class="row container-fluid my-2">
+            <div class="col">
+                <form class="form-inline my-2 my-md-0" th:action="@{/admin/benchmark/query2}">
+                    <div class="input-group">
+                        <div class="form-group">
+                            <label class="col-sm-2 col-form-label">País:</label>
+                            <input type="text" id="country" name="country" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-form-label">Avaliação:</label>
+                            <input type="number" step="0.01" name="rating" id="rating" class="form-control">
+                        </div>
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="result" class="container-fluid">
+            <th:block th:fragment="searchBody" th:unless="${results} == null">
+                <div class="table-responsive">
+                    <table class="table table-striped" cellspacing="0" cellpadding="0">
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    <a class="sorted" sd:pagination-sort="id">Código</a>
+                                </th>
+                                <th scope="col">
+                                    <a class="sorted" sd:pagination-sort="name">Nome</a>
+                                </th>
+                                <th scope="col">
+                                        <a class="sorted" sd:pagination-sort="artistName">Nome da Banda</a>
+                                </th>
+                                <th scope="col">
+                                        <a class="sorted" sd:pagination-sort="rating">Avaliação</a>
+                                </th>
+                                <th scope="col">
+                                    <a class="sorted" sd:pagination-sort="price">Preço</a>
+                                </th>
+                                <th scope="col">
+                                    <a class="sorted" sd:pagination-sort="format">Formato</a>
+                                </th>
+                                <th scope="col">
+                                    <a class="sorted" sd:pagination-sort="amountAvailable">Quantidade Disponível</a>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="result : ${results}">
+                                <th scope="row" th:text="${result.id}">4</th>
+                                <th th:text="${result.name}"></th>
+                                <th th:text="${result.artistName}"></th>
+                                <th th:text="${result.rating}"></th>
+                                <th th:text="${result.price}"></th>
+                                <th th:text="${result.format}"></th>
+                                <th th:text="${result.amountAvailable}"></th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div sd:pagination-summary="">info</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <nav class="pull-right">
+                            <ul class="pagination" sd:pagination="full" sd:pagination-onclick="dynamicUpdate">
+                                <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
+                                <li class="disabled">
+                                    <a href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="active">
+                                    <a href="#">1
+                                        <span class="sr-only">(current)</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+            </th:block>
+        </div>
+
+    </main>
+
+    <footer th:replace="fragments/layout :: footer">
+    </footer>
+</body>
+
+</html>

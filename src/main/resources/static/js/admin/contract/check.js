@@ -93,6 +93,8 @@ function editContract(artistId, labelId) {
         contentType:"application/json; charset=utf-8",
         dataType:"json",
         success: function(contract){
+            document.getElementById('edit-artist-id').value = contract.artistId;
+            document.getElementById('edit-label-id').value = contract.labelId;
             document.getElementById('edit-artist').value = contract.artistName;
             document.getElementById('edit-label').value = contract.labelName;
         }

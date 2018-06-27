@@ -32,7 +32,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Value("${spring.queries.roles-query}")
     private String rolesQuery;
     
-    
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
