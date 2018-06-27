@@ -1,5 +1,7 @@
 package com.sahudyscos.web.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import com.sahudyscos.web.entity.access.User;
@@ -19,7 +21,8 @@ public class LoginController {
 	private UserService userService;
 
 	@RequestMapping(value={"/login"}, method = RequestMethod.GET)
-	public ModelAndView login(){
+	public ModelAndView login(HttpServletRequest request, HttpSession session){
+		session.invalidate();
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("login");
 		return modelAndView;

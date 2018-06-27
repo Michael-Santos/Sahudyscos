@@ -63,7 +63,7 @@
                                     <p class="card-text">
                                         <a th:href="@{/release(id=__${release.id}__, album=__${release.album.id}__)}" th:text="${release.album.name}">Duetos</a>
                                         <button class="btn btn-sm float-right" th:classappend="${release.onSaleStatus} ? btn-outline-success : btn-outline-primary"
-                                            th:text="'R$' + ${release.price}">R$90,00</button>
+                                            th:text="'R$' + ${#numbers.formatDecimal(release.price, 0, 2)}">R$90,00</button>
                                     </p>
                                 </div>
                             </div>

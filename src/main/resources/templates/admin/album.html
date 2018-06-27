@@ -66,8 +66,8 @@
                             <tr th:each="album : ${albums}">
                                 <th scope="row" id="albumId" th:text="${album.id}">4</th>
                                 <td th:text="${album.name}">Odessa</td>
-                                <td th:each="artist : ${album.artists}">
-                                    <div th:text="${artist.name}"></div>
+                                <td>
+                                    <div class="row container" th:each="artist : ${album.artists}" th:text="${artist.name}"></div>
                                 </td>
                                 <td th:text="${album.publication}">1969</td>
                                 <td class="option">
@@ -79,7 +79,7 @@
                                         data-toggle="modal" data-target="#modal-edit">
                                         <i class="fas fa-wrench"></i>
                                     </button>
-                                    <button type="button" th:value="delete" id="delete-button" class="btn btn-danger btn-sm mx-1" data-toggle="modal" data-target="#modal-delete">
+                                    <button type="button" th:value="delete" id="delete-button" th:onclick="${'javascript:deleteAlbum(' + album.id + ')'}" class="btn btn-danger btn-sm mx-1" data-toggle="modal" data-target="#modal-delete">
                                         <i class="fas fa-times"></i>
                                     </button>
                                 </td>
@@ -183,12 +183,7 @@
                     </div>
                     <div class="modal-body">
                         <form id="mainForm" th:action="@{/admin/album/save}" th:object="${formContent}" method="post">
-                            <div class="form-group">
-                                <label class="alinhar">ID:
-                                    <obrigatorio>*</obrigatorio>
-                                </label>
-                                <input type="text" id="edit-id" class="form-control" th:value="*{album.id}">
-                            </div>
+                            <input type="hidden" id="edit-id" class="form-control" placeholder="Gerado automaticamente" th:field="*{album.id}">
                             <div class="form-group">
                                 <label class="alinhar">Nome:
                                     <obrigatorio>*</obrigatorio>
@@ -260,8 +255,11 @@
                         <h3>Você tem certeza?</h3>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
-                        <button type="button" class="btn btn-danger">Sim</button>
+                        <form id="deleteForm" th:action="@{/admin/album/delete}" th:object="${formContent}" method="post">
+                            <input type="hidden" id="delete-album-id" th:field="*{album.id}">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                            <button type="submit" class="btn btn-danger">Sim</button>
+                        </form>
                     </div>
                 </div>
             </div>

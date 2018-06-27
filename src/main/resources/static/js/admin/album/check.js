@@ -130,20 +130,7 @@ function editAlbum(id) {
             document.getElementById('edit-publication').value = album.publication;
             counter = 0;
             album.artists.forEach(function(obj) { 
-                var input = document.createElement("input");
-                var hiddenField = document.createElement("input");
-                input.setAttribute('type', 'text');
-                input.setAttribute('id', 'edit-artist-' + counter);
-                input.setAttribute('class', 'form-control');
-                input.setAttribute('value', obj.name);
-                hiddenField.setAttribute('type', 'hidden');
-                hiddenField.setAttribute('id', 'edit-artist-id-' + counter);
-                hiddenField.setAttribute('value', obj.id);
-                hiddenField.setAttribute('name', 'artistsIds');
-                field.appendChild(hiddenField);
-                field.appendChild(input);
-                artistAutocomplete(counter);
-                counter++;
+                addArtist(obj);
             });
             document.getElementById('edit-genre').value = album.genre;
             document.getElementById('edit-alt-genre').value = album.altGenre;
@@ -152,7 +139,11 @@ function editAlbum(id) {
     });
 }
 
-function addArtist() {
+function deleteAlbum(albumId) {
+    document.getElementById('delete-album-id').value = albumId;
+}
+
+function addArtist(obj = null) {
     var group = document.getElementById('edit-artists-group');
     var div = document.createElement("div");
     var input = document.createElement("input");
@@ -165,6 +156,9 @@ function addArtist() {
     input.setAttribute('type', 'text');
     input.setAttribute('class', 'form-control');
     input.setAttribute('id', 'edit-artist-' + counter);
+    if (obj != null) {
+        input.setAttribute('value', obj.name);
+    }
 
     button.setAttribute('type', 'button');
     button.setAttribute('class', 'btn btn-danger btn-sm mx-1');
@@ -174,6 +168,9 @@ function addArtist() {
     hiddenField.setAttribute('type', 'hidden');
     hiddenField.setAttribute('id', 'edit-artist-id-' + counter);
     hiddenField.setAttribute('name', 'artistsIds');
+    if (obj != null) {
+        hiddenField.setAttribute('value', obj.id);
+    }
     //hiddenField.setAttribute('th:field', '*{artists[' + counter + '].id}');
 
     div.appendChild(input);
