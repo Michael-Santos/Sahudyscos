@@ -6,11 +6,12 @@
     </th:block >
 </head>
 <body>
+
     <header th:replace="fragments/layout :: header-basic">
-    </header>
+        </header>
 
     <main class="container-fluid h-100 row mt-5 align-items-center mx-auto">
-        <div id="content" class="col d-flex justify-content-center align-middle">
+        <div class="col d-flex justify-content-center align-middle">
             <div id="login-form" class="jumbotron my-auto">
                 <h1 class="text-center">Login</h1>
                 <form th:action="@{/login}" id="login" method="post">

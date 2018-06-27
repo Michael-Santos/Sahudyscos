@@ -76,6 +76,26 @@ function changeReleaseCover(tag, mbid) {
     tag.setAttribute('onload', '');
 }
 
+function changeReleaseCover(tag, mbid) {
+    var reqUrl = "http://musicbrainz.org/ws/2/artist/" + mbid;
+    $.ajax({
+            url:reqUrl,
+            data:{
+                inc: "url-rels",
+                fmt: "json"
+            },
+            type:"GET",
+            dataType:"json",
+            statusCode: {
+                200: function (response) {
+                    console.log(response);
+                }
+            }
+    });
+    // TODO Melhorar isso
+    tag.setAttribute('onload', '');
+}
+
 function hideCarousel(show = true) {
   if ($('#advertisement').is(":visible") && show) {
     $('#advertisement').toggle('slow', function() {

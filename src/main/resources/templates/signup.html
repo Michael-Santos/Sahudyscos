@@ -8,11 +8,12 @@
 
 </head>
 <body style="height: 100%">
+
     <header th:replace="fragments/layout :: header-basic">
-    </header>
+        </header>
 
     <main class="container-fluid h-100 row align-items-center">
-        <div id="content" class="col d-flex justify-content-center align-middle">
+        <div class="col d-flex justify-content-center align-middle">
             <div id="signup-form" class="jumbotron my-auto">
                 <h1>Sahudyscos Signup</h1>
                 <form th:action="@{/signup}" id="signup" method="post" th:object="${user}">
