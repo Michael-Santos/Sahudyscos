@@ -116,5 +116,5 @@ function editLabel(id) {
 }
 
 function deleteLabel(id) {
-    document.getElementById('delete-label-id') = id;
+    document.getElementById('delete-label-id').value = id;
 }

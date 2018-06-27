@@ -1,5 +1,7 @@
 package com.sahudyscos.web.repository;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +32,7 @@ public interface ReleaseRepository extends JpaRepository<Release, ReleaseId>, Qu
 
     default void customize(QuerydslBindings bindings, QRelease release) {
         bindings.bind(release.album.name).first((path, value) -> path.contains(value));
-        bindings.bind(String.class).first((StringPath path, String value) -> path.contains(value));
+        bindings.bind(release.releaseDate).first((path, value) -> path.between(value, new java.sql.Date(1,1,value.getYear())));
     }
 
     @Query(value = "SELECT COUNT(*) AS ranking, formato AS item FROM versao GROUP BY item ORDER BY ranking DESC", nativeQuery=true)

@@ -42,7 +42,8 @@ public interface AlbumRepository extends JpaRepository<Album, Long>, QuerydslPre
     Page<Album> findByExpNamePaged(String name, Pageable pageable, Predicate predicate);
 
     default void customize(QuerydslBindings bindings, QAlbum album) {
-		  bindings.bind(album.name).first((path, value) -> path.contains(value));
+          bindings.bind(album.name).first((path, value) -> path.contains(value));
+          bindings.bind(album.rating).first((path, value) -> path.gt(value));
     }
 
     @Query(value = "SELECT COUNT(*) AS ranking, pais AS item FROM album GROUP BY item ORDER BY ranking DESC", nativeQuery=true)

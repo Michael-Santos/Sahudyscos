@@ -1,5 +1,10 @@
 package com.sahudyscos.web.controller;
 
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
 import com.querydsl.core.types.Predicate;
 import com.sahudyscos.web.controller.util.Pager;
 import com.sahudyscos.web.entity.Album;
@@ -11,6 +16,7 @@ import com.sahudyscos.web.repository.ReleaseRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
@@ -34,6 +40,9 @@ public class HomeController {
     @Autowired
     AlbumRepository albumRepository;
 
+    @Value("${decades}")
+    String[] decades;
+
     @GetMapping("/")
     @Transactional(readOnly = true)
     public String home(Model model, Pageable pageable, @QuerydslPredicate(root = Release.class) Predicate predicate,
@@ -49,7 +58,7 @@ public class HomeController {
         model.addAttribute("types", releaseRepository.getTypes());
         model.addAttribute("genres", albumRepository.getGenres());
         model.addAttribute("countries", albumRepository.getCountries());
-
+        model.addAttribute("decades", decades);
 
 
         return update ? "index :: searchBody" : "index";

@@ -89,13 +89,13 @@ public class AdminUserController {
     public ModelAndView create(@ModelAttribute userFormPOJO formContent) {
         List<Role> roles = roleRepository.findAllByRole(formContent.getRoles());
         userService.saveUserAndRoles(formContent.getUser(), roles);
-        return new ModelAndView("redirect:admin/user");
+        return new ModelAndView("redirect:/admin/user");
     }
 
     @PostMapping(value = "/admin/user/delete")
     public ModelAndView delete(@ModelAttribute userFormPOJO formContent) {
         userRepository.delete(formContent.getUser());
-        return new ModelAndView("redirect:admin/user");
+        return new ModelAndView("redirect:/admin/user");
     }
 
     @RequestMapping(value="/admin/user", params={"viewUser"})

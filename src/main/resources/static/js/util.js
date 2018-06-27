@@ -126,9 +126,7 @@ function dynamicFilter(url) {
 }
 
 function updateFilter(value, field, url) {
-	console.log(value);
 	jQueryField = '#' + field;
-	console.log($(jQueryField));
 	$(jQueryField).toggle('slow', function() {
 		var filter = document.createElement("div");
 		filter.setAttribute("class", "input-group-append");

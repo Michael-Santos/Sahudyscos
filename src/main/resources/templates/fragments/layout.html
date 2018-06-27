@@ -183,27 +183,23 @@
                             <a class="list-group-item list-group-item-info" data-toggle="modal" data-target="#modal-country">Todos</a>
                         </div>
                 </li>
-                <li class="nav-item py-3">
+                <li class="nav-item py-3" id="releaseDate-item">
                     <h4 class="text-center">Década</h4>
-                    <div class="container-fluid" id="decade">
-                        <div class="list-group list-group-flush">
-                            <a href="/search" th:href="@{/search/?decade=2010}" class="list-group-item list-group-item-action">2010</a>
-                            <a href="/search" th:href="@{/search/?decade=2000}" class="list-group-item list-group-item-action">2000</a>
-                            <a href="/search" th:href="@{/search/?decade=1990}" class="list-group-item list-group-item-action">1990</a>
-                            <a href="/search" th:href="@{/search/?decade=1980}" class="list-group-item list-group-item-action">1980</a>
-                            <a href="/search" th:href="@{/search/?decade=x}" class="list-group-item list-group-item-action list-group-item-info">Todos</a>
+                        <div class="list-group list-group-flush" id="releaseDate">
+                            <th:block th:each="decade, stat : ${decades}" th:unless="${stat.index > 5}">
+                                <a id="releaseDate" class="list-group-item list-group-item-action" th:onclick="|updateFilter(this, 'releaseDate', '@{/}')|" th:text="${decade}"></a>
+                            </th:block>
+                            <a class="list-group-item list-group-item-info" data-toggle="modal" data-target="#modal-decade">Todos</a>
                         </div>
-                    </div>
                 </li>
-                <li class="nav-item py-3">
-                    <h4 class="text-center">Avaliação</h4>
-                    <div class="container-fluid" id="rating">
-                        <div class="list-group list-group-flush">
-                            <a href="/search" th:href="@{/search/?rating_above=4}" class="list-group-item list-group-item-action">Acima de 4,0</a>
-                            <a href="/search" th:href="@{/search/?rating_above=3}" class="list-group-item list-group-item-action">Acima de 3,0</a>
-                            <a href="/search" th:href="@{/search/?rating_above=2}" class="list-group-item list-group-item-action">Acima de 2,0</a>
-                            <a href="/search" th:href="@{/search/?rating_above=1}" class="list-group-item list-group-item-action">Acima de 1,0</a>
-                            <a href="/search" th:href="@{/search/?rating_above=0}" class="list-group-item list-group-item-action list-group-item-info">Todos</a>
+                <li class="nav-item py-3"  id="album.rating-item">
+                    <h4 class="text-center">Avaliação Mínima</h4>
+                    <div class="container-fluid" id="album.rating">
+                        <div class="list-group list-group-flush"  id="album.rating">
+                            <a id="album.rating" th:onclick="|updateFilter(this, 'album\\.rating', '@{/}')|" class="list-group-item list-group-item-action">4</a>
+                            <a id="album.rating" th:onclick="|updateFilter(this, 'album\\.rating', '@{/}')|" class="list-group-item list-group-item-action">3</a>
+                            <a id="album.rating" th:onclick="|updateFilter(this, 'album\\.rating', '@{/}')|" class="list-group-item list-group-item-action">2</a>
+                            <a id="album.rating" th:onclick="|updateFilter(this, 'album\\.rating', '@{/}')|" class="list-group-item list-group-item-action">1</a>
                         </div>
                     </div>
                 </li>
@@ -250,7 +246,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Formato</h5>
+                        <h5 class="modal-title" id="exampleModalLongTitle">País</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -263,6 +259,24 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="modal-decade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Década</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="list-group list-group-flush" th:each="decade, stat : ${decades}">
+                                <a id="decade" class="list-group-item list-group-item-action" th:onclick="|updateFilter(this, 'releaseDate', '@{/}')|" th:text="${decade}"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </aside>
 
     <footer class="page-footer font-small blue pt-4 mt-4 bg-dark" th:fragment="footer">
