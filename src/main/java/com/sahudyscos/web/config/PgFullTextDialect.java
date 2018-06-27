@@ -14,6 +14,7 @@ public class  PgFullTextDialect extends PostgreSQL95Dialect {
         registerFunction("ts_rank", new StandardSQLFunction("ts_rank", DoubleType.INSTANCE));
         registerFunction("plainto_tsquery", new StandardSQLFunction("to_tsquery", ObjectType.INSTANCE));
         registerFunction("to_tsquery", new StandardSQLFunction("to_tsquery", ObjectType.INSTANCE));
+        //registerFunction("checkDecade", new PgCheckDecadeFunction());
     }
     
 }

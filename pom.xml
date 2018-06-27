@@ -180,6 +180,12 @@
         <artifactId>popper.js</artifactId>
         <version>1.14.3</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.webjars.npm/malihu-custom-scrollbar-plugin -->
+    <dependency>
+        <groupId>org.webjars.npm</groupId>
+        <artifactId>malihu-custom-scrollbar-plugin</artifactId>
+        <version>3.1.5</version>
+    </dependency>
     <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
     <dependency>
         <groupId>org.postgresql</groupId>

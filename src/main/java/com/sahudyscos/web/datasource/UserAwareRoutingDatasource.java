@@ -27,8 +27,8 @@ public class UserAwareRoutingDatasource extends AbstractDataSource  {
 
     private static DataSource user = DataSourceBuilder.create()
         .url("jdbc:postgresql://localhost:5432/sahudyscos")
-        .username("sahudyscos")
-        .password("sahudyscos")
+        .username("sahudyscos_view")
+        .password("dummy")
         .build();
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());

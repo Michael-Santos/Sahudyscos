@@ -7,11 +7,33 @@ var hash = url.substring(url.indexOf('#'));
 var searchData = {};
 
 $( document ).ready(function() {
-  $('#search-input').keypress(function(x) {
-    if(x.which == 13) {
-        dynamicSearch('/');
-    }
-  });
+    $('#search-input').keypress(function(x) {
+        if(x.which == 13) {
+            dynamicSearch('/');
+        }
+    });
+    
+    $('[data-toggle="popover"]').popover(); 
+    
+    $("#sidebar").mCustomScrollbar({
+        theme: "minimal"
+    });
+
+    $('#dismiss, .overlay').on('click', function () {
+        // hide sidebar
+        $('#sidebar').removeClass('active');
+        // hide overlay
+        $('.overlay').removeClass('active');
+    });
+
+    $('#sidebarCollapse').on('click', function () {
+        // open sidebar
+        $('#sidebar').addClass('active');
+        // fade in the overlay
+        $('.overlay').addClass('active');
+        $('.collapse.in').toggleClass('in');
+        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+    });
 });
 
 $(".nav-tabs").find("li a").each(function(key, val) {
@@ -70,7 +92,9 @@ function dynamicSearch(url) {
     spinner.setAttribute('src', '/img/animation/spinner.svg');
     table.appendChild(spinner);
     var searchInput = document.getElementById('search-input');
-    searchData[$('#searchSel').find(":selected").attr('id')] = searchInput.value;
+    if (searchInput != '') {
+        searchData[$('#searchSel').find(":selected").attr('id')] = searchInput.value;
+    }
     $.ajax({
         type: "GET",
         beforeSend: function (request) {
@@ -129,21 +153,25 @@ function updateFilter(value, field, url) {
 	jQueryField = '#' + field;
 	$(jQueryField).toggle('slow', function() {
 		var filter = document.createElement("div");
-		filter.setAttribute("class", "input-group-append");
+		filter.setAttribute("class", "list-group-item active");
 		filter.setAttribute("id", 'chosen-' + field);
-		filter.innerHTML = value.innerHTML;
+        filter.innerHTML = value.innerHTML;
 
 		var button = document.createElement("button");
 		button.setAttribute('type', 'button');
-    	button.setAttribute('class', 'btn btn-danger btn-sm mx-1');
+    	button.setAttribute('class', 'btn btn-danger btn-sm mx-1 float-right');
     	button.setAttribute('onclick', 'clearFilter("' + field + '","' + value.getAttribute('id') + '","' + url + '")');
-		button.innerHTML = "&times;";
+
+        var icon = document.createElement("i");
+        icon.setAttribute('class', 'fas fa-times');
+
+        button.appendChild(icon);
 
 		filter.appendChild(button);
 
-    $(jQueryField).parent().append(filter);
+    $(jQueryField + '-menu').parent().append(filter);
 
-    searchData[value.getAttribute('id')] = value.innerHTML;
+    searchData[value.getAttribute('id').replace('_', '.')] = value.getAttribute('value');
 
     dynamicFilter(url);
 
@@ -160,7 +188,7 @@ function clearFilter(field, id, url) {
 
   $(jQueryField).toggle('slow', function() {
 
-        delete searchData[id];
+        delete searchData[id.replace('_', '.')];
 
         dynamicFilter(url);
 

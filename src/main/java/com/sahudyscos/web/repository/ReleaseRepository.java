@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.sahudyscos.web.entity.Release;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.StringPath;
 import com.sahudyscos.web.entity.QRelease;
 import com.sahudyscos.web.entity.key.ReleaseId;
@@ -32,7 +33,7 @@ public interface ReleaseRepository extends JpaRepository<Release, ReleaseId>, Qu
 
     default void customize(QuerydslBindings bindings, QRelease release) {
         bindings.bind(release.album.name).first((path, value) -> path.contains(value));
-        bindings.bind(release.releaseDate).first((path, value) -> path.between(value, new java.sql.Date(1,1,value.getYear())));
+        bindings.bind(release.releaseDate).first((path, value) -> Expressions.booleanTemplate("FUNCTION('checkDecade', {0}, {1}) = true ", path, value.toString()));
     }
 
     @Query(value = "SELECT COUNT(*) AS ranking, formato AS item FROM versao GROUP BY item ORDER BY ranking DESC", nativeQuery=true)

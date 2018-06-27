@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <div th:fragment="common-head">
+    <th:block th:fragment="common-head">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -10,6 +10,7 @@
         <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.1.0/css/bootstrap.min.css}" />
         <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.0.10/web-fonts-with-css/css/fontawesome-all.css}"
         />
+        <link rel="stylesheet" type="text/css" th:href="@{/webjars/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.css}">
         <!--
         <link rel="stylesheet" type="text/css" th:href="@{/webjars/jquery-ui/1.9.2/css/smoothness/jquery-ui-1.9.2.custom.css}"/>
         -->
@@ -19,7 +20,8 @@
         <script type="text/javascript" th:src="@{/webjars/jquery-ui/1.9.2/js/jquery-ui-1.9.2.custom.min.js}"></script>
         -->
         <script type="text/javascript" th:src="@{/webjars/bootstrap/4.1.0/js/bootstrap.bundle.min.js}"></script>
-    </div>
+        <script type="text/javascript" th:src="@{/webjars/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js}"></script>
+    </th:block>
 </head>
 
 <body>
@@ -97,7 +99,6 @@
                                     </select>
                                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
                                 </div>
-
                             </div>
                         </form>
                     </li>
@@ -151,55 +152,98 @@
         </div>
     </div>
 
-    <aside class="col-sm-12 col-md-2 py-3" th:fragment="aside">
-        <nav>
-            <ul class="nav flex-column">
+    <aside th:fragment="aside">
+        <nav id="sidebar">
+            <div id="dismiss">
+                <i class="fas fa-times"></i>
+            </div>
+
+            <div class="sidebar-header">
+                <h3>Bootstrap Sidebar</h3>
+            </div>
+
+            <ul class="list-unstyled components">
+                <li class="nav-item py-3" id="onSaleStatus-item">
+                    <a href="#onSaleStatus-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <h4 class="text-center">Promoção</h4>
+                    </a>
+                    <div class="collapse list-unstyled" id="onSaleStatus-menu">
+                        <div class="list-group list-group-flush" id="onSaleStatus">
+                            <a id="onSaleStatus" class="list-group-item list-group-item-action" th:onclick="|updateFilter(this, 'onSaleStatus', '@{/}')|"
+                                th:value="true">Sim</a>
+                            <a id="onSaleStatus" class="list-group-item list-group-item-action" th:onclick="|updateFilter(this, 'onSaleStatus', '@{/}')|"
+                                th:value="false">Não</a>
+                        </div>
+                    </div>
+                </li>
                 <li class="nav-item py-3" id="genre-item">
-                    <h4 class="text-center">Gênero</h4>
-                    <div class="container-fluid" id="genre">
-                        <div class="list-group list-group-flush">
+                    <a href="#genre-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <h4 class="text-center">Gênero</h4>
+                    </a>
+                    <div class="collapse list-unstyled" id="genre-menu">
+                        <div class="list-group list-group-flush" id="genre">
                             <th:block th:each="genre, stat : ${genres}" th:unless="${stat.index > 5}">
-                                <a id="album.genre" class="list-group-item list-group-item-action" th:onclick="|updateFilter(this, 'genre', '@{/}')|" th:text="${genre.item}"></a>
+                                <a id="album.genre" class="list-group-item list-group-item-action" th:onclick="|updateFilter(this, 'genre', '@{/}')|" th:value="${genre.item}"
+                                    th:text="${genre.item}"></a>
                             </th:block>
                             <a class="list-group-item list-group-item-info" data-toggle="modal" data-target="#modal-genre">Todos</a>
                         </div>
                     </div>
                 </li>
                 <li class="nav-item py-3" id="format-item">
-                    <h4 class="text-center">Formato</h4>
+                    <a href="#format-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <h4 class="text-center">Formato</h4>
+                    </a>
+                    <div class="collapse list-unstyled" id="format-menu">
                         <div class="list-group list-group-flush" id="format">
                             <th:block th:each="format, stat : ${formats}" th:unless="${stat.index > 5}">
-                                <a id="format" class="list-group-item list-group-item-action" th:onclick="|updateFilter(this, 'format', '@{/}')|" th:text="${format.item}"></a>
+                                <a id="format" class="list-group-item list-group-item-action" th:onclick="|updateFilter(this, 'format', '@{/}')|" th:value="${format.item}"
+                                    th:text="${format.item}"></a>
                             </th:block>
                             <a class="list-group-item list-group-item-info" data-toggle="modal" data-target="#modal-format">Todos</a>
                         </div>
+                    </div>
                 </li>
-                <li class="nav-item py-3" id="country-item">
-                    <h4 class="text-center">País</h4>
-                        <div class="list-group list-group-flush" id="country">
+                <li class="nav-item py-3" id="album_country-item">
+                    <a href="#album_country-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <h4 class="text-center">País</h4>
+                    </a>
+                    <div class="collapse list-unstyled" id="album_country-menu">
+                        <div class="list-group list-group-flush" id="album_country">
                             <th:block th:each="country, stat : ${countries}" th:unless="${stat.index > 5}">
-                                <a id="country" class="list-group-item list-group-item-action" th:onclick="|updateFilter(this, 'country', '@{/}')|" th:text="${country.item}"></a>
+                                <a id="album_country" class="list-group-item list-group-item-action" th:onclick="|updateFilter(this, 'album_country', '@{/}')|"
+                                    th:value="${country.item}" th:text="${country.item}"></a>
                             </th:block>
                             <a class="list-group-item list-group-item-info" data-toggle="modal" data-target="#modal-country">Todos</a>
                         </div>
+                    </div>
                 </li>
                 <li class="nav-item py-3" id="releaseDate-item">
-                    <h4 class="text-center">Década</h4>
+                    <a href="#releaseDate-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <h4 class="text-center">Década</h4>
+                    </a>
+                    <div class="collapse list-unstyled" id="releaseDate-menu">
                         <div class="list-group list-group-flush" id="releaseDate">
                             <th:block th:each="decade, stat : ${decades}" th:unless="${stat.index > 5}">
-                                <a id="releaseDate" class="list-group-item list-group-item-action" th:onclick="|updateFilter(this, 'releaseDate', '@{/}')|" th:text="${decade}"></a>
+                                <a id="releaseDate" class="list-group-item list-group-item-action" th:onclick="|updateFilter(this, 'releaseDate', '@{/}')|"
+                                    th:value="${decade}+'-01-01'" th:text="${decade}"></a>
                             </th:block>
                             <a class="list-group-item list-group-item-info" data-toggle="modal" data-target="#modal-decade">Todos</a>
                         </div>
+                    </div>
                 </li>
-                <li class="nav-item py-3"  id="album.rating-item">
-                    <h4 class="text-center">Avaliação Mínima</h4>
-                    <div class="container-fluid" id="album.rating">
-                        <div class="list-group list-group-flush"  id="album.rating">
-                            <a id="album.rating" th:onclick="|updateFilter(this, 'album\\.rating', '@{/}')|" class="list-group-item list-group-item-action">4</a>
-                            <a id="album.rating" th:onclick="|updateFilter(this, 'album\\.rating', '@{/}')|" class="list-group-item list-group-item-action">3</a>
-                            <a id="album.rating" th:onclick="|updateFilter(this, 'album\\.rating', '@{/}')|" class="list-group-item list-group-item-action">2</a>
-                            <a id="album.rating" th:onclick="|updateFilter(this, 'album\\.rating', '@{/}')|" class="list-group-item list-group-item-action">1</a>
+                <li class="nav-item py-3" id="album_rating-item">
+                    <a href="#album_rating-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <h4 class="text-center">Avaliação Mínima</h4>
+                    </a>
+                    <div class="collapse list-unstyled" id="album_rating-menu">
+                        <div class="container-fluid" id="album_rating">
+                            <div class="list-group list-group-flush" id="album_rating">
+                                <a id="album_rating" th:onclick="|updateFilter(this, 'album_rating', '@{/}')|" class="list-group-item list-group-item-action">4</a>
+                                <a id="album_rating" th:onclick="|updateFilter(this, 'album_rating', '@{/}')|" class="list-group-item list-group-item-action">3</a>
+                                <a id="album_rating" th:onclick="|updateFilter(this, 'album_rating', '@{/}')|" class="list-group-item list-group-item-action">2</a>
+                                <a id="album_rating" th:onclick="|updateFilter(this, 'album_rating', '@{/}')|" class="list-group-item list-group-item-action">1</a>
+                            </div>
                         </div>
                     </div>
                 </li>
@@ -217,7 +261,8 @@
                     </div>
                     <div class="modal-body">
                         <div class="list-group list-group-flush" th:each="genre, stat : ${genres}">
-                            <a id="album.genre" class="list-group-item list-group-item-action" data-dismiss="modal" th:onclick="|updateFilter(this, 'genre', '@{/}')|" th:text="${genre.item}"></a>
+                            <a id="album.genre" class="list-group-item list-group-item-action" data-dismiss="modal" th:onclick="|updateFilter(this, 'genre', '@{/}')|"
+                                th:value="${genre.item}" th:text="${genre.item}"></a>
                         </div>
                     </div>
                 </div>
@@ -235,7 +280,8 @@
                     </div>
                     <div class="modal-body">
                         <div class="list-group list-group-flush" th:each="format, stat : ${formats}">
-                            <a id="format" class="list-group-item list-group-item-action" data-dismiss="modal" th:onclick="|updateFilter(this, 'format', '@{/}')|" th:text="${format.item}"></a>
+                            <a id="format" class="list-group-item list-group-item-action" data-dismiss="modal" th:onclick="|updateFilter(this, 'format', '@{/}')|"
+                                th:value="${format.item}" th:text="${format.item}"></a>
                         </div>
                     </div>
                 </div>
@@ -253,7 +299,8 @@
                     </div>
                     <div class="modal-body">
                         <div class="list-group list-group-flush" th:each="country, stat : ${countries}">
-                            <a id="country" class="list-group-item list-group-item-action" data-dismiss="modal" th:onclick="|updateFilter(this, 'country', '@{/}')|" th:text="${country.item}"></a>
+                            <a id="album.country" class="list-group-item list-group-item-action" data-dismiss="modal" th:onclick="|updateFilter(this, 'album_country', '@{/}')|"
+                                th:value="${country.item}" th:text="${country.item}"></a>
                         </div>
                     </div>
                 </div>
@@ -261,22 +308,23 @@
         </div>
 
         <div class="modal fade" id="modal-decade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Década</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="list-group list-group-flush" th:each="decade, stat : ${decades}">
-                                <a id="decade" class="list-group-item list-group-item-action" th:onclick="|updateFilter(this, 'releaseDate', '@{/}')|" th:text="${decade}"></a>
-                            </div>
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Década</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="list-group list-group-flush" th:each="decade, stat : ${decades}">
+                            <a id="decade" class="list-group-item list-group-item-action" th:onclick="|updateFilter(this, 'releaseDate', '@{/}')|" th:text="${decade}"
+                                th:value="${decade}+'-01-01'"></a>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     </aside>
 
     <footer class="page-footer font-small blue pt-4 mt-4 bg-dark" th:fragment="footer">
