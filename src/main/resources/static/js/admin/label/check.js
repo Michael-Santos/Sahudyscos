@@ -1,6 +1,6 @@
 $(document).ready(function() {
                 
-    $('#mainform').submit(function(){
+    $('#mainform').submit(function(event){
         name = document.getElementById('name').value;
         rating = document.getElementById('rating').value;
         publication = document.getElementById('publication').value;
@@ -14,7 +14,8 @@ $(document).ready(function() {
             if(genre == ""){
                 document.getElementById('genre').style.backgroundColor = "yellow";
             }
-            return false;
+            event.preventDefault();
+             return false;
         }
         else {
             alert('Adição feita com sucesso!');

@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    $('#mainForm').submit(function(){
+    $('#mainForm').submit(function(event){
         username = document.getElementById('view-username').value;
         email = document.getElementById('view-email').value;
         publication = document.getElementById('view-birthday').value;
@@ -21,7 +21,8 @@ $(document).ready(function() {
              if(password == ""){
                 document.getElementById('genre').style.backgroundColor = "yellow";
              }
-            return false;
+             event.preventDefault();
+             return false;
         }
         else {
             alert('Adição feita com sucesso!');
