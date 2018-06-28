@@ -163,6 +163,21 @@
             </div>
 
             <ul class="list-unstyled components">
+              <li class="nav-item py-3" id="sort-item">
+                  <a href="#sort-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                      <h4 class="text-center">Ordenação</h4>
+                  </a>
+                  <div class="collapse list-unstyled" id="sort-menu">
+                      <div class="list-group list-group-flush" id="sort">
+                          <a id="sort" class="list-group-item list-group-item-action" th:onclick="|updateFilter(this, 'sort', '@{/}')|"
+                              th:value="album.name">Nome</a>
+                          <a id="sort" class="list-group-item list-group-item-action" th:onclick="|updateFilter(this, 'sort', '@{/}')|"
+                              th:value="album.name">Avaliação</a>
+                          <a id="sort" class="list-group-item list-group-item-action" th:onclick="|updateFilter(this, 'sort', '@{/}')|"
+                              th:value="price">Preço</a>
+                      </div>
+                  </div>
+              </li>
                 <li class="nav-item py-3" id="onSaleStatus-item">
                     <a href="#onSaleStatus-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <h4 class="text-center">Promoção</h4>
