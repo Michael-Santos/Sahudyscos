@@ -1,3 +1,76 @@
+$(document).ready(function() {
+
+    $('#mainForm').submit(function(){
+        username = document.getElementById('view-username').value;
+        email = document.getElementById('view-email').value;
+        publication = document.getElementById('view-birthday').value;
+        password = document.getElementById('view-password').value;
+        if(username == "" || email == "" || publication == "" || password == "") {
+            alert('Preencha todos os campos obrigatórios');
+            if(username == ""){
+                document.getElementById('name').style.backgroundColor = "yellow";
+            }
+            if(email == ""){
+                document.getElementById('genre').style.backgroundColor = "yellow";
+            }
+
+            if(publication == ""){
+                document.getElementById('genre').style.backgroundColor = "yellow";
+            }
+
+             if(password == ""){
+                document.getElementById('genre').style.backgroundColor = "yellow";
+             }
+            return false;
+        }
+        else {
+            alert('Adição feita com sucesso!');
+        }
+    });
+
+    $('#edit-album').autocomplete({
+        serviceUrl: '/admin/release/album',
+        minChars: 3,
+		paramName: "name",
+	    delimiter: ",",
+	    transformResult: function(response) {
+		    return {
+		        //must convert json to javascript object before process
+		        suggestions: $.map($.parseJSON(response), function(item) {
+		            return { value: item.name, data: item.id };
+		        })
+		    };
+        },
+        appendTo: '#album-group',
+        onSelect: function (suggestion) {
+            var input = document.getElementById('edit-album-id');
+            input.setAttribute('value', suggestion.data);
+            //alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+        }
+     });
+
+     $('#edit-label').autocomplete({
+        serviceUrl: '/admin/release/label',
+        minChars: 3,
+		paramName: "name",
+	    delimiter: ",",
+	    transformResult: function(response) {
+		    return {
+		        //must convert json to javascript object before process
+		        suggestions: $.map($.parseJSON(response), function(item) {
+		            return { value: item.name, data: item.id };
+		        })
+		    };
+        },
+        appendTo: '#label-group',
+        onSelect: function (suggestion) {
+            var input = document.getElementById('edit-label-id');
+            input.setAttribute('value', suggestion.data);
+            //alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+        }
+     });
+});
+
 function limparTudo(){
     document.getElementById('edit-id').value = "";
     document.getElementById('edit-username').style.backgroundColor = "white";

@@ -11,7 +11,7 @@
 
 $(document).ready(function() {
                 
-    $('mainform').submit(function(){
+    $('#mainform').submit(function(){
         name = document.getElementById('name').value;
         rating = document.getElementById('rating').value;
         publication = document.getElementById('publication').value;

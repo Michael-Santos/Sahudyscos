@@ -1,6 +1,6 @@
 $(document).ready(function() {
                 
-    $('mainform').submit(function(){
+    $('#mainForm').submit(function(){
         name = document.getElementById('name').value;
         rating = document.getElementById('rating').value;
         publication = document.getElementById('publication').value;
