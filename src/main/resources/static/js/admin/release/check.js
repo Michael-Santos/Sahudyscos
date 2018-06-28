@@ -1,18 +1,48 @@
 $(document).ready(function() {
                 
-    $('mainForm').submit(function(){
-        name = document.getElementById('name').value;
-        rating = document.getElementById('rating').value;
-        publication = document.getElementById('publication').value;
-        artists = document.getElementById('artists').value;
-        genre = document.getElementById('genre').value;
-        if(name == "" || rating == "" || publication == "" || artists == "" || genre == "") {
+    $('#mainForm').submit(function(){
+        cod_barras = document.getElementById('edit-id').value;
+        album = document.getElementById('edit-album').value;
+        label = document.getElementById('edit-label').value;
+        format = document.getElementById('edit-format').value;
+        type = document.getElementById('edit-type').value;
+        price = document.getElementById('edit-price').value;
+        amount_sold = document.getElementById('edit-amount-sold').value;
+        amount_available = document.getElementById('edit-amount-available').value;
+        sale = document.getElementById('edit-sale').value;
+        release_date = document.getElementById('edit-release-date').value;
+
+        if(cod_barras == "" || album == "" || label == "" || format == "" || type == "" || price == "" || amount_sold == "" || amount_available || sale == "" || release_date == "") {
             alert('Preencha todos os campos obrigatórios');
-            if(name == ""){
-                document.getElementById('name').style.backgroundColor = "yellow";
+            if(cod_barras == ""){
+                document.getElementById('edit-id').style.backgroundColor = "yellow";
             }
-            if(genre == ""){
-                document.getElementById('genre').style.backgroundColor = "yellow";
+            if(album == ""){
+                document.getElementById('edit-album').style.backgroundColor = "yellow";
+            } 
+            if(label == ""){
+                document.getElementById('edit-label').style.backgroundColor = "yellow";
+            }
+            if(format == ""){
+                document.getElementById('edit-format').style.backgroundColor = "yellow";
+            }
+            if(type == ""){
+                document.getElementById('edit-type').style.backgroundColor = "yellow";
+            }
+            if(price == ""){
+                document.getElementById('edit-price').style.backgroundColor = "yellow";
+            }
+            if(amount_sold == ""){
+                document.getElementById('edit-amount-sold').style.backgroundColor = "yellow";
+            }
+            if(amount_available == ""){
+                document.getElementById('edit-amount-available').style.backgroundColor = "yellow";
+            }
+            if(sale == ""){
+                document.getElementById('edit-sale').style.backgroundColor = "yellow";
+            }
+            if(release_date == ""){
+                document.getElementById('edit-release-date').style.backgroundColor = "yellow";
             }
             return false;
         }
@@ -38,7 +68,7 @@ $(document).ready(function() {
         onSelect: function (suggestion) {
             var input = document.getElementById('edit-album-id');
             input.setAttribute('value', suggestion.data);
-            //alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+            alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
         }
      });
 

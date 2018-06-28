@@ -120,7 +120,7 @@ counter = 1;
 function editUser(id) {
     var roles = document.getElementById('edit-roles-group');
     while (roles.childElementCount != 1) {
-        roles.removeChild(artists.lastChild);
+        roles.removeChild(roles.lastChild);
     }
     $.ajax({
         url:"/admin/user",
@@ -129,6 +129,7 @@ function editUser(id) {
         contentType:"application/json; charset=utf-8",
         dataType:"json",
         success: function(user){
+            document.getElementById('edit-id').value = user.id;
             document.getElementById('edit-username').value = user.username;
             document.getElementById('edit-email').value = user.email;
             document.getElementById('edit-birthday').value = user.birthday;
@@ -139,6 +140,7 @@ function editUser(id) {
                 input.setAttribute('id', 'edit-role-' + counter);
                 input.setAttribute('class', 'readonly form-control');
                 input.setAttribute('value', element.role);
+				input.setAttribute('name', 'roles');
                 roles.appendChild(input);
             });
             if (user.active == true) {
@@ -160,7 +162,8 @@ function addRole() {
 
     input.setAttribute('type', 'text');
     input.setAttribute('class', 'form-control');
-    input.setAttribute('id', 'edit-artist-' + counter);
+    input.setAttribute('id', 'edit-role-' + counter);
+	input.setAttribute('name', 'roles');
 
     button.setAttribute('type', 'button');
     button.setAttribute('class', 'btn btn-danger btn-sm mx-1');

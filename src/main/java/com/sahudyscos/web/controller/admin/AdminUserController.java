@@ -16,6 +16,8 @@ import com.sahudyscos.web.repository.access.RoleRepository;
 import com.sahudyscos.web.repository.access.UserRepository;
 import com.sahudyscos.web.service.UserService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,6 +42,8 @@ public class AdminUserController {
     private static final int INITIAL_PAGE = 0;
     private static final int INITIAL_PAGE_SIZE = 10;
     private static final int[] PAGE_SIZES = {10, 20, 30};
+	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private UserRepository userRepository;
@@ -86,39 +90,17 @@ public class AdminUserController {
     }*/
     
     @PostMapping(value = "/admin/user/save")
-    public ModelAndView create(@ModelAttribute userFormPOJO formContent) {
+    public ModelAndView create(@ModelAttribute userFormPOJO formContent, BindingResult result) {
+		logger.info("Save user!");
         List<Role> roles = roleRepository.findAllByRole(formContent.getRoles());
         userService.saveUserAndRoles(formContent.getUser(), roles);
         return new ModelAndView("redirect:/admin/user");
     }
 
     @PostMapping(value = "/admin/user/delete")
-    public ModelAndView delete(@ModelAttribute userFormPOJO formContent) {
+    public ModelAndView delete(@ModelAttribute userFormPOJO formContent, BindingResult result) {
         userRepository.delete(formContent.getUser());
         return new ModelAndView("redirect:/admin/user");
-    }
-
-    @RequestMapping(value="/admin/user", params={"viewUser"})
-    public String viewUser(User user, final BindingResult bindingResult, final HttpServletRequest req) {
-        user = userRepository.findById(Integer.valueOf(req.getParameter("id"))).get();
-        return "admin/user";
-    }
-
-    @RequestMapping(value="/admin/user", params={"addRole"})
-    public String addRole(final User user, final BindingResult bindingResult) {
-        user.getRoles().add(new Role());
-        return "admin/user";
-    }
-
-    @RequestMapping(value="/admin/user", params={"removeRole"})
-    public String removeRole(
-            final User user, final BindingResult bindingResult, 
-            final HttpServletRequest req) {
-        Optional<Role> role = roleRepository.findById(Integer.valueOf(req.getParameter("removeRole")));
-        if (role.get() != null) {
-            user.getRoles().remove(role.get());
-        }
-        return "admin/user";
     }
 }
 
