@@ -16,6 +16,8 @@ import com.sahudyscos.web.repository.access.RoleRepository;
 import com.sahudyscos.web.repository.access.UserRepository;
 import com.sahudyscos.web.service.UserService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,6 +42,8 @@ public class AdminUserController {
     private static final int INITIAL_PAGE = 0;
     private static final int INITIAL_PAGE_SIZE = 10;
     private static final int[] PAGE_SIZES = {10, 20, 30};
+	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private UserRepository userRepository;
@@ -87,6 +91,7 @@ public class AdminUserController {
     
     @PostMapping(value = "/admin/user/save")
     public ModelAndView create(@ModelAttribute userFormPOJO formContent) {
+		logger.info("Save user!");
         List<Role> roles = roleRepository.findAllByRole(formContent.getRoles());
         userService.saveUserAndRoles(formContent.getUser(), roles);
         return new ModelAndView("redirect:/admin/user");

@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -24,7 +25,8 @@ import org.springframework.data.annotation.Transient;
 public class User {
 
     @Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "user_data.user_user_id_seq", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "user_data.user_user_id_seq", sequenceName = "user_data.user_user_id_seq", allocationSize=1)
 	@Column(name = "user_id")
 	private int id;
 	
