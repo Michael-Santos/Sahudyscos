@@ -56,6 +56,7 @@ function editUser(id) {
         contentType:"application/json; charset=utf-8",
         dataType:"json",
         success: function(user){
+            document.getElementById('edit-id').value = user.id;
             document.getElementById('edit-username').value = user.username;
             document.getElementById('edit-email').value = user.email;
             document.getElementById('edit-birthday').value = user.birthday;
