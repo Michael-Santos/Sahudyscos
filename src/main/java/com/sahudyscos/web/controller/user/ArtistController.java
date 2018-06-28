@@ -38,6 +38,8 @@ public class ArtistController {
         model.addAttribute("artist", currentArtist.get());
         model.addAttribute("description", wikiMediaService.getDescription(currentArtist.get().getName()));
         model.addAttribute("albums", albumRepository.findAllByArtistsId(id.longValue(), page));
+        model.addAttribute("avgRating", artistRepository.getAvgRating(id.longValue()));
+        
         return update ? "artist :: searchBody" : "artist";
     }
 

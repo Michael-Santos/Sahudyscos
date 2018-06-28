@@ -10,11 +10,13 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sahudyscos.web.entity.key.ContractId;
 
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name = "contrato")
 @IdClass(ContractId.class)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Contract {
     @Id
     @Column(name = "cod_banda")

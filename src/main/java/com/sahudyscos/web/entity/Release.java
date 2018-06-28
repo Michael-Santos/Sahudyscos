@@ -1,5 +1,6 @@
 package com.sahudyscos.web.entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.UUID;
 
@@ -12,13 +13,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sahudyscos.web.entity.key.ReleaseId;
 
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name = "versao")
 @IdClass(ReleaseId.class)
-public class Release {
-    @Id
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class Release implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+	@Id
     @Column(name = "cod_barras")
     private Long id;
 

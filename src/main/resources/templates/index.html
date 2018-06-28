@@ -77,9 +77,9 @@
                                                     <p class="card-text">
                                                         <a th:href="@{/release(id=__${release.id}__, album=__${release.album.id}__)}" th:text="${release.album.name}">Duetos</a>
                                                         <th:block th:switch="${release.onSaleStatus}">
-                                                            <button class="btn btn-sm float-right btn-outline-primary" th:case="false" th:text="'R$' + ${#numbers.formatDecimal(release.price, 0, 2)}">R$90,00</button>
+                                                            <button class="btn btn-sm float-right btn-outline-primary" th:case="false" th:text="'R$' + ${#numbers.formatDecimal(release.price, 1, 2)}">R$90,00</button>
                                                             <button class="btn btn-sm float-right btn-outline-success" th:case="true" data-toggle="popover" data-trigger="hover" data-content="Promoção!"
-                                                                th:text="'R$' + ${#numbers.formatDecimal(release.price, 0, 2)}">R$90,00</button>
+                                                                th:text="'R$' + ${#numbers.formatDecimal(release.price, 1, 2)}">R$90,00</button>
                                                         </th:block>
                                                     </p>
                                                 </div>

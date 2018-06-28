@@ -20,6 +20,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import org.hibernate.annotations.NaturalId;
 import org.springframework.stereotype.Indexed;
@@ -27,7 +28,8 @@ import org.springframework.stereotype.Indexed;
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name = "album")
 @Indexed
-public class Album {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class Album{
     @Id
     //@GeneratedValue(strategy=GenerationType.AUTO)
     @GeneratedValue(generator = "album_sequence", strategy = GenerationType.SEQUENCE)

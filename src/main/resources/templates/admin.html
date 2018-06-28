@@ -78,7 +78,9 @@
                 <div class="card text-white border border-dark bordermb-3">
                   <div class="card-header border-dark">Avisos</div>
                   <div class="card-body">
-                    <p class="card-text text-dark">Estoque do cd X está baixo</p>
+                    <p class="card-text text-dark">
+                        <a th:href="@{/admin/release(amountAvailable=__${threshold}__)}" th:text="|Há ${warningCount} versões de álbum com ${threshold} unidades ou menos.|"></a>
+                    </p>
                   </div>
                 </div>
             </aside>

@@ -16,6 +16,8 @@ import com.sahudyscos.web.repository.AlbumRepository;
 import com.sahudyscos.web.repository.LabelRepository;
 import com.sahudyscos.web.repository.ReleaseRepository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -48,6 +50,7 @@ public class AdminReleaseController {
     @Autowired
     private LabelRepository labelRepository;
 
+
     @GetMapping("/admin/release")
     public String contract(Model model, @QuerydslPredicate(root = Release.class) Predicate predicate,
                            Pageable pageable, @RequestParam MultiValueMap<String, String> parameters, 
@@ -63,7 +66,6 @@ public class AdminReleaseController {
         ObjectMapper mapper = new ObjectMapper();
         Optional<Release> currentRelease;
         ReleaseRequest request;
-
         try {
             request = mapper.readValue(json, ReleaseRequest.class);
             currentRelease = releaseRepository.findById(new ReleaseId (request.getId(), request.getAlbumId()));

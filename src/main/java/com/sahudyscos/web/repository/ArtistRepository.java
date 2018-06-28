@@ -27,6 +27,9 @@ public interface ArtistRepository extends JpaRepository<Artist, Long>, QuerydslP
     @Query(value = "SELECT a.albums FROM Artist a WHERE a.id = ?1")
     Page<Album> findAllAlbums(Long id, Pageable page);
 
+    @Query(value = "SELECT AVG(a.rating) FROM Album a, Artist b WHERE b.id = ?1")
+    Double getAvgRating(Long id);
+
     default void customize(QuerydslBindings bindings, QArtist artist) {
         bindings.bind(artist.name).first((path, value) -> path.contains(value));
         bindings.bind(String.class).first((StringPath path, String value) -> path.contains(value));
