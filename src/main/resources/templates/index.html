@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Sahudyscos</title>
+    <th:block th:replace="fragments/layout :: common-head">
+    </th:block>
+    <script th:src="@{js/util.js}"></script>
+    <script th:src="@{js/filter.js}"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <aside th:replace="fragments/layout :: aside">
+        </aside>
+
+        <div id="content">
+
+            <header th:replace="fragments/layout :: header-main">
+            </header>
+
+            <div th:replace="fragments/layout :: carousel">
+            </div>
+
+            <main>
+                <div class="container-fluid">
+                    <div class="wrapper">
+                        <section class="container-fluid py-3">
+                            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                                <div class="container-fluid">
+
+                                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                                        <i class="fas fa-align-left"></i>
+                                        <span>Opções</span>
+                                    </button>
+                                </div>
+                                <div class="input-group">
+                                        <input class="form-control" type="search" placeholder="Pesquisar" aria-label="Search" aria-describedby="basic-addon1" id="search-input">
+                                        <div class="input-group-append">
+                                            <select class="custom-select" id="searchSel">
+                                                <!-- Podemos tirar isso mas vai ficar difícil pra caramba de fazer consulta -->
+                                                <option id="album.artists.name">Banda</option>
+                                                <option id="album.name">Álbum</option>
+                                                <option id="album.name">Versão</option>
+                                                <option id="label.name">Gravadora</option>
+                                            </select>
+                                            <button class="btn btn-outline-success my-2 my-sm-0" type="button" th:onclick="|dynamicSearch('@{/}')|">Pesquisar</button>
+                                        </div>
+                                    </div>
+                            </nav>
+                            <div class="container-fluid" id="result" role="tabpanel" aria-labelledby="releases-tab">
+                                <th:block th:fragment="searchBody">
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-3 my-1" th:each="release : ${releases}">
+                                            <div class="card showbox">
+                                                <a th:href="@{/release(id=__${release.id}__, album=__${release.album.id}__)}">
+                                                    <th:block th:unless="${release.album.cover}">
+                                                        <th:block th:switch="${release.format}">
+                                                            <img th:case="'Cassette'" class="card-img-top img-thumbnail" th:onload="|changeReleaseCover(this, '${release.mbid}')|" th:src="@{/img/default/default-release-cassette.png}"
+                                                                th:alt="${release.album.name}">
+                                                            <img th:case="'CD'" class="card-img-top img-thumbnail" th:onload="|changeReleaseCover(this, '${release.mbid}')|" th:src="@{/img/default/default-release-cd.png}"
+                                                                th:alt="${release.album.name}">
+                                                            <img th:case="*" class="card-img-top img-thumbnail" th:onload="|changeReleaseCover(this, '${release.mbid}')|" th:src="@{/img/default/default-release.png}"
+                                                                th:alt="${release.album.name}">
+                                                        </th:block>
+                                                    </th:block>
+                                                    <th:block th:if="${release.album.cover}">
+                                                        <img class="card-img-top img-thumbnail" th:onload="|changeReleaseCover(this, '${release.mbid}')|" th:src="${release.cover}"
+                                                            th:alt="${release.album.name}">
+                                                    </th:block>
+                                                </a>
+                                                <div class="card-body">
+                                                    <h5 class="card-title" th:each="artist : ${release.album.artists}">
+                                                        <a th:href="@{/artist(id=__${artist.id}__)}" th:text="${artist.name}">Wesley Safadão</a>
+                                                    </h5>
+                                                    <p class="card-text">
+                                                        <a th:href="@{/release(id=__${release.id}__, album=__${release.album.id}__)}" th:text="${release.album.name}">Duetos</a>
+                                                        <th:block th:switch="${release.onSaleStatus}">
+                                                            <button class="btn btn-sm float-right btn-outline-primary" th:case="false" th:text="'R$' + ${#numbers.formatDecimal(release.price, 1, 2)}">R$90,00</button>
+                                                            <button class="btn btn-sm float-right btn-outline-success" th:case="true" data-toggle="popover" data-trigger="hover" data-content="Promoção!"
+                                                                th:text="'R$' + ${#numbers.formatDecimal(release.price, 1, 2)}">R$90,00</button>
+                                                        </th:block>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div sd:pagination-summary="">info</div>
+                                        </div>
+                                        <div th:text="${page}"></div>
+                                        <div class="col-sm-6">
+                                            <nav class="pull-right">
+                                                <ul class="pagination" sd:pagination="full" sd:pagination-onclick="dynamicUpdate">
+                                                    <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
+                                                    <li class="disabled">
+                                                        <a href="#" aria-label="Previous">
+                                                            <span aria-hidden="true">&laquo;</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="active">
+                                                        <a href="#">1
+                                                            <span class="sr-only">(current)</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                    </div>
+                                </th:block>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </main>
+
+            <footer th:replace="fragments/layout :: footer">
+            </footer>
+        </div>
+
+        <div class="overlay"></div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Álbum</title>
+    <th:block th:replace="fragments/layout :: common-head">
+    </th:block>
+    <script th:src="@{/js/util.js}"></script>
+</head>
+<body>
+    <header th:replace="fragments/layout :: header-main">
+    </header>
+
+    <main class="py-3">
+        <div class="container-fluid">
+            <div class="row">
+                <section class="col">
+                    <div class="row">
+                        <div class="col">
+                            <img id="coverart" class="card-img-top img-thumbnail" th:onload="|changeReleaseCover(this, '${release.mbid}')|" th:src="@{/img/default/default-release.png}" th:alt="${release.album.name}">
+                        </div>
+                        <div class="col">
+                            <a th:each="artist,iterStat : ${release.album.artists}" th:href="@{/artist(id=${artist.id})}"><h2 th:text="${artist.name}"></h2></a>
+                            <hr/>
+                            <a th:href="@{/album(id=${release.album.id})}"><h2 th:text="${release.album.name}"></h2></a>
+                            <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <h5>Gravadora</h5> 
+                                        <p class="mb-1"><a th:href="@{/label(id=${release.label.id})}" th:text="${release.label.name}">Som Livre</a></p>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <h5>Formato</h5> 
+                                        <p class="mb-1" th:text="${release.format}">CD</p>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <h5>Lançamento</h5> 
+                                        <p class="mb-1" th:text="${release.releaseDate}">2016</p>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <h5>Gênero</h5> 
+                                        <p class="mb-1" th:text="${release.album.genre}">Axé</p>
+                                        <p class="mb-1" th:text="${release.album.altGenre}">Axé</p>
+                                    </li>
+                            </ul>
+                        </div>
+                    </div>
+                
+                </section>
+                <aside class="col-4">
+                    <div class="container">
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-primary">
+                            <h1 th:text="'R$' + ${#numbers.formatDecimal(release.price, 1, 2)}">R$ 90,00</h1>
+                        </li>
+                        <li class="list-group-item">
+                            <h2>Versão</h2>
+                            <h4 class="mb-1 alert" th:text="${release.type}">Original</h4>
+                        </li>
+                        <li class="list-group-item">
+                            <h2>Unidades Disponíveis</h2>
+                            <h4 class="mb-1 alert" th:text="${#numbers.formatDecimal(release.amountAvailable, 1, 0)}">6</h4>
+                        </li>
+                        <li class="list-group-item">
+                            <h2>Avaliação Média</h2>
+                            <h4 class="mb-1 alert" th:text="${#numbers.formatDecimal(release.album.rating, 1, 3)}">5,0/5,0</h4>
+                        </li>
+                    </ul>
+                </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="fragments/layout :: footer">
+    </footer>
+</body>
+</html>

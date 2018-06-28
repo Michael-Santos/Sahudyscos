@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Versões</title>
+    <th:block th:replace="fragments/layout :: common-head">
+    </th:block>
+    <script th:src="@{~/js/admin/release/check.js}"></script>
+    <script th:src="@{~/js/util.js}"></script>
+</head>
+
+<body>
+    <header th:replace="fragments/layout :: header-main">
+    </header>
+
+    <!-- Menu de opções -->
+    <main class=" container pt-3 row mx-auto">
+
+        <div class="row container-fluid my-2">
+            <div class="col">
+                <form class="form-inline my-2 my-md-0">
+                    <div class="input-group">
+                        <input class="form-control" type="search" placeholder="Pesquisar" aria-label="Search" aria-describedby="basic-addon1" id="search-input">
+                        <div class="input-group-append">
+                            <select class="custom-select" id="searchSel">
+                                <!-- Podemos tirar isso mas vai ficar difícil pra caramba de fazer consulta (FTS) -->
+                                <option id="id">Código</option>
+                                <option id="album.name">Nome</option>
+                                <option id="label.name">Gravadora</option>
+                                <option id="format">Gravadora</option>
+                                <option id="type">Tipo</option>
+                            </select>
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="button" th:onclick="|dynamicSearch('@{/admin/release}')|">Pesquisar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-edit" name="add" th:onclick="${'javascript:limparTudo()'}">
+                    <i class="fas fa-plus"></i>
+                    </a> Adicionar Versão
+            </div>
+        </div>
+
+        <div id="result" class="container-fluid">
+            <th:block th:fragment="searchBody">
+                <div class="table-responsive col-md-12">
+                    <table class="table table-striped" cellspacing="0" cellpadding="0">
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    <a class="sorted" sd:pagination-sort="id">Código</a>
+                                </th>
+                                <th scope="col">
+                                    <a class="sorted" sd:pagination-sort="album.name">Álbum</a>
+                                </th>
+                                <th scope="col">
+                                    <a class="sorted" sd:pagination-sort="format">Formato</a>
+                                </th>
+                                <th scope="col">
+                                    <a class="sorted" sd:pagination-sort="label.name">Gravadora</a>
+                                </th>
+                                <th scope="col">
+                                    <a class="sorted" sd:pagination-sort="price">Preço</a>
+                                </th>
+                                <th scope="col" class="options">Opções</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="release : ${releases}" th:classappend="${release.onSaleStatus} ? table-success">
+                                <th scope="row" id="releaseId" th:text="${release.id}">4</th>
+                                <td th:text="${release.album.name}">Odessa</td>
+                                <td th:text="${release.format}">Odessa</td>
+                                <td th:text="${release.label.name}">1969</td>
+                                <td th:text="${release.price}">1969</td>
+                                <td class="option">
+                                    <button type="submit" th:onclick="${'javascript:viewRelease(' + release.id + ', ' + release.albumId + ')'}" th:value="view"
+                                        id="view-button" class="btn btn-success btn-sm mx-1" data-toggle="modal" data-target="#modal-view"
+                                        name="view">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                    <button type="submit" th:onclick="${'javascript:editRelease(' + release.id + ', ' + release.albumId + ')'}" th:value="edit"
+                                        id="edit-button" class="btn btn-warning btn-sm mx-1" data-toggle="modal" data-target="#modal-edit"
+                                        name="edit">
+                                        <i class="fas fa-wrench"></i>
+                                    </button>
+                                    <button type="submit" th:onclick="${'javascript:deleteRelease(' + release.id + ', ' + release.albumId + ')'}" th:value="delete"
+                                        id="delete-button" class="btn btn-danger btn-sm mx-1" data-toggle="modal" data-target="#modal-delete"
+                                        name="delete">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div sd:pagination-summary="">info</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <nav class="pull-right">
+                            <ul class="pagination" sd:pagination="full" sd:pagination-onclick="dynamicUpdate">
+                                <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
+                                <li class="disabled">
+                                    <a href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="active">
+                                    <a href="#">1
+                                        <span class="sr-only">(current)</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+
+        <div class="row container-fluid my-2 ml-1">
+            <div class="little-box success-green mx-2"></div>
+            <small>Promoção</small>
+            <div class="little-box danger-red mx-2"></div>
+            <small>Estoque Baixo</small>
+        </div>
+
+        <div class="modal fade" id="modal-view" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Visualizar</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="viewForm">
+                            <div class="form-group">
+                                <label class="alinhar">Código de Barras:</label>
+                                <input type="number" id="view-id" class="form-control-plaintext" readonly="true" style="font-weight:bold" value="1001001">
+                            </div>
+                            <div class="form-group">
+                                <label class="alinhar">Álbum:</label>
+                                <input type="text" id="view-album" class="form-control-plaintext" readonly="true" style="font-weight:bold" value="1">
+                            </div>
+                            <div class="form-group">
+                                <label class="alinhar">Gravadora:</label>
+                                <input type="text" id="view-label" class="form-control-plaintext" readonly="true" style="font-weight:bold" value="1">
+                            </div>
+                            <div class="form-group">
+                                <label class="alinhar">Formato:</label>
+                                <input name="formato" type="text" id="view-format" value="CD" class="form-control-plaintext" readonly="true" style="font-weight:bold">
+                            </div>
+                            <div class="form-group">
+                                <label class="alinhar">Tipo da versão:</label>
+                                <input type="text" id="view-type" class="form-control-plaintext" readonly="true" style="font-weight:bold" value="Original">
+                            </div>
+                            <div class="form-group">
+                                <label class="alinhar">Preço(R$):</label>
+                                <input type="number" id="view-price" step="0.01" class="form-control-plaintext" readonly="true" style="font-weight:bold" value="39.99">
+                            </div>
+                            <div class="form-group">
+                                <label class="alinhar">Quantidade Vendida:</label>
+                                <input type="number" id="view-amount-sold" class="form-control-plaintext" readonly="true" style="font-weight:bold" value="200">
+                            </div>
+                            <div class="form-group">
+                                <label class="alinhar">Quantidade Disponível:</label>
+                                <input type="number" id="view-amount-available" class="form-control-plaintext" readonly="true" style="font-weight:bold" value="6">
+                            </div>
+                            <div class="form-group">
+                                <label class="alinhar">Promoção:</label>
+                                <input name="promocao" type="checkbox" id="view-sale" class="form-control-plaintext" readonly="true" style="font-weight:bold">
+                            </div>
+                            <div class="form-group">
+                                <label class="alinhar"> Data de Lançamento:</label>
+                                <input type="date" min="1889-01-01" id="view-release-date" class="form-control-plaintext" readonly="true" style="font-weight:bold"
+                                    value="2010-01-01">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn btn-warning" method="post" data-toggle="modal" data-target="#modal-edit" name="edit"
+                            value="id">Editar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modal-edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Editar</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="mainForm" th:action="@{/admin/release/save}" th:object="${release}" method="post">
+                            <input type="hidden" id="edit-album-id" th:field="*{album.id}">
+                            <input type="hidden" id="edit-label-id" th:field="*{label.id}">
+                            <div class="form-group">
+                                <label class="alinhar">Código de Barras:
+                                    <obrigatorio>*</obrigatorio>
+                                </label>
+                                <input type="number" id="edit-id" class="form-control" th:field="*{id}">
+                            </div>
+                            <div class="form-group" id="album-group">
+                                <label class="alinhar">Álbum:
+                                    <obrigatorio>*</obrigatorio>
+                                </label>
+                                <input type="text" id="edit-album" class="form-control" value="1">
+                            </div>
+                            <div class="form-group" id="label-group">
+                                <label class="alinhar"> Gravadora:
+                                    <obrigatorio>*</obrigatorio>
+                                </label>
+                                <input type="text" id="edit-label" class="form-control" value="1">
+                            </div>
+                            <div class="form-group">
+                                <label class="alinhar">Formato:
+                                    <obrigatorio>*</obrigatorio>
+                                </label>
+                                <input type="text" id="edit-format" class="form-control" th:field="*{format}">
+                            </div>
+                            <div class="form-group">
+                                <label class="alinhar">Tipo da versão:
+                                    <obrigatorio>*</obrigatorio>
+                                </label>
+                                <input type="text" id="edit-type" class="form-control" th:field="*{type}">
+                            </div>
+                            <div class="form-group">
+                                <label class="alinhar">Preço(R$):
+                                    <obrigatorio>*</obrigatorio>
+                                </label>
+                                <input type="number" id="edit-price" class="form-control" th:field="*{price}">
+                            </div>
+                            <div class="form-group">
+                                <label class="alinhar">Quantidade Vendida:
+                                    <obrigatorio>*</obrigatorio>
+                                </label>
+                                <input type="number" id="edit-amount-sold" class="form-control" th:field="*{amountSold}">
+                            </div>
+                            <div class="form-group">
+                                <label class="alinhar">Quantidade Disponível:
+                                    <obrigatorio>*</obrigatorio>
+                                </label>
+                                <input type="number" id="edit-amount-available" class="form-control" th:field="*{amountAvailable}">
+                            </div>
+                            <div class="form-group">
+                                <label class="alinhar">Promoção:
+                                    <obrigatorio>*</obrigatorio>
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="checkbox" id="edit-sale" th:field="*{onSaleStatus}">
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="alinhar"> Data de Lançamento:
+                                    <obrigatorio>*</obrigatorio>
+                                </label>
+                                <input type="date" min="1889-01-01" id="edit-release-date" class="form-control" th:field="*{releaseDate}">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" form="mainForm" class="btn btn btn-warning" onclick="limparTudo()" id="limpar">Limpar</button>
+                        <button type="button" form="mainForm" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="submit" form="mainForm" class="btn btn-primary">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Excluir</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h3>Você tem certeza?</h3>
+                    </div>
+                    <div class="modal-footer">
+                        <form id="deleteForm" th:action="@{/admin/release/delete}" th:object="${release}" method="post">
+                            <input type="hidden" id="delete-id" th:field="*{id}">
+                            <input type="hidden" id="delete-album-id" th:field="*{albumId}">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                            <button type="submit" class="btn btn-danger">Sim</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer th:replace="fragments/layout :: footer">
+    </footer>
+</body>
+
+</html>
