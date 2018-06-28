@@ -76,7 +76,7 @@ function changeReleaseCover(tag, mbid) {
     tag.setAttribute('onload', '');
 }
 
-function changeReleaseCover(tag, mbid) {
+function changeArtistImage(tag, mbid) {
     var reqUrl = "http://musicbrainz.org/ws/2/artist/" + mbid;
     $.ajax({
             url:reqUrl,

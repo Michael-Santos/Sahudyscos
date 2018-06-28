@@ -1,87 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Álbum</title>
     <th:block th:replace="fragments/layout :: common-head">
     </th:block>
     <script th:src="@{/js/util.js}"></script>
 </head>
+
 <body>
     <header th:replace="fragments/layout :: header-main">
     </header>
 
     <main class="py-3">
         <div class="container-fluid">
-        <div class="row">
-            <section class="col">
-                <div class="row">
-                    <div class="col">
-                        <img id="coverart" class="card-img-top img-thumbnail" th:onload="|changeAlbumCover(this, '${album.mbid}')|" th:src="@{/img/default/default-release.png}" th:alt="${album.name}">
+            <div class="row">
+                <section class="col">
+                    <div class="row">
+                        <div class="col">
+                            <img id="coverart" class="card-img-top img-thumbnail" th:onload="|changeAlbumCover(this, '${album.mbid}')|" th:src="@{/img/default/default-release.png}"
+                                th:alt="${album.name}">
+                        </div>
+                        <div class="col">
+                            <a th:each="artist,iterStat : ${album.artists}" th:href="@{/artist(id=${artist.id})}">
+                                <h2 th:text="${artist.name}"></h2>
+                            </a>
+                            <hr/>
+                            <h2 th:text="${album.name}" />
+                            <li class="list-group-item">
+                                <h5>País</h5>
+                                <p class="mb-1" th:text="${album.country}" />
+                            </li>
+                            <li class="list-group-item">
+                                <h5>Lançamento</h5>
+                                <p class="mb-1" th:text="${album.publication}" />
+                            </li>
+                            <li class="list-group-item">
+                                <h5>Gênero</h5>
+                                <p class="mb-1">Axé</p>
+                            </li>
+                            </ul>
+                            <h4>Descrição:</h4>
+                            <p class="mb-1">Duetos é uma coletânea do cantor brasileiro Wesley Safadão. Foi lançada em 22 de julho de 2016
+                                pela Som Livre nos formatos CD e download digital. O álbum reúne parcerias que o cantor fez,
+                                tanto da época Garota Safada, quanto na sua carreira solo.</p>
+                        </div>
                     </div>
-                    <div class="col">
-                        <a th:each="artist,iterStat : ${album.artists}" th:href="@{/artist(id=${artist.id})}"><h2 th:text="${artist.name}"></h2></a>
-                        <hr/>
-                        <h2 th:text="${album.name}" />
-                                <li class="list-group-item">
-                                    <h5>País</h5> 
-                                    <p class="mb-1" th:text="${album.country}"/>
-                                </li>
-                                <li class="list-group-item">
-                                    <h5>Lançamento</h5> 
-                                    <p class="mb-1" th:text="${album.publication}"/>
-                                </li>
-                                <li class="list-group-item">
-                                    <h5>Gênero</h5> 
-                                    <p class="mb-1">Axé</p>
-                                </li>
-                        </ul>
-                        <h4>Descrição:</h4>
-                        <p class="mb-1">Duetos é uma coletânea do cantor brasileiro Wesley Safadão. Foi lançada em 22 de julho de 2016 pela Som Livre nos formatos CD e download digital. O álbum reúne parcerias que o cantor fez, tanto da época Garota Safada, quanto na sua carreira solo.</p>
-                    </div>
-                </div>
 
-            </section>
-            <aside class="col-4">
-                <div class="container">
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <h2>Avaliação Média</h2>
-                        <h4 class="mb-1 alert" th:text="${#numbers.formatDecimal(album.rating, 0, 3)}"/>
-                    </li>
-                </ul>
+                </section>
+                <aside class="col-4">
+                    <div class="container">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <h2>Avaliação Média</h2>
+                                <h4 class="mb-1 alert" th:text="${#numbers.formatDecimal(album.rating, 0, 3)}" />
+                            </li>
+                        </ul>
+                    </div>
+                </aside>
             </div>
-            </aside>
         </div>
-    </div>
     </main>
 
-    <section>
-        <div class="container-fluid">
-            <h1>Versões</h1>
-            <table class="table table-striped" cellspacing="0" cellpadding="0">
-                <thead>
-                    <tr>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Versão</th>
-                        <th scope="col">Formato</th>
-                        <th scope="col">Ano de Lançamento</th>
-                        <th scope="col">Preço</th>
-                     </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="release : ${album.releases}">
-                        <th scope="row"><a th:href="@{/release(id=${release.id},album=${album.id})}" th:text="${album.name}"></a></th>
-                        <td th:text="${release.type}"></td>
-                        <td th:text="${release.format}"></td>
-                        <td th:text="${release.releaseDate}"></td>
-                        <td><a th:href="@{/release(id=${release.id},album=${album.id})}"><button type="button" class="btn btn-success" th:text="'R$' + ${#numbers.formatDecimal(release.price, 0, 2)}"></button></a></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <section id="result">
+        <th:block th:fragment="searchBody">
+            <div class="container-fluid">
+                <h1>Versões</h1>
+                <table class="table table-striped" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <a class="sorted" sd:pagination-sort="name"></a>Nome
+                            </th>
+                            <th scope="col">
+                                <a class="sorted" sd:pagination-sort="type">Versão</a>
+                            </th>
+                            <th scope="col">
+                                <a class="sorted" sd:pagination-sort="format">Formato</a>
+                            </th>
+                            <th scope="col">
+                                <a class="sorted" sd:pagination-sort="releaseDate">Ano de Lançamento</a>
+                            </th>
+                            <th scope="col">
+                                <a class="sorted" sd:pagination-sort="price">Preço</a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="release : ${releases}">
+                            <th scope="row">
+                                <a th:href="@{/release(id=${release.id},album=${album.id})}" th:text="${album.name}"></a>
+                            </th>
+                            <td th:text="${release.type}"></td>
+                            <td th:text="${release.format}"></td>
+                            <td th:text="${release.releaseDate}"></td>
+                            <td>
+                                <a th:href="@{/release(id=${release.id},album=${album.id})}">
+                                    <button type="button" class="btn btn-success" th:text="'R$' + ${#numbers.formatDecimal(release.price, 0, 2)}"></button>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div sd:pagination-summary="">info</div>
+                </div>
+                <div class="col-sm-6">
+                    <nav class="pull-right">
+                        <ul class="pagination" sd:pagination="full" sd:page-object="${releases}" sd:pagination-onclick="dynamicUpdate">
+                            <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
+                            <li class="disabled">
+                                <a href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a href="#">1
+                                    <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </th:block>
     </section>
 
     <footer th:replace="fragments/layout :: footer">
     </footer>
 </body>
+
 </html>

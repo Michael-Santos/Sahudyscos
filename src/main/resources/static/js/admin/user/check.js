@@ -14,7 +14,7 @@ function limparTudo(){
 function viewUser(id) {
     var roles = document.getElementById('roles-field');
     while (roles.childElementCount != 1) {
-        roles.removeChild(artists.lastChild);
+        roles.removeChild(roles.lastChild);
     }
     $.ajax({
         url:"/admin/user",
@@ -29,7 +29,7 @@ function viewUser(id) {
             user.roles.forEach(element => {
                 var input = document.createElement("input");
                 input.setAttribute('type', 'text');
-                input.setAttribute('id', 'view-artists');
+                input.setAttribute('id', 'view-roles');
                 input.setAttribute('class', 'readonly form-control-plaintext');
                 input.setAttribute('readonly', 'true');
                 input.setAttribute('value', element.role);

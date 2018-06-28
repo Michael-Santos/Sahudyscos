@@ -54,7 +54,7 @@ public class Album {
     @JsonIgnore
     private List<Release> releases;
 
-    @NaturalId
+    //@NaturalId
     @Column(name = "nome")
     private String name; 
     @Column(name = "pais")

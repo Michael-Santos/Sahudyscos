@@ -67,13 +67,13 @@ public class AdminLabelController {
     @PostMapping("/admin/label/save")
     public ModelAndView create(@ModelAttribute Label label) {
         labelRepository.save(label);
-        return new ModelAndView("redirect:admin/label");
+        return new ModelAndView("redirect:/admin/label");
     }
 
     @PostMapping("/admin/label/delete")
     public ModelAndView delete(@ModelAttribute Label label) {
         labelRepository.delete(label);
-        return new ModelAndView("redirect:admin/label");
+        return new ModelAndView("redirect:/admin/label");
     }
 }
 

@@ -2,6 +2,7 @@ package com.sahudyscos.web.entity;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -28,6 +29,10 @@ public class Artist {
     @Column(name = "cod_banda")
     private Long id;
 
+    @Column(name = "mbid")
+    private UUID mbid;
+
+    //@NaturalId
     @Column(name = "nome")
     private String name; 
     @Column(name = "descricao")
@@ -55,6 +60,14 @@ public class Artist {
     )
     @JsonIgnore
     private List<Label> labelsContracted;
+
+    public UUID getMbid() {
+		return mbid;
+	}
+
+	public void setMbid(UUID mbid) {
+		this.mbid = mbid;
+    }
 
 	public Long getId() {
 		return id;

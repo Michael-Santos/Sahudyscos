@@ -1,65 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Gravadora</title>
     <th:block th:replace="fragments/layout :: common-head">
-    </th:block >
+    </th:block>
+    <script th:src="@{/js/util.js}"></script>
 </head>
+
 <body>
     <header th:replace="fragments/layout :: header-main">
     </header>
 
     <main class="container py-3">
-        <h2 th:text="${name}">Som Livre</h2>
+        <h2 th:text="${label.name}">Som Livre</h2>
         <ul class="list-group">
             <li class="list-group-item">
                 <h5>Fundação</h5>
-                <p class="mb-1" th:text="${date}">1969</p>
+                <p class="mb-1" th:text="${label.activityStart}">1969</p>
             </li>
             <li class="list-group-item">
                 <h5>Descrição</h5>
-                <p class="mb-1">A Som Livre é uma gravadora musical brasileira. Foi fundada em 1969 com a finalidade de desenvolver e comercializar trilhas sonoras de novelas produzidas pela Rede Globo, e pertenceu a SIGLA (Sistema Globo de Gravações Audiovisuais Ltda) e atualmente pertence a Globo Comunicação e Participações S.A. Seu fundador é o produtor musical João Araújo.</p>
+                <p class="mb-1" th:text="${description}">A Som Livre é uma gravadora musical brasileira. Foi fundada em 1969 com a finalidade de desenvolver e comercializar
+                    trilhas sonoras de novelas produzidas pela Rede Globo, e pertenceu a SIGLA (Sistema Globo de Gravações
+                    Audiovisuais Ltda) e atualmente pertence a Globo Comunicação e Participações S.A. Seu fundador é o produtor
+                    musical João Araújo.</p>
             </li>
             <li class="list-group-item">
                 <h5>Gêneros</h5>
                 <ul class="list-group">
                     <li class="list-group-item">
-                        <p class="mb-1" th:text="${genre}">Trilhas Sonoras</p>
+                        <p class="mb-1" th:text="${label.genre}">Trilhas Sonoras</p>
                     </li>
                     <li class="list-group-item">
-                        <p class="mb-1" th:text="${altGenre}">Vários</p>
+                        <p class="mb-1" th:text="${label.altGenre}">Vários</p>
                     </li>
                 </ul>
             </li>
         </ul>
     </main>
 
-    <section class="container-fluid">
-        <h5>Versões Lançadas</h5>
-        <table class="table table-striped" cellspacing="0" cellpadding="0">
-                <thead>
-                    <tr>
-                        <th scope="col">Banda</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">País</th>
-                        <th scope="col">Ano de Lançamento</th>
-                        <th scope="col">Avaliação</th>
-                     </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="release : ${releases}" th:if="${release.album != null}">
-                        <th scope="row" th:each="artist : ${release.album.artists}"><a th:href="@{/artist(id=${artist.id})}" th:text="${artist.name}">Wesley Safadão</a></th>
-                        <td><a th:href="@{/release(id=${release.id},album=${release.album.id})}" th:text="${release.album.name}">Duetos</a></td>
-                        <td th:text="${release.album.country}">Brasil</td>
-                        <td th:text="${release.releaseDate}">2016</td>
-                        <td th:text="${release.album.rating}">5,0/5,0</td>
-                    </tr>
-                </tbody>
-        </table>
+    <section id="result">
+        <th:block th:fragment="searchBody">
+            <div class="container-fluid">
+                <h5>Versões Lançadas</h5>
+                <table class="table table-striped" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <a class="sorted" sd:pagination-sort="album.artist.name">Banda</a>
+                            </th>
+                            <th scope="col">
+                                <a class="sorted" sd:pagination-sort="album.name">Nome</a>
+                            </th>
+                            <th scope="col">
+                                <a class="sorted" sd:pagination-sort="country">País</a>
+                            </th>
+                            <th scope="col">
+                                <a class="sorted" sd:pagination-sort="releaseDate">Ano de Lançamento</a>
+                            </th>
+                            <th scope="col">
+                                <a class="sorted" sd:pagination-sort="album.rating">Avaliação</a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="release : ${releases}" th:if="${release.album != null}">
+                            <th scope="row" th:each="artist : ${release.album.artists}">
+                                <a th:href="@{/artist(id=${artist.id})}" th:text="${artist.name}">Wesley Safadão</a>
+                            </th>
+                            <td>
+                                <a th:href="@{/release(id=${release.id},album=${release.album.id})}" th:text="${release.album.name}">Duetos</a>
+                            </td>
+                            <td th:text="${release.album.country}">Brasil</td>
+                            <td th:text="${release.releaseDate}">2016</td>
+                            <td th:text="${release.album.rating}">5,0/5,0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div sd:pagination-summary="">info</div>
+                </div>
+                <div class="col-sm-6">
+                    <nav class="pull-right">
+                        <ul class="pagination" sd:pagination="full" sd:page-object="${releases}" sd:pagination-onclick="dynamicUpdate">
+                            <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
+                            <li class="disabled">
+                                <a href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a href="#">1
+                                    <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </th:block>
     </section>
 
 
     <footer th:replace="fragments/layout :: footer">
     </footer>
 </body>
+
 </html>

@@ -30,7 +30,7 @@ public class Label {
     @Column(name = "cod_gravadora")
     private Long id;
 
-    @NaturalId
+    //@NaturalId
     @Column(name = "nome")
     private String name; 
     @Column(name = "email")

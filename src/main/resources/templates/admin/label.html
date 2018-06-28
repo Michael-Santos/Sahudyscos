@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Álbum</title>
+    <title>Gravadoras</title>
     <th:block th:replace="fragments/layout :: common-head">
     </th:block>
     <script th:src="@{~/js/admin/label/check.js}"></script>
@@ -28,7 +28,7 @@
                                 <option id="name">Nome</option>
                                 <option id="genre">Gênero</option>
                             </select>
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="button" th:onclick="|dynamicSearch('@{/admin/artist}')|">Pesquisar</button>
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="button" th:onclick="|dynamicSearch('@{/admin/label}')|">Pesquisar</button>
                         </div>
                     </div>
                 </form>
@@ -193,7 +193,7 @@
                                 <label class="alinhar">E-mail:
                                     <obrigatorio>*</obrigatorio>
                                 </label>
-                                <input id="edit-email" class="form-control" placeholder="exemplo@exemplo.com" th:field="*{email}">
+                                <input type="email" id="edit-email" class="form-control" placeholder="exemplo@exemplo.com" th:field="*{email}">
                             </div>
                             <div class="form-group">
                                 <label class="alinhar"> Data de Fundação:

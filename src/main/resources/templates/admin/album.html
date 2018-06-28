@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Álbum</title>
+    <title>Álbuns</title>
     <th:block th:replace="fragments/layout :: common-head">
     </th:block>
     <script th:src="@{~/js/admin/album/check.js}" th:inline="javascript"></script>
@@ -135,7 +135,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="alinhar">Avaliação:</label>
-                                <input type="number" id="view-rating" class="readonly form-control-plaintext" readonly="true" value="5.0">
+                                <input type="number" step="0.01" id="view-rating" class="readonly form-control-plaintext" readonly="true" value="5.0">
                             </div>
                             <div class="form-group">
                                 <label class="alinhar"> Data de Publicação:</label>

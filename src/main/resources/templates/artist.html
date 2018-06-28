@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Banda</title>
     <th:block th:replace="fragments/layout :: common-head">
-    </th:block >
+    </th:block>
+    <script th:src="@{~/js/util.js}"></script>
 </head>
+
 <body>
     <header th:replace="fragments/layout :: header-main">
     </header>
 
     <main class="container-fluid py-3">
         <div class="row">
-            <div class="col"><img th:src="@{/img/default/default-artist.png}" class="img-thumbnail" alt="${artist.name}"></div>
+            <div class="col">
+                <img th:src="@{/img/default/default-artist.png}" th:onload="${artist.mbid}? |changeArtistImage(this,'${artist.mbid}')| "
+                    class="img-thumbnail" alt="${artist.name}">
+            </div>
             <div class="col">
                 <h1 th:text="${artist.name}"></h1>
                 <ul class="list-group">
@@ -21,7 +27,12 @@
                     </li>
                     <li class="list-group-item">
                         <h5>Descrição</h5>
-                        <p class="mb-1" th:text="${description}">Wesley Oliveira da Silva (Fortaleza, 6 de setembro de 1988), mais conhecido como Wesley Safadão, é um cantor, produtor musical e empresário brasileiro. Começou a carreira em 2003 liderando a banda Garota Safada e, a partir de 2007, ganhou notoriedade na região nordeste, e logo passou a ter projeção nacional, se apresentando em todas as regiões do Brasil. Na banda, lançou sete álbuns de áudio e dois álbuns de vídeo, trazendo singles conhecidos como "Tentativas Em Vão", "Disco Voador" e "Vai Esperar".</p>
+                        <p class="mb-1" th:text="${description}">Wesley Oliveira da Silva (Fortaleza, 6 de setembro de 1988), mais conhecido como Wesley Safadão,
+                            é um cantor, produtor musical e empresário brasileiro. Começou a carreira em 2003 liderando a
+                            banda Garota Safada e, a partir de 2007, ganhou notoriedade na região nordeste, e logo passou
+                            a ter projeção nacional, se apresentando em todas as regiões do Brasil. Na banda, lançou sete
+                            álbuns de áudio e dois álbuns de vídeo, trazendo singles conhecidos como "Tentativas Em Vão",
+                            "Disco Voador" e "Vai Esperar".</p>
                     </li>
                     <li class="list-group-item">
                         <h5>Gêneros</h5>
@@ -33,29 +44,66 @@
         </div>
     </main>
 
-    <section class="container-fluid">
-        <h5>Álbuns</h5>
-        <table class="table table-striped" cellspacing="0" cellpadding="0">
-                <thead>
-                    <tr>
-                        <th scope="col">Nome</th>
-                        <th scope="col">País</th>
-                        <th scope="col">Ano de Lançamento</th>
-                        <th scope="col">Avaliação</th>
-                     </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="album : ${artist.albums}">
-                        <th scope="row"><a th:href="@{/album(id=${album.id})}" th:text="${album.name}"></a></th>
-                        <td th:text="${album.country}">Brasil</td>
-                        <td th:text="${album.publication}">2016</td>
-                        <td th:text="${album.rating}">5,0/5,0</td>
-                    </tr>
-                </tbody>
-        </table>
+    <section id="result">
+        <th:block th:fragment="searchBody">
+            <div class="container-fluid">
+                <h5>Álbuns</h5>
+                <table class="table table-striped" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <a class="sorted" sd:pagination-sort="name">Nome</a>
+                            </th>
+                            <th scope="col">
+                                <a class="sorted" sd:pagination-sort="country">País</a>
+                            </th>
+                            <th scope="col">
+                                <a class="sorted" sd:pagination-sort="releaseDate">Ano de Lançamento</a>
+                            </th>
+                            <th scope="col">
+                                <a class="sorted" sd:pagination-sort="rating">Avaliação</a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="album : ${albums}">
+                            <th scope="row">
+                                <a th:href="@{/album(id=${album.id})}" th:text="${album.name}"></a>
+                            </th>
+                            <td th:text="${album.country}">Brasil</td>
+                            <td th:text="${album.publication}">2016</td>
+                            <td th:text="${album.rating}">5,0/5,0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div sd:pagination-summary="">info</div>
+                </div>
+                <div class="col-sm-6">
+                    <nav class="pull-right">
+                        <ul class="pagination" sd:pagination="full" sd:page-object="${albums}" sd:pagination-onclick="dynamicUpdate">
+                            <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
+                            <li class="disabled">
+                                <a href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a href="#">1
+                                    <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </th:block>
     </section>
 
     <footer th:replace="fragments/layout :: footer">
     </footer>
 </body>
+
 </html>

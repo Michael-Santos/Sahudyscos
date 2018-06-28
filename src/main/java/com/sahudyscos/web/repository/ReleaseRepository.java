@@ -31,6 +31,10 @@ import org.springframework.stereotype.Repository;
 public interface ReleaseRepository extends JpaRepository<Release, ReleaseId>, QuerydslPredicateExecutor<Release>, QuerydslBinderCustomizer<QRelease>, JpaSpecificationExecutor<Release> {
     Optional<Release> findById(ReleaseId id);
 
+    Page<Release> findAllByAlbumId(Long id, Pageable page);
+
+    Page<Release> findAllByLabelId(Long id, Pageable page);
+
     default void customize(QuerydslBindings bindings, QRelease release) {
         bindings.bind(release.album.name).first((path, value) -> path.contains(value));
         bindings.bind(release.releaseDate).first((path, value) -> Expressions.booleanTemplate("FUNCTION('checkDecade', {0}, {1}) = true ", path, value.toString()));

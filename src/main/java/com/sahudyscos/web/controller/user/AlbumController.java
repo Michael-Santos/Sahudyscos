@@ -9,11 +9,14 @@ import java.util.Optional;
 
 import com.sahudyscos.web.entity.Album;
 import com.sahudyscos.web.repository.AlbumRepository;
+import com.sahudyscos.web.repository.ReleaseRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -22,15 +25,20 @@ public class AlbumController {
     @Autowired
     private AlbumRepository albumRepository;
 
+    @Autowired
+    private ReleaseRepository releaseRepository;
+
 
     @GetMapping("/album")
-    public String album(@RequestParam(name="id") Integer id, Model model) {
+    public String album(@RequestParam(name="id") Integer id, Pageable page, Model model,
+                        @RequestHeader(name = "Update-Table", defaultValue = "false") Boolean update) {
         Optional<Album> currentAlbum;
 
         currentAlbum = albumRepository.findById(id.longValue());
         
         model.addAttribute("album", currentAlbum.get());
-        return "album";
+        model.addAttribute("releases", releaseRepository.findAllByAlbumId(id.longValue(), page));
+        return update ? "album :: searchBody" : "album";
     }
 
 }

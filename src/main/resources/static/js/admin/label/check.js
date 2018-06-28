@@ -88,6 +88,7 @@ function viewLabel(id) {
         success: function(label){
             document.getElementById('view-name').value = label.name;
             document.getElementById('view-activity-start').value = label.activityStart;
+            document.getElementById('view-email').value = label.email;
             document.getElementById('view-genre').value = label.genre;
             document.getElementById('view-alt-genre').value = label.altGenre;
             document.getElementById('view-phone').value = label.phone;
@@ -107,6 +108,7 @@ function editLabel(id) {
             document.getElementById('edit-id').value = label.id;
             document.getElementById('edit-name').value = label.name;
             document.getElementById('edit-activity-start').value = label.activityStart;
+            document.getElementById('edit-email').value = label.email;
             document.getElementById('edit-genre').value = label.genre;
             document.getElementById('edit-alt-genre').value = label.altGenre;
             document.getElementById('edit-phone').value = label.phone;

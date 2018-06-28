@@ -33,6 +33,8 @@ public interface AlbumRepository extends JpaRepository<Album, Long>, QuerydslPre
     @RestResource(rel = "name")
     Page<Album> findByNameStartsWith(Pageable page, String name);
 
+    Page<Album> findAllByArtistsId(Long id, Pageable page);
+
     @RestResource(rel = "expName")
     @Query(value = "SELECT * FROM (SELECT album.cod_album AS cod_album FROM album WHERE to_tsvector('english', nome) @@ plainto_tsquery('english', ?1)) AS t1 NATURAL JOIN album", nativeQuery = true)
     List<Album> findByExpName(String name);
