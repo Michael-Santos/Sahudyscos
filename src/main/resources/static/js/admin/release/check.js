@@ -1,6 +1,6 @@
 $(document).ready(function() {
                 
-    $('#mainForm').submit(function(event){
+    /*$('#mainForm').submit(function(event){
         cod_barras = document.getElementById('edit-id').value;
         album = document.getElementById('edit-album').value;
         label = document.getElementById('edit-label').value;
@@ -50,7 +50,7 @@ $(document).ready(function() {
         else {
             alert('Adição feita com sucesso!');
         }
-    });
+    });*/
 
     $('#edit-album').autocomplete({
         serviceUrl: '/admin/release/album',
@@ -69,7 +69,7 @@ $(document).ready(function() {
         onSelect: function (suggestion) {
             var input = document.getElementById('edit-album-id');
             input.setAttribute('value', suggestion.data);
-            alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+            //alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
         }
      });
 
