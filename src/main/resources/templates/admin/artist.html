@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Álbum</title>
+    <title>Banda</title>
     <div th:replace="fragments/layout :: common-head">
     </div>
     <script th:src="@{~/js/admin/artist/check.js}"></script>
@@ -78,123 +78,8 @@
                                     </button>
                                 </td>
                             </tr>
-
-                            <div class="modal fade" id="modal-view" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLongTitle">Visualizar</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form id="viewForm">
-                                                <div class="form-group">
-                                                    <label class="alinhar">Nome:</label>
-                                                    <input name="nome" type="text" id="view-name" class="readonly form-control-plaintext" readonly="true">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="alinhar"> Data de Fundação:</label>
-                                                    <input name="publication" type="date" min="1889-01-01" id="view-activity-start" class="readonly form-control-plaintext" readonly="true">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="alinhar">Gênero 1:</label>
-                                                    <input name="genre" type="text" id="view-genre" class="readonly form-control-plaintext" readonly="true">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="alinhar">Gênero 2:</label>
-                                                    <input name="alt-genre" type="text" id="view-alt-genre" class="readonly form-control-plaintext" readonly="true">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="alinhar">Descrição:</label>
-                                                    <textarea name="description" rows="4" id="view-description" class="readonly form-control-plaintext" readonly="true"></textarea>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                            <button type="button" class="btn btn btn-warning" method="post" data-toggle="modal" data-target="#modal-edit" name="edit"
-                                                value="id">Editar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="modal fade" id="modal-edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLongTitle">Editar</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form id="mainForm" th:action="@{/admin/artist/save}" th:object="${artist}" method="post">
-                                                <input type="hidden" id="edit-id" th:value="*{id}">
-                                                <div class="form-group">
-                                                    <label class="alinhar">Nome:
-                                                        <obrigatorio>*</obrigatorio>
-                                                    </label>
-                                                    <input name="name" type="text" id="edit-name" class="form-control" th:value="*{name}">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="alinhar"> Data de Publicação:
-                                                        <obrigatorio>*</obrigatorio>
-                                                    </label>
-                                                    <input name="activity-start" type="date" min="1889-01-01" id="edit-activity-start" th:value="*{activityStart}" class="form-control">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="alinhar">Gênero 1:
-                                                        <obrigatorio>*</obrigatorio>
-                                                    </label>
-                                                    <input name="genre" type="text" id="edit-genre" class="form-control" th:value="*{genre}">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="alinhar">Gênero 2:</label>
-                                                    <input name="alt-genre" type="text" id="edit-alt-genre" class="form-control" th:value="*{altGenre}">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="alinhar">Descrição:</label>
-                                                    <textarea name="description" rows="4" id="edit-description" th:value="*{description}" class="form-control"></textarea>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" form="mainForm" class="btn btn btn-warning" onclick="limparTudo()" id="limpar">Limpar</button>
-                                            <button type="button" form="mainForm" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                            <button type="submit" form="mainForm" class="btn btn-primary">Salvar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLongTitle">Excluir</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <h3>Você tem certeza?</h3>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <form id="deleteForm" th:action="@{/admin/artist/delete}" th:object="${artist}" method="post">
-                                                <input type="hidden" id="delete-artist-id" th:field="*{id}">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
-                                                <button type="submit" class="btn btn-danger">Sim</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </tbody>
                     </table>
-
                 </div>
 
                 <div class="row">
@@ -220,6 +105,120 @@
                     </div>
                 </div>
             </th:block>
+        </div>
+
+        <div class="modal fade" id="modal-view" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Visualizar</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="viewForm">
+                            <div class="form-group">
+                                <label class="alinhar">Nome:</label>
+                                <input type="text" id="view-name" class="readonly form-control-plaintext" readonly="true">
+                            </div>
+                            <div class="form-group">
+                                <label class="alinhar"> Data de Fundação:</label>
+                                <input type="date" min="1889-01-01" id="view-activity-start" class="readonly form-control-plaintext" readonly="true">
+                            </div>
+                            <div class="form-group">
+                                <label class="alinhar">Gênero 1:</label>
+                                <input type="text" id="view-genre" class="readonly form-control-plaintext" readonly="true">
+                            </div>
+                            <div class="form-group">
+                                <label class="alinhar">Gênero 2:</label>
+                                <input type="text" id="view-alt-genre" class="readonly form-control-plaintext" readonly="true">
+                            </div>
+                            <div class="form-group">
+                                <label class="alinhar">Descrição:</label>
+                                <textarea rows="4" id="view-description" class="readonly form-control-plaintext" readonly="true"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn btn-warning" method="post" data-toggle="modal" data-target="#modal-edit" name="edit"
+                            value="id">Editar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modal-edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Editar</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="mainForm" th:action="@{/admin/artist/save}" th:object="${artist}"  method="post">
+                            <input type="hidden" id="edit-id" th:field="*{id}">
+                            <div class="form-group">
+                                <label class="alinhar">Nome:
+                                    <obrigatorio>*</obrigatorio>
+                                </label>
+                                <input type="text" id="edit-name" class="form-control" th:field="*{name}">
+                            </div>
+                            <div class="form-group">
+                                <label class="alinhar"> Data de Fundação:
+                                    <obrigatorio>*</obrigatorio>
+                                </label>
+                                <input type="date" min="1889-01-01" id="edit-activity-start" th:field="*{activityStart}" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="alinhar">Gênero 1:
+                                    <obrigatorio>*</obrigatorio>
+                                </label>
+                                <input type="text" id="edit-genre" class="form-control" th:field="*{genre}">
+                            </div>
+                            <div class="form-group">
+                                <label class="alinhar">Gênero 2:</label>
+                                <input type="text" id="edit-alt-genre" class="form-control" th:field="*{altGenre}">
+                            </div>
+                            <div class="form-group">
+                                <label class="alinhar">Descrição:</label>
+                                <textarea rows="4" id="edit-description" th:field="*{description}" class="form-control"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" form="mainForm" class="btn btn btn-warning" onclick="limparTudo()" id="limpar">Limpar</button>
+                        <button type="button" form="mainForm" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="submit" form="mainForm" class="btn btn-primary">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Excluir</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h3>Você tem certeza?</h3>
+                    </div>
+                    <div class="modal-footer">
+                        <form id="deleteForm" th:action="@{/admin/artist/delete}" th:object="${artist}" method="post">
+                            <input type="hidden" id="delete-artist-id" th:field="*{id}">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                            <button type="submit" class="btn btn-danger">Sim</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </main>

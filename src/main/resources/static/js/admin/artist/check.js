@@ -26,8 +26,6 @@ function limparTudo(){
     document.getElementById('edit-id').value = "";
     document.getElementById('edit-name').style.backgroundColor = "white";
     document.getElementById('edit-name').value = "";
-    document.getElementById('edit-rating').style.backgroundColor = "white";
-    document.getElementById('edit-rating').value = "";
     document.getElementById('edit-activity-start').style.backgroundColor = "white";
     document.getElementById('edit-activity-start').value = "";
     document.getElementById('edit-genre').style.backgroundColor = "white";

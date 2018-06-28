@@ -13,15 +13,12 @@ import com.sahudyscos.web.entity.Artist;
 import com.sahudyscos.web.repository.AlbumRepository;
 import com.sahudyscos.web.repository.ArtistRepository;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -38,8 +35,6 @@ public class AdminAlbumController {
     private static final int INITIAL_PAGE = 0;
     private static final int INITIAL_PAGE_SIZE = 10;
     private static final int[] PAGE_SIZES = {10, 20, 30};
-
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private AlbumRepository albumRepository;
@@ -88,7 +83,6 @@ public class AdminAlbumController {
     public ModelAndView create(@ModelAttribute albumFormPOJO formContent) {
         List<Artist> artists = (List<Artist>) artistRepository.findAllById(formContent.getArtistsIds());
         formContent.getAlbum().setArtists(artists);
-        logger.info(formContent.getAlbum().getId().toString());
         albumRepository.save(formContent.getAlbum());
         return new ModelAndView("redirect:/admin/album");
     }
