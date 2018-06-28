@@ -104,7 +104,7 @@ function hideCarousel(show = true) {
   }
 }
 
-function dynamicSearch(url) {
+function dynamicSearch(url, add = true) {
     hideCarousel();
     var table = document.getElementById('result');
     var spinner = document.createElement("img");
@@ -113,6 +113,10 @@ function dynamicSearch(url) {
     table.appendChild(spinner);
     var searchInput = document.getElementById('search-input');
     if (searchInput != '') {
+        searchData[$('#searchSel').find(":selected").attr('id')] = searchInput.value;
+    }
+    if (add == false) {
+        searchData = {};
         searchData[$('#searchSel').find(":selected").attr('id')] = searchInput.value;
     }
     $.ajax({

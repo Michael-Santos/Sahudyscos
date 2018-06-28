@@ -1,6 +1,6 @@
 $(document).ready(function() {
                 
-    $('#mainForm').submit(function(){
+    $('#mainForm').submit(function(event){
         cod_barras = document.getElementById('edit-id').value;
         album = document.getElementById('edit-album').value;
         label = document.getElementById('edit-label').value;
@@ -45,6 +45,7 @@ $(document).ready(function() {
                 document.getElementById('edit-release-date').style.backgroundColor = "yellow";
             }
             return false;
+            event.preventDefault();
         }
         else {
             alert('Adição feita com sucesso!');

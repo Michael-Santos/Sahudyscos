@@ -1,6 +1,6 @@
 $(document).ready(function() {
                 
-    $('mainform').submit(function(){
+    $('#mainForm').submit(function(event){
         name = document.getElementById('name').value;
         rating = document.getElementById('rating').value;
         publication = document.getElementById('publication').value;
@@ -14,6 +14,7 @@ $(document).ready(function() {
             if(genre == ""){
                 document.getElementById('genre').style.backgroundColor = "yellow";
             }
+            event.preventDefault();
             return false;
         }
         else {
