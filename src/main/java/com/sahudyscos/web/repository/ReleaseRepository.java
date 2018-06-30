@@ -42,6 +42,7 @@ public interface ReleaseRepository extends JpaRepository<Release, ReleaseId>, Qu
         bindings.bind(release.album.name).first((path, value) -> path.contains(value));
         bindings.bind(release.releaseDate).first((path, value) -> Expressions.booleanTemplate("FUNCTION('checkDecade', {0}, {1}) = true ", path, value.toString()));
         bindings.bind(release.amountAvailable).first((path, value) -> path.loe(value));
+        bindings.bind(release.price).first((path, value) -> path.lt(value));
     }
 
     @Query(value = "SELECT COUNT(*) AS ranking, formato AS item FROM versao GROUP BY item ORDER BY ranking DESC", nativeQuery=true)

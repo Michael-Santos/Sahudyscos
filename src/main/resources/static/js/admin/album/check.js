@@ -92,7 +92,7 @@ function viewAlbum(id) {
         success: function(album){
             document.getElementById('view-name').value = album.name;
             document.getElementById('view-country').value = album.country;
-            document.getElementById('view-rating').value = album.rating;
+            document.getElementById('view-rating').value = album.rating.toFixed(2);
             document.getElementById('view-publication').value = album.publication;
             var field = document.getElementById('artists-field');
             album.artists.forEach(function(obj) { 
@@ -127,7 +127,7 @@ function editAlbum(id) {
             document.getElementById('edit-id').value = album.id;
             document.getElementById('edit-name').value = album.name;
             document.getElementById('edit-country').value = album.country;
-            document.getElementById('edit-rating').value = album.rating;
+            document.getElementById('edit-rating').value = album.rating.toFixed(2);
             document.getElementById('edit-publication').value = album.publication;
             counter = 0;
             album.artists.forEach(function(obj) { 

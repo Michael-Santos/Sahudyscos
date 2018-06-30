@@ -129,7 +129,7 @@ function viewRelease(id, albumId) {
             document.getElementById('view-label').value = release.label.name;
             document.getElementById('view-format').value = release.format;
             document.getElementById('view-type').value = release.type;
-            document.getElementById('view-price').value = release.price;
+            document.getElementById('view-price').value = release.price.toFixed(2);
             document.getElementById('view-amount-sold').value = release.amountSold;
             document.getElementById('view-amount-available').value = release.amountAvailable;
             if (release.onSaleStatus == true) {
@@ -153,7 +153,7 @@ function editRelease(id, albumId) {
             document.getElementById('edit-label').value = release.label.name;
             document.getElementById('edit-format').value = release.format;
             document.getElementById('edit-type').value = release.type;
-            document.getElementById('edit-price').value = release.price;
+            document.getElementById('edit-price').value = release.price.toFixed(2);
             document.getElementById('edit-amount-sold').value = release.amountSold;
             document.getElementById('edit-amount-available').value = release.amountAvailable;
             if (release.onSaleStatus == true) {

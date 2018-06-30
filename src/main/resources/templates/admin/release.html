@@ -67,12 +67,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="release : ${releases}" th:classappend="${release.onSaleStatus} ? table-success">
+                            <tr th:each="release : ${releases}" th:classappend="${release.onSaleStatus} ? table-success" th:class="${release.amountAvailable <= 3} ? table-warning">
                                 <th scope="row" id="releaseId" th:text="${release.id}">4</th>
                                 <td th:text="${release.album.name}">Odessa</td>
                                 <td th:text="${release.format}">Odessa</td>
                                 <td th:text="${release.label.name}">1969</td>
-                                <td th:text="${release.price}">1969</td>
+                                <td th:text="${#numbers.formatDecimal(release.price,1,2)}">1969</td>
                                 <td class="option">
                                     <button type="submit" th:onclick="${'javascript:viewRelease(' + release.id + ', ' + release.albumId + ')'}" th:value="view"
                                         id="view-button" class="btn btn-success btn-sm mx-1" data-toggle="modal" data-target="#modal-view"
@@ -184,8 +184,6 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                        <button type="button" class="btn btn btn-warning" method="post" data-toggle="modal" data-target="#modal-edit" name="edit"
-                            value="id">Editar</button>
                     </div>
                 </div>
             </div>

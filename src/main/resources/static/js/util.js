@@ -13,7 +13,7 @@ $( document ).ready(function() {
         }
     });
     
-    $('[data-toggle="popover"]').popover(); 
+    $('[data-toggle="popover"]').popover();
     
     $("#sidebar").mCustomScrollbar({
         theme: "minimal"
@@ -129,6 +129,7 @@ function dynamicSearch(url, add = true) {
         url: url,
         success: function (msg) {
             table.innerHTML = msg;
+            $('[data-toggle="popover"]').popover();
         }
     });
 }
@@ -148,6 +149,7 @@ function dynamicUpdate(url) {
         url: url,
         success: function (msg) {
             table.innerHTML = msg;
+            $('[data-toggle="popover"]').popover();
         }
     });
 }
@@ -169,22 +171,23 @@ function dynamicFilter(url) {
         url: url,
         success: function (msg) {
             table.innerHTML = msg;
+            $('[data-toggle="popover"]').popover();
         }
     });
 }
 
-function updateFilter(value, field, url) {
+function updateFilter(chosen_value, field, url) {
 	jQueryField = '#' + field;
 	$(jQueryField).toggle('slow', function() {
 		var filter = document.createElement("div");
 		filter.setAttribute("class", "list-group-item active");
 		filter.setAttribute("id", 'chosen-' + field);
-        filter.innerHTML = value.innerHTML;
+        filter.innerHTML = chosen_value.innerHTML;
 
 		var button = document.createElement("button");
 		button.setAttribute('type', 'button');
     	button.setAttribute('class', 'btn btn-danger btn-sm mx-1 float-right');
-    	button.setAttribute('onclick', 'clearFilter("' + field + '","' + value.getAttribute('id') + '","' + url + '")');
+    	button.setAttribute('onclick', 'clearFilter("' + field + '","' + field + '","' + url + '")');
 
         var icon = document.createElement("i");
         icon.setAttribute('class', 'fas fa-times');
@@ -195,7 +198,7 @@ function updateFilter(value, field, url) {
 
     $(jQueryField + '-menu').parent().append(filter);
 
-    searchData[value.getAttribute('id').replace('_', '.')] = value.getAttribute('value');
+    searchData[field.replace('_', '.')] = chosen_value.getAttribute('value').replace('*',',');
 
     dynamicFilter(url);
 

@@ -163,104 +163,129 @@
             </div>
 
             <ul class="list-unstyled components">
-              <li class="nav-item py-3" id="sort-item">
-                  <a href="#sort-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                      <h4 class="text-center">Ordenação</h4>
-                  </a>
-                  <div class="collapse list-unstyled" id="sort-menu">
-                      <div class="list-group list-group-flush" id="sort">
-                          <a id="sort" class="list-group-item list-group-item-action" th:onclick="|updateFilter(this, 'sort', '@{/}')|"
-                              th:value="album.name">Nome</a>
-                          <a id="sort" class="list-group-item list-group-item-action" th:onclick="|updateFilter(this, 'sort', '@{/}')|"
-                              th:value="album.rating">Avaliação</a>
-                          <a id="sort" class="list-group-item list-group-item-action" th:onclick="|updateFilter(this, 'sort', '@{/}')|"
-                              th:value="price">Preço</a>
-                      </div>
-                  </div>
-              </li>
-                <li class="nav-item py-3" id="onSaleStatus-item">
+                <li id="sort-item">
+                    <a href="#sort-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        Ordenação
+                    </a>
+                    <ul class="collapse list-unstyled" id="sort-menu">
+                        <div id="sort">
+                            <li>
+                                <a id="sort" th:onclick="|updateFilter(this, 'sort', '@{/}')|" th:value="album.name">Nome</a>
+                            </li>
+                            <li>
+                                <a id="sort" th:onclick="|updateFilter(this, 'sort', '@{/}')|" value="album.rating*desc">Avaliação</a>
+                            </li>
+                            <li>
+                                <a id="sort" th:onclick="|updateFilter(this, 'sort', '@{/}')|" th:value="price">Preço</a>
+                            </li>
+                        </div>
+                    </ul>
+                </li>
+                <li id="onSaleStatus-item">
                     <a href="#onSaleStatus-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <h4 class="text-center">Promoção</h4>
+                        Promoção
                     </a>
-                    <div class="collapse list-unstyled" id="onSaleStatus-menu">
-                        <div class="list-group list-group-flush" id="onSaleStatus">
-                            <a id="onSaleStatus" class="list-group-item list-group-item-action" th:onclick="|updateFilter(this, 'onSaleStatus', '@{/}')|"
-                                th:value="true">Sim</a>
-                            <a id="onSaleStatus" class="list-group-item list-group-item-action" th:onclick="|updateFilter(this, 'onSaleStatus', '@{/}')|"
-                                th:value="false">Não</a>
+                    <ul class="collapse list-unstyled" id="onSaleStatus-menu">
+                        <div id="onSaleStatus">
+                            <li>
+                                <a id="onSaleStatus" th:onclick="|updateFilter(this, 'onSaleStatus', '@{/}')|" th:value="true">Sim</a>
+                            </li>
+                            <li>
+                                <a id="onSaleStatus" th:onclick="|updateFilter(this, 'onSaleStatus', '@{/}')|" th:value="false">Não</a>
+                            </li>
                         </div>
-                    </div>
+                    </ul>
                 </li>
-                <li class="nav-item py-3" id="genre-item">
+                <li id="genre-item">
                     <a href="#genre-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <h4 class="text-center">Gênero</h4>
+                        Gênero
                     </a>
-                    <div class="collapse list-unstyled" id="genre-menu">
-                        <div class="list-group list-group-flush" id="genre">
+                    <ul class="collapse list-unstyled" id="genre-menu">
+                        <div id="genre">
                             <th:block th:each="genre, stat : ${genres}" th:unless="${stat.index > 5}">
-                                <a id="album.genre" class="list-group-item list-group-item-action" th:onclick="|updateFilter(this, 'genre', '@{/}')|" th:value="${genre.item}"
-                                    th:text="${genre.item}"></a>
+                                <li>
+                                    <a id="album.genre" th:onclick="|updateFilter(this, 'genre', '@{/}')|" th:value="${genre.item}" th:text="${genre.item}"></a>
+                                </li>
                             </th:block>
-                            <a class="list-group-item list-group-item-info" data-toggle="modal" data-target="#modal-genre">Todos</a>
+                            <li>
+                                <a class="active" data-toggle="modal" data-target="#modal-genre">Todos</a>
+                            </li>
                         </div>
-                    </div>
+                    </ul>
                 </li>
-                <li class="nav-item py-3" id="format-item">
+                <li id="format-item">
                     <a href="#format-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <h4 class="text-center">Formato</h4>
+                        Formato
                     </a>
-                    <div class="collapse list-unstyled" id="format-menu">
-                        <div class="list-group list-group-flush" id="format">
+                    <ul class="collapse list-unstyled" id="format-menu">
+                        <div id="format">
                             <th:block th:each="format, stat : ${formats}" th:unless="${stat.index > 5}">
-                                <a id="format" class="list-group-item list-group-item-action" th:onclick="|updateFilter(this, 'format', '@{/}')|" th:value="${format.item}"
-                                    th:text="${format.item}"></a>
+                                <li>
+                                    <a id="format" th:onclick="|updateFilter(this, 'format', '@{/}')|" th:value="${format.item}" th:text="${format.item}"></a>
+                                </li>
                             </th:block>
-                            <a class="list-group-item list-group-item-info" data-toggle="modal" data-target="#modal-format">Todos</a>
+                            <li>
+                                <a class="active" data-toggle="modal" data-target="#modal-format">Todos</a>
+                            </li>
                         </div>
-                    </div>
+                    </ul>
                 </li>
-                <li class="nav-item py-3" id="album_country-item">
+                <li id="album_country-item">
                     <a href="#album_country-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <h4 class="text-center">País</h4>
+                        País
                     </a>
-                    <div class="collapse list-unstyled" id="album_country-menu">
-                        <div class="list-group list-group-flush" id="album_country">
+                    <ul class="collapse list-unstyled" id="album_country-menu">
+                        <div id="album_country">
                             <th:block th:each="country, stat : ${countries}" th:unless="${stat.index > 5}">
-                                <a id="album_country" class="list-group-item list-group-item-action" th:onclick="|updateFilter(this, 'album_country', '@{/}')|"
-                                    th:value="${country.item}" th:text="${country.item}"></a>
+                                <li>
+                                    <a id="album_country" th:onclick="|updateFilter(this, 'album_country', '@{/}')|" th:value="${country.item}" th:text="${country.item}"></a>
+                                </li>
                             </th:block>
-                            <a class="list-group-item list-group-item-info" data-toggle="modal" data-target="#modal-country">Todos</a>
+                            <li>
+                                <a data-toggle="modal" data-target="#modal-country">Todos</a>
+                            </li>
                         </div>
-                    </div>
+                    </ul>
                 </li>
-                <li class="nav-item py-3" id="releaseDate-item">
+                <li id="releaseDate-item">
                     <a href="#releaseDate-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <h4 class="text-center">Década</h4>
+                        Década
                     </a>
-                    <div class="collapse list-unstyled" id="releaseDate-menu">
-                        <div class="list-group list-group-flush" id="releaseDate">
+                    <ul class="collapse list-unstyled" id="releaseDate-menu">
+                        <div id="releaseDate">
                             <th:block th:each="decade, stat : ${decades}" th:unless="${stat.index > 5}">
-                                <a id="releaseDate" class="list-group-item list-group-item-action" th:onclick="|updateFilter(this, 'releaseDate', '@{/}')|"
-                                    th:value="${decade}+'-01-01'" th:text="${decade}"></a>
+                                <li>
+                                    <a id="releaseDate" th:onclick="|updateFilter(this, 'releaseDate', '@{/}')|" th:value="${decade}+'-01-01'" th:text="${decade}"></a>
+                                </li>
                             </th:block>
-                            <a class="list-group-item list-group-item-info" data-toggle="modal" data-target="#modal-decade">Todos</a>
+                            <li>
+                                <a data-toggle="modal" data-target="#modal-decade">Todos</a>
+                            </li>
                         </div>
-                    </div>
+                    </ul>
                 </li>
-                <li class="nav-item py-3" id="album_rating-item">
+                <li id="album_rating-item">
                     <a href="#album_rating-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <h4 class="text-center">Avaliação Mínima</h4>
+                        Avaliação Mínima
                     </a>
-                    <div class="collapse list-unstyled" id="album_rating-menu">
-                        <div class="container-fluid" id="album_rating">
-                            <div class="list-group list-group-flush" id="album_rating">
-                                <a id="album_rating" th:onclick="|updateFilter(this, 'album_rating', '@{/}')|" class="list-group-item list-group-item-action">4</a>
-                                <a id="album_rating" th:onclick="|updateFilter(this, 'album_rating', '@{/}')|" class="list-group-item list-group-item-action">3</a>
-                                <a id="album_rating" th:onclick="|updateFilter(this, 'album_rating', '@{/}')|" class="list-group-item list-group-item-action">2</a>
-                                <a id="album_rating" th:onclick="|updateFilter(this, 'album_rating', '@{/}')|" class="list-group-item list-group-item-action">1</a>
-                            </div>
+                    <ul class="collapse list-unstyled" id="album_rating-menu">
+                        <div id="album_rating">
+                            <input type="range" id="album_rating_input" min="0" max="5" step="0.01" oninput="$('#rating_output')[0].getAttribute('value') = this.value">
+                            <output id="rating_output">2.5</output>
+                            <a id="album_rating_send" th:onclick="|updateFilter($('#rating_output')[0], 'album_rating', '@{/}')|">Filtrar</a>
                         </div>
-                    </div>
+                    </ul>
+                </li>
+                <li id="price-item">
+                    <a href="#price-menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        Preço Máximo
+                    </a>
+                    <ul class="collapse list-unstyled" id="price-menu">
+                        <div id="price">
+                                <input type="number" id="price_input" min="0" step="0.01" onkeyup="$('#price_send')[0].getAttribute('value').value = this.value">
+                                <a id="price_send" th:onclick="|updateFilter($('#price_input')[0], 'price', '@{/}')|">Filtrar</a>
+                        </div>
+                    </ul>
                 </li>
             </ul>
         </nav>
