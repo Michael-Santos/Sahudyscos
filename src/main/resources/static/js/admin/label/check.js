@@ -77,6 +77,10 @@ function limparTudo(){
     document.getElementById('edit-email').value = "";
     document.getElementById('edit-phone').value = "";
     document.getElementById('edit-alt-phone').value = "";
+
+    // Change modal title
+    var modalTitle = document.getElementsByTagName('h5')[1];
+    modalTitle.innerHTML = "Cadastrar"
 }
 
 function viewLabel(id) {
@@ -116,6 +120,10 @@ function editLabel(id) {
             document.getElementById('edit-alt-phone').value = label.altPhone;
         }
     });
+
+    // Change modal title
+    var modalTitle = document.getElementsByTagName('h5')[1];
+    modalTitle.innerHTML = "Editar"
 }
 
 function deleteLabel(id) {

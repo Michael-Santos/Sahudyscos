@@ -62,7 +62,7 @@
                             <tr th:each="artist : ${artists}">
                                 <th scope="row" id="artistId" th:text="${artist.id}">4</th>
                                 <td th:text="${artist.name}">Odessa</td>
-                                <td th:text="${artist.activityStart}">1969</td>
+                                <td th:text="${#dates.format(artist.activityStart, 'dd-MM-yyyy')}">1969</td>
                                 <td class="option">
                                     <button type="submit" th:onclick="${'javascript:viewArtist(' + artist.id + ')'}" th:value="view" id="view-button" class="btn btn-success btn-sm mx-1"
                                         data-toggle="modal" data-target="#modal-view" name="view">

@@ -83,6 +83,10 @@ function limparTudo(){
     document.getElementById('edit-password').style.backgroundColor = "white";
     document.getElementById('edit-password').value = "";
     document.getElementById('edit-active').checked = false;
+
+    // Change modal title
+    var modalTitle = document.getElementsByTagName('h5')[1];
+    modalTitle.innerHTML = "Cadastrar"
 }
 
 function viewUser(id) {
@@ -150,6 +154,10 @@ function editUser(id) {
             document.getElementById('edit-password').value = user.password;
         }
     });
+
+    // Change modal title
+    var modalTitle = document.getElementsByTagName('h5')[1];
+    modalTitle.innerHTML = "Editar"
 }
 
 function addRole() {

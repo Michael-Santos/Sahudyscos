@@ -33,6 +33,10 @@ function limparTudo(){
     document.getElementById('edit-genre').value = "";
     document.getElementById('edit-alt-genre').value = "";
     document.getElementById('edit-description').value = "";
+
+    // Change modal title
+    var modalTitle = document.getElementsByTagName('h5')[1];
+    modalTitle.innerHTML = "Cadastrar"
 }
 
 function dynamicSearch() {
@@ -82,6 +86,10 @@ function editArtist(id) {
             document.getElementById('edit-description').value = artist.description;
         }
     });
+
+    // Change modal title
+    var modalTitle = document.getElementsByTagName('h5')[1];
+    modalTitle.innerHTML = "Editar"
 }
 
 function deleteArtist(id) {

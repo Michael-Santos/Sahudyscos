@@ -75,6 +75,10 @@ function limparTudo(){
     document.getElementById('edit-genre').value = "";
     document.getElementById('edit-alt-genre').value = "";
     document.getElementById('edit-description').value = "";
+
+    // Change modal title
+    var modalTitle = document.getElementsByTagName('h5')[1];
+    modalTitle.innerHTML = "Cadastrar"
 }
 
 
@@ -117,6 +121,11 @@ function editAlbum(id) {
     while (field.childElementCount != 1) {
         field.removeChild(field.lastChild);
     }
+    
+    // Change modal title
+    var modalTitle = document.getElementsByTagName('h5')[1];
+    modalTitle.innerHTML = "Editar"
+
     $.ajax({
         url:"/admin/album",
         type:"POST",

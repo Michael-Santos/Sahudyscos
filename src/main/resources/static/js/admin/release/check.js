@@ -114,6 +114,10 @@ function limparTudo(){
     document.getElementById('edit-sale').checked = false;
     document.getElementById('edit-release-date').style.backgroundColor = "white";
     document.getElementById('edit-release-date').value = "";
+
+    // Change modal title
+    var modalTitle = document.getElementsByTagName('h5')[1];
+    modalTitle.innerHTML = "Cadastrar"
 }
 
 function viewRelease(id, albumId) {
@@ -162,6 +166,10 @@ function editRelease(id, albumId) {
             document.getElementById('edit-release-date').value = release.releaseDate;
         }
     });
+
+    // Change modal title
+    var modalTitle = document.getElementsByTagName('h5')[1];
+    modalTitle.innerHTML = "Editar"
 }
 
 function deleteRelease(id, albumId) {

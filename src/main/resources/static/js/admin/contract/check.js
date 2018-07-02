@@ -70,6 +70,10 @@ function limparTudo(){
     document.getElementById('edit-artist').value = "";
     document.getElementById('edit-label').style.backgroundColor = "white";
     document.getElementById('edit-label').value = "";
+
+    // Change modal title
+    var modalTitle = document.getElementsByTagName('h5')[1];
+    modalTitle.innerHTML = "Cadastrar"
 }
 
 function viewContract(artistId, labelId) {
@@ -100,6 +104,10 @@ function editContract(artistId, labelId) {
             document.getElementById('edit-label').value = contract.labelName;
         }
     });
+
+     // Change modal title
+    var modalTitle = document.getElementsByTagName('h5')[1];
+    modalTitle.innerHTML = "Editar"
 }
 
 function deleteContract(artistId, labelId) {
