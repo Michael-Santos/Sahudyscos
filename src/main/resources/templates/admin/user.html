@@ -63,7 +63,7 @@
                                 <th scope="row" id="userId" th:text="${user.id}">4</th>
                                 <td th:text="${user.username}">Odessa</td>
                                 <td th:text="${user.email}">Odessa</td>
-                                <td th:text="${user.birthday}">Odessa</td>
+                                <td th:text="${#dates.format(user.birthday, 'dd-MM-yyyy')}">Odessa</td>
                                 <td class="option">
                                     <button type="submit" th:onclick="${'javascript:viewUser(' + user.id + ')'}" th:value="view" id="view-button" class="btn btn-success btn-sm mx-1"
                                         data-toggle="modal" data-target="#modal-view" name="viewUser">
