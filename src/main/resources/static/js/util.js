@@ -177,7 +177,7 @@ function dynamicFilter(url) {
 }
 
 function updateFilter(chosen_value, field, url) {
-	jQueryField = '#' + field;
+    jQueryField = '#' + field;
 	$(jQueryField).toggle('slow', function() {
 		var filter = document.createElement("div");
 		filter.setAttribute("class", "list-group-item active");

@@ -270,9 +270,9 @@
                     </a>
                     <ul class="collapse list-unstyled" id="album_rating-menu">
                         <div id="album_rating">
-                            <input type="range" id="album_rating_input" min="0" max="5" step="0.01" oninput="$('#rating_output')[0].getAttribute('value') = this.value">
+                            <input type="range" id="album_rating_input" min="0" max="5" step="0.01" oninput="(function () { document.getElementById('album_rating_send').setAttribute('value', album_rating_input.value); rating_output.value = album_rating_input.value; })()">
                             <output id="rating_output">2.5</output>
-                            <a id="album_rating_send" th:onclick="|updateFilter($('#rating_output')[0], 'album_rating', '@{/}')|">Filtrar</a>
+                            <a id="album_rating_send" th:onclick="|tmp = this.text; this.innerHTML = this.getAttribute('value'); updateFilter(this, 'album_rating', '@{/}'); this.innerHTML = tmp;|">Filtrar</a>
                         </div>
                     </ul>
                 </li>
@@ -282,8 +282,8 @@
                     </a>
                     <ul class="collapse list-unstyled" id="price-menu">
                         <div id="price">
-                                <input type="number" id="price_input" min="0" step="0.01" onkeyup="$('#price_send')[0].getAttribute('value').value = this.value">
-                                <a id="price_send" th:onclick="|updateFilter($('#price_input')[0], 'price', '@{/}')|">Filtrar</a>
+                                <input type="number" id="price_input" min="0" step="0.01" onkeyup="(function () { document.getElementById('price_send').setAttribute('value', price_input.value); })()">
+                                <a id="price_send" th:onclick="|tmp = this.text; this.text = this.getAttribute('value'); updateFilter(this, 'price', '@{/}'); this.text = tmp|">Filtrar</a>
                         </div>
                     </ul>
                 </li>
